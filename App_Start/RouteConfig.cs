@@ -16,7 +16,7 @@ namespace Frontek_Full_Web_E_Commerce
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",
-                defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
+                defaults: new { controller = "Usuarios", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

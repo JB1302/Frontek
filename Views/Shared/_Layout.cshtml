@@ -1,40 +1,364 @@
 ﻿<!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - Mi aplicación ASP.NET</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>@ViewBag.Title | Frontek Store</title>
+
     @Styles.Render("~/Content/css")
     @Scripts.Render("~/bundles/modernizr")
+
+    <!-- Fuente moderna -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <!-- Iconos Bootstrap (para carrito, usuario, etc.) -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css" />
+
+    <style>
+        :root {
+            --color-primary: #6366f1;      /* Indigo */
+            --color-primary-dark: #4f46e5;
+            --color-accent: #f97316;       /* Orange */
+            --color-bg: #f4f5fb;
+            --color-dark: #0f172a;
+        }
+
+        body {
+            font-family: "Poppins", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+            background-color: var(--color-bg);
+            color: #111827;
+        }
+
+        /* Top promo bar */
+        .top-bar {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+            color: #ffffff;
+            font-size: 0.85rem;
+            padding: 6px 0;
+        }
+
+        .top-bar a {
+            color: #ffffff;
+            text-decoration: underline;
+            text-decoration-thickness: 1px;
+            text-underline-offset: 2px;
+        }
+
+        /* Navbar */
+        .navbar {
+            background-color: #ffffff;
+            box-shadow: 0 4px 18px rgba(15, 23, 42, 0.08);
+        }
+
+        .navbar-brand {
+            font-weight: 700;
+            letter-spacing: 0.04em;
+            color: var(--color-primary-dark) !important;
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+        }
+
+        .navbar-brand span.logo-badge {
+            width: 26px;
+            height: 26px;
+            border-radius: 999px;
+            background: radial-gradient(circle at 30% 30%, #e0e7ff, #4f46e5);
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.9rem;
+            color: #ffffff;
+        }
+
+        .nav-link {
+            font-weight: 500;
+            color: #4b5563 !important;
+            padding: 0.45rem 0.9rem !important;
+            border-radius: 999px;
+            transition: all 0.18s ease-in-out;
+        }
+
+        .nav-link:hover,
+        .nav-link.active {
+            color: var(--color-primary-dark) !important;
+            background-color: rgba(99, 102, 241, 0.07);
+        }
+
+        /* Search */
+        .search-box {
+            max-width: 420px;
+            width: 100%;
+        }
+
+        .search-input {
+            border-radius: 999px;
+            border: 1px solid #e5e7eb;
+            padding-left: 2.4rem;
+            padding-right: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .search-input:focus {
+            border-color: var(--color-primary);
+            box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.25);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.9rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #9ca3af;
+            font-size: 0.95rem;
+        }
+
+        /* Iconos (usuario, carrito) */
+        .icon-btn {
+            border-radius: 999px;
+            padding: 0.45rem 0.8rem;
+            border: 1px solid transparent;
+            background-color: transparent;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.9rem;
+            color: #4b5563;
+            transition: all 0.15s ease-in-out;
+        }
+
+        .icon-btn:hover {
+            border-color: #e5e7eb;
+            background-color: #f9fafb;
+            color: var(--color-primary-dark);
+        }
+
+        .icon-badge {
+            position: relative;
+        }
+
+        .icon-badge-count {
+            position: absolute;
+            top: -5px;
+            right: -2px;
+            min-width: 16px;
+            height: 16px;
+            border-radius: 999px;
+            background-color: var(--color-accent);
+            color: #ffffff;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0 3px;
+        }
+
+        /* Category strip under navbar */
+        .category-strip {
+            background-color: #ffffff;
+            border-bottom: 1px solid #e5e7eb;
+        }
+
+        .category-strip .nav-link {
+            border-radius: 999px;
+            padding-inline: 1rem !important;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .category-strip .nav-link:hover {
+            background-color: #f3f4ff;
+        }
+
+        /* Content wrapper */
+        .content-wrapper {
+            min-height: calc(100vh - 190px);
+            padding-top: 24px;
+            padding-bottom: 40px;
+        }
+
+        .content-card {
+            background-color: #ffffff;
+            border-radius: 1.25rem;
+            padding: 1.75rem;
+            box-shadow: 0 14px 40px rgba(15, 23, 42, 0.06);
+        }
+
+        /* Footer */
+        footer {
+            background-color: #ffffff;
+            border-top: 1px solid #e5e7eb;
+            padding: 18px 0;
+            font-size: 0.85rem;
+            color: #6b7280;
+        }
+
+        footer a {
+            color: var(--color-primary-dark);
+            text-decoration: none;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, var(--color-primary), var(--color-primary-dark));
+            border-color: var(--color-primary-dark);
+            border-radius: 999px;
+            font-weight: 500;
+            padding-inline: 1.4rem;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(90deg, var(--color-primary-dark), var(--color-primary));
+        }
+
+        @@media (max-width: 767.98px) {
+            .content-card {
+                border-radius: 1rem;
+                padding: 1.15rem;
+            }
+
+            .search-box {
+                max-width: 100%;
+                margin-top: 0.5rem;
+            }
+        }
+    </style>
 </head>
+
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+
+    <!-- TOP PROMO BAR -->
+    <div class="top-bar">
+        <div class="container d-flex justify-content-between align-items-center">
+            <span>
+                🚚 Envío gratis en compras superiores a <strong>₡50.000</strong>
+            </span>
+            <span class="d-none d-sm-inline">
+                ¿Necesitás ayuda? <a href="#">Contáctanos</a>
+            </span>
+        </div>
+    </div>
+
+    <!-- NAVBAR PRINCIPAL -->
+    <nav class="navbar navbar-expand-lg">
         <div class="container">
-            @Html.ActionLink("Nombre de la aplicación", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <button type="button" class="navbar-toggler" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" title="Alternar navegación" aria-controls="navbarSupportedContent"
-                    aria-expanded="false" aria-label="Toggle navigation">
+
+            @Html.ActionLink(
+                linkText: "Frontek",
+                actionName: "Index",
+                controllerName: "Home",
+                routeValues: null,
+                htmlAttributes: new { @class = "navbar-brand" }
+            )
+
+            <button class="navbar-toggler" type="button"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#mainNavbar"
+                    aria-controls="mainNavbar"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <div class="collapse navbar-collapse d-sm-inline-flex justify-content-between">
-                <ul class="navbar-nav flex-grow-1">
-                    <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Acerca de", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contacto", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+
+            <div class="collapse navbar-collapse" id="mainNavbar">
+
+                <!-- Búsqueda -->
+                <div class="search-box mx-lg-4 my-2 my-lg-0 flex-grow-1">
+                    <div class="position-relative">
+                        <i class="bi bi-search search-icon"></i>
+                        <input type="search"
+                               class="form-control search-input"
+                               placeholder="Buscar productos, categorías o marcas..." />
+                    </div>
+                </div>
+
+                <!-- Menú principal -->
+                <ul class="navbar-nav ms-lg-3 align-items-lg-center">
+                    <li class="nav-item">
+                        @Html.ActionLink("Inicio", "Index", "Home", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Usuarios", "Index", "Usuarios", null, new { @class = "nav-link" })
+                    </li>
+                    <li class="nav-item">
+                        @Html.ActionLink("Roles", "Index", "Rols", null, new { @class = "nav-link" })
+                    </li>
                 </ul>
+
+                <!-- Iconos usuario + carrito -->
+                <div class="d-flex align-items-center gap-2 ms-lg-4 mt-2 mt-lg-0">
+                    <a href="@Url.Action("Login", "Account")" class="icon-btn">
+                        <i class="bi bi-person-circle fs-5"></i>
+                        <span class="d-none d-sm-inline">Ingresar</span>
+                    </a>
+
+                    <a href="@Url.Action("Index", "Carrito")" class="icon-btn icon-badge">
+                        <i class="bi bi-bag-check fs-5"></i>
+                        <span class="icon-badge-count">0</span>
+                        <span class="d-none d-sm-inline">Carrito</span>
+                    </a>
+                </div>
+
             </div>
         </div>
     </nav>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - Mi aplicación ASP.NET</p>
-        </footer>
+
+    <!-- Mas adelante quizas podemos usar esto para mejor look and feel
+
+    <div class="category-strip">
+        <div class="container">
+            <ul class="nav py-2 gap-1 flex-nowrap overflow-auto">
+                <li class="nav-item">
+                    <a class="nav-link active" href="#">Destacados</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Nuevos</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Ofertas</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Hardware</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Software</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="#">Accesorios</a>
+                </li>
+            </ul>
+        </div>
     </div>
+        -->
+
+    <!-- CONTENIDO -->
+    <main class="container content-wrapper">
+        <div class="content-card">
+            @RenderBody()
+        </div>
+    </main>
+
+    <!-- FOOTER -->
+    <footer>
+        <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+            <span>
+                &copy; @DateTime.Now.Year · Frontek Store · Todos los derechos reservados
+            </span>
+            <span>
+                <a href="#">Términos</a> · <a href="#">Privacidad</a>
+            </span>
+        </div>
+    </footer>
 
     @Scripts.Render("~/bundles/jquery")
     @Scripts.Render("~/bundles/bootstrap")
     @RenderSection("scripts", required: false)
+
 </body>
 </html>

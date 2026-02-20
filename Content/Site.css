@@ -18,3 +18,16 @@ select,
 textarea {
     max-width: 280px;
 }
+
+@media (max-width: 768px) {
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+    }
+}
+
+td {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}

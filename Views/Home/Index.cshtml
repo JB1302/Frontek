@@ -1,33 +1,546 @@
 ﻿@{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Inicio";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+<style>
+    .store-home {
+        margin-top: 10px;
+        margin-bottom: 25px;
+    }
+
+    .hero-banner {
+        background: linear-gradient(135deg, #1f2a44 0%, #2d3f6b 45%, #445f9d 100%);
+        color: #fff;
+        border-radius: 18px;
+        padding: 28px;
+        margin-bottom: 22px;
+        box-shadow: 0 10px 24px rgba(0,0,0,.12);
+    }
+
+    .hero-badge {
+        display: inline-block;
+        background: rgba(255,255,255,.15);
+        border: 1px solid rgba(255,255,255,.25);
+        padding: 6px 12px;
+        border-radius: 20px;
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .hero-title {
+        font-size: 34px;
+        font-weight: 700;
+        margin: 0 0 8px;
+        line-height: 1.15;
+    }
+
+    .hero-subtitle {
+        font-size: 15px;
+        color: rgba(255,255,255,.9);
+        margin-bottom: 16px;
+    }
+
+    .hero-actions .btn {
+        margin-right: 8px;
+        margin-bottom: 8px;
+        border-radius: 10px;
+    }
+
+    .hero-stats {
+        background: rgba(255,255,255,.08);
+        border: 1px solid rgba(255,255,255,.15);
+        border-radius: 14px;
+        padding: 14px;
+        margin-top: 8px;
+    }
+
+    .hero-stat {
+        text-align: center;
+        margin-bottom: 8px;
+    }
+
+        .hero-stat .num {
+            display: block;
+            font-size: 20px;
+            font-weight: 700;
+            line-height: 1;
+        }
+
+        .hero-stat .lbl {
+            font-size: 11px;
+            color: rgba(255,255,255,.85);
+            margin-top: 4px;
+        }
+
+    .section-title {
+        font-size: 22px;
+        font-weight: 700;
+        color: #202534;
+        margin: 0 0 14px;
+    }
+
+    .section-subtitle {
+        color: #6a7284;
+        margin-top: -6px;
+        margin-bottom: 14px;
+        font-size: 13px;
+    }
+
+    .category-card {
+        background: #fff;
+        border: 1px solid #eceef5;
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 16px;
+        text-align: center;
+        min-height: 145px;
+        transition: all .2s ease;
+    }
+
+        .category-card:hover {
+            box-shadow: 0 8px 18px rgba(0,0,0,.06);
+            transform: translateY(-2px);
+        }
+
+    .category-icon {
+        width: 52px;
+        height: 52px;
+        line-height: 52px;
+        border-radius: 50%;
+        margin: 0 auto 10px;
+        background: #eef2fb;
+        color: #2b3a67;
+        font-size: 22px;
+    }
+
+    .category-card h4 {
+        font-size: 15px;
+        font-weight: 700;
+        margin: 0 0 4px;
+        color: #202534;
+    }
+
+    .category-card p {
+        font-size: 12px;
+        color: #697285;
+        margin: 0;
+    }
+
+    .promo-strip {
+        background: #fff;
+        border: 1px solid #eceef5;
+        border-radius: 14px;
+        padding: 14px 16px;
+        margin-bottom: 18px;
+    }
+
+    .promo-pill {
+        display: inline-block;
+        background: #f3f6ff;
+        color: #2b3a67;
+        border: 1px solid #dbe4ff;
+        border-radius: 18px;
+        padding: 6px 10px;
+        font-size: 12px;
+        margin-right: 6px;
+        margin-bottom: 6px;
+    }
+
+    .product-card {
+        background: #fff;
+        border: 1px solid #eceef5;
+        border-radius: 14px;
+        margin-bottom: 18px;
+        overflow: hidden;
+        transition: all .2s ease;
+        height: 100%;
+    }
+
+        .product-card:hover {
+            box-shadow: 0 10px 22px rgba(0,0,0,.06);
+            transform: translateY(-2px);
+        }
+
+    .product-media {
+        height: 150px;
+        background: linear-gradient(135deg, #f3f5fb 0%, #e9eef9 100%);
+        border-bottom: 1px solid #eceef5;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #42537f;
+        font-size: 38px;
+    }
+
+    .product-body {
+        padding: 14px;
+    }
+
+    .product-tag {
+        display: inline-block;
+        font-size: 11px;
+        background: #eef4ff;
+        color: #37508f;
+        border-radius: 14px;
+        padding: 4px 8px;
+        margin-bottom: 8px;
+    }
+
+    .product-name {
+        font-size: 14px;
+        font-weight: 700;
+        color: #202534;
+        margin: 0 0 6px;
+        min-height: 34px;
+    }
+
+    .product-meta {
+        color: #6b7384;
+        font-size: 12px;
+        margin-bottom: 10px;
+    }
+
+    .product-price {
+        font-size: 18px;
+        font-weight: 700;
+        color: #1f2a44;
+    }
+
+    .product-old {
+        color: #8b93a3;
+        text-decoration: line-through;
+        font-size: 12px;
+        margin-left: 6px;
+        font-weight: 400;
+    }
+
+    .product-actions {
+        margin-top: 12px;
+    }
+
+        .product-actions .btn {
+            border-radius: 8px;
+            font-size: 12px;
+        }
+
+    .trust-box {
+        background: #fff;
+        border: 1px solid #eceef5;
+        border-radius: 14px;
+        padding: 16px;
+        margin-bottom: 16px;
+        min-height: 130px;
+    }
+
+        .trust-box h4 {
+            margin: 0 0 6px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #202534;
+        }
+
+        .trust-box p {
+            margin: 0;
+            font-size: 12px;
+            color: #6b7384;
+            line-height: 1.45;
+        }
+
+    .cta-bottom {
+        background: linear-gradient(135deg, #ffffff 0%, #f7f9ff 100%);
+        border: 1px solid #eceef5;
+        border-radius: 16px;
+        padding: 18px;
+        margin-top: 8px;
+    }
+
+        .cta-bottom h3 {
+            margin: 0 0 6px;
+            font-size: 20px;
+            font-weight: 700;
+            color: #202534;
+        }
+
+        .cta-bottom p {
+            margin: 0;
+            color: #6b7384;
+        }
+
+    @@media (max-width: 768px) {
+        .hero-banner {
+            padding: 18px;
+            border-radius: 14px;
+        }
+
+        .hero-title {
+            font-size: 25px;
+        }
+
+        .hero-subtitle {
+            font-size: 13px;
+        }
+
+        .product-media {
+            height: 130px;
+        }
+    }
+</style>
+
+<div class="store-home">
+
+    <!-- HERO -->
+    <div class="hero-banner">
+        <div class="row">
+            <div class="col-md-8">
+                <span class="hero-badge">
+                    <span class="glyphicon glyphicon-flash"></span> Ofertas de la semana
+                </span>
+
+                <h1 class="hero-title">Arma tu setup gamer con Frontek</h1>
+                <p class="hero-subtitle">
+                    Tarjetas gráficas, procesadores, memorias RAM, almacenamiento y periféricos
+                    con envío rápido y stock actualizado al confirmar la compra.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="@Url.Action("Index", "Productos")" class="btn btn-warning btn-lg">
+                        <span class="glyphicon glyphicon-shopping-cart"></span> Comprar ahora
+                    </a>
+                    <a href="@Url.Action("Index", "Productos")" class="btn btn-default btn-lg">
+                        <span class="glyphicon glyphicon-th-large"></span> Ver catálogo
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="hero-stats">
+                    <div class="row">
+                        <div class="col-xs-4 hero-stat">
+                            <span class="num">+500</span>
+                            <div class="lbl">Productos</div>
+                        </div>
+                        <div class="col-xs-4 hero-stat">
+                            <span class="num">24h</span>
+                            <div class="lbl">Despacho</div>
+                        </div>
+                        <div class="col-xs-4 hero-stat">
+                            <span class="num">4.8★</span>
+                            <div class="lbl">Reseñas</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="hero-stats">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <small style="color: rgba(255,255,255,.95);">
+                                <span class="glyphicon glyphicon-lock"></span>
+                                La seguridad de tu compra es nuestra prioridad.
+                            </small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CATEGORÍAS -->
+    <h2 class="section-title">Categorías destacadas</h2>
+    <p class="section-subtitle">Explorá por tipo de componente y encontrá lo que necesitás más rápido.</p>
 
     <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
+        <div class="col-xs-6 col-sm-4 col-md-2">
+            <div class="category-card">
+                <div class="category-icon"><span class="glyphicon glyphicon-dashboard"></span></div>
+                <h4>GPU</h4>
+                <p>Gráficos y rendimiento</p>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-2">
+            <div class="category-card">
+                <div class="category-icon"><span class="glyphicon glyphicon-cog"></span></div>
+                <h4>CPU</h4>
+                <p>Procesadores</p>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-2">
+            <div class="category-card">
+                <div class="category-icon"><span class="glyphicon glyphicon-tasks"></span></div>
+                <h4>RAM</h4>
+                <p>Memoria</p>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-2">
+            <div class="category-card">
+                <div class="category-icon"><span class="glyphicon glyphicon-hdd"></span></div>
+                <h4>SSD / HDD</h4>
+                <p>Almacenamiento</p>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-2">
+            <div class="category-card">
+                <div class="category-icon"><span class="glyphicon glyphicon-blackboard"></span></div>
+                <h4>Monitores</h4>
+                <p>Display y color</p>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 col-md-2">
+            <div class="category-card">
+                <div class="category-icon"><span class="glyphicon glyphicon-phone-alt"></span></div>
+                <h4>Periféricos</h4>
+                <p>Teclado y mouse</p>
+            </div>
+        </div>
     </div>
-</main>
+
+    <!-- PROMOS -->
+    <div class="promo-strip">
+        <span class="promo-pill"><span class="glyphicon glyphicon-tag"></span> Combos Gamer</span>
+        <span class="promo-pill"><span class="glyphicon glyphicon-fire"></span> Flash Sale</span>
+        <span class="promo-pill"><span class="glyphicon glyphicon-star"></span> Más vendidos</span>
+        <span class="promo-pill"><span class="glyphicon glyphicon-gift"></span> Envío gratis +₡50,000</span>
+    </div>
+
+    <!-- PRODUCTOS DESTACADOS -->
+    <h2 class="section-title">Productos destacados</h2>
+    <p class="section-subtitle">Ejemplo visual del catálogo principal con estilo de tienda real.</p>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-3">
+            <div class="product-card">
+                <div class="product-media">
+                    <span class="glyphicon glyphicon-hdd"></span>
+                </div>
+                <div class="product-body">
+                    <span class="product-tag">SSD</span>
+                    <div class="product-name">SSD NVMe 1TB Gen4</div>
+                    <div class="product-meta">Lectura 5,000 MB/s · Stock: 18</div>
+                    <div>
+                        <span class="product-price">₡39,900</span>
+                        <span class="product-old">₡45,000</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="#" class="btn btn-primary btn-sm btn-block">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Agregar al carrito
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-3">
+            <div class="product-card">
+                <div class="product-media">
+                    <span class="glyphicon glyphicon-cog"></span>
+                </div>
+                <div class="product-body">
+                    <span class="product-tag">CPU</span>
+                    <div class="product-name">Procesador 8 núcleos 5.0 GHz</div>
+                    <div class="product-meta">Alto rendimiento · Stock: 7</div>
+                    <div>
+                        <span class="product-price">₡169,900</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="#" class="btn btn-primary btn-sm btn-block">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Agregar al carrito
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-3">
+            <div class="product-card">
+                <div class="product-media">
+                    <span class="glyphicon glyphicon-dashboard"></span>
+                </div>
+                <div class="product-body">
+                    <span class="product-tag">GPU</span>
+                    <div class="product-name">Tarjeta gráfica 12GB</div>
+                    <div class="product-meta">Gaming / Diseño · Stock: 4</div>
+                    <div>
+                        <span class="product-price">₡329,900</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="#" class="btn btn-primary btn-sm btn-block">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Agregar al carrito
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-6 col-md-3">
+            <div class="product-card">
+                <div class="product-media">
+                    <span class="glyphicon glyphicon-phone-alt"></span>
+                </div>
+                <div class="product-body">
+                    <span class="product-tag">Periféricos</span>
+                    <div class="product-name">Teclado mecánico RGB</div>
+                    <div class="product-meta">Switch táctil · Stock: 22</div>
+                    <div>
+                        <span class="product-price">₡29,900</span>
+                        <span class="product-old">₡34,500</span>
+                    </div>
+                    <div class="product-actions">
+                        <a href="#" class="btn btn-primary btn-sm btn-block">
+                            <span class="glyphicon glyphicon-shopping-cart"></span> Agregar al carrito
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- CONFIANZA -->
+    <h2 class="section-title">¿Por qué comprar en Frontek?</h2>
+
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="trust-box">
+                <h4><span class="glyphicon glyphicon-ok-circle"></span> Stock validado al comprar</h4>
+                <p>
+                    El inventario se valida al confirmar la compra para evitar órdenes incompletas
+                    y mantener consistencia en el proceso.
+                </p>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="trust-box">
+                <h4><span class="glyphicon glyphicon-user"></span> Cuenta e historial</h4>
+                <p>
+                    Los usuarios pueden consultar pedidos anteriores, gestionar su experiencia y
+                    dejar reseñas de productos.
+                </p>
+            </div>
+        </div>
+        <div class="col-sm-4">
+            <div class="trust-box">
+                <h4><span class="glyphicon glyphicon-stats"></span> Panel de administración</h4>
+                <p>
+                    Gestión de usuarios, productos y reseñas con estadísticas relevantes para
+                    seguimiento del negocio.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- CTA FINAL -->
+    <div class="cta-bottom">
+        <div class="row">
+            <div class="col-md-8">
+                <h3>Empezá a comprar hoy</h3>
+                <p>Explorá el catálogo y armá tu pedido con una experiencia moderna y responsive.</p>
+            </div>
+            <div class="col-md-4 text-right" style="margin-top: 10px;">
+                <a href="@Url.Action("Index", "Productos")" class="btn btn-primary">
+                    <span class="glyphicon glyphicon-th-list"></span> Ir al catálogo
+                </a>
+                <a href="@Url.Action("Index", "Usuarios")" class="btn btn-default">
+                    <span class="glyphicon glyphicon-user"></span> Mi cuenta
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
