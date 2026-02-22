@@ -147,6 +147,10 @@
     <Compile Include="Migrations\202602200529284_Inicial.Designer.cs">
       <DependentUpon>202602200529284_Inicial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202602220432167_FixRelaciones.cs" />
+    <Compile Include="Migrations\202602220432167_FixRelaciones.Designer.cs">
+      <DependentUpon>202602220432167_FixRelaciones.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Rol\Rol.cs" />
     <Compile Include="Models\Usuario\Usuario.cs" />
@@ -254,6 +258,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202602200529284_Inicial.resx">
       <DependentUpon>202602200529284_Inicial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202602220432167_FixRelaciones.resx">
+      <DependentUpon>202602220432167_FixRelaciones.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

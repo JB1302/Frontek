@@ -82,3 +82,4 @@ F:\GitHub\Projects\Csharp\Frontek Full Web E-Commerce\Frontek Full Web E-Commerc
 F:\GitHub\Projects\Csharp\Frontek Full Web E-Commerce\Frontek Full Web E-Commerce\bin\System.Memory.xml
 F:\GitHub\Projects\Csharp\Frontek Full Web E-Commerce\Frontek Full Web E-Commerce\bin\System.Numerics.Vectors.xml
 F:\GitHub\Projects\Csharp\Frontek Full Web E-Commerce\Frontek Full Web E-Commerce\bin\System.Runtime.CompilerServices.Unsafe.xml
+F:\GitHub\Projects\Csharp\Frontek Full Web E-Commerce\Frontek Full Web E-Commerce\obj\Debug\Frontek_Full_Web_E_Commerce.Migrations.FixRelaciones.resources

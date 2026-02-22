@@ -27,7 +27,7 @@ namespace Frontek_Full_Web_E_Commerce.Models
         public bool Activo { get; set; } = true;
 
         // FK
-        public int IdRol { get; set; } = 1;
+        public int RolId { get; set; } = 1;
 
         public virtual Rol Rol { get; set; }
     }
