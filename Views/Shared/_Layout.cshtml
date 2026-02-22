@@ -293,16 +293,38 @@
 
                 <!-- Iconos usuario + carrito -->
                 <div class="d-flex align-items-center gap-2 ms-lg-4 mt-2 mt-lg-0">
-                    <a href="@Url.Action("Login", "Account")" class="icon-btn">
-                        <i class="bi bi-person-circle fs-5"></i>
-                        <span class="d-none d-sm-inline">Ingresar</span>
-                    </a>
 
-                    <a href="@Url.Action("Index", "Carrito")" class="icon-btn icon-badge">
+                    @if (Session["UsuarioId"] != null)
+                    {
+                        <!-- Usuario logueado -->
+                        <a href="@Url.Action("Details", "Usuarios", new { id = Session["UsuarioId"] })" class="icon-btn">
+                            <i class="bi bi-person-fill fs-5"></i>
+                            <span class="d-none d-sm-inline">
+                                @Session["Nombre"]
+                            </span>
+                        </a>
+
+                        <a href="@Url.Action("Logout", "Login")" class="icon-btn text-danger">
+                            <i class="bi bi-box-arrow-right fs-5"></i>
+                            <span class="d-none d-sm-inline">Salir</span>
+                        </a>
+                    }
+                    else
+                    {
+                        <!-- Usuario no logueado -->
+                        <a href="@Url.Action("Index", "Login")" class="icon-btn">
+                            <i class="bi bi-person-circle fs-5"></i>
+                            <span class="d-none d-sm-inline">Ingresar</span>
+                        </a>
+                    }
+
+                    <!-- Carrito siempre visible -->
+                    <a href="@Url.Action("Index", "Carrito")" class="icon-btn">
                         <i class="bi bi-bag-check fs-5"></i>
                         <span class="icon-badge-count">0</span>
                         <span class="d-none d-sm-inline">Carrito</span>
                     </a>
+
                 </div>
 
             </div>

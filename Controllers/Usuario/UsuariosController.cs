@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Net;
 using System.Web.Mvc;
+using Frontek_Full_Web_E_Commerce.Models.Utils;
 
 namespace Frontek_Full_Web_E_Commerce.Models
 {
@@ -45,8 +46,13 @@ namespace Frontek_Full_Web_E_Commerce.Models
         {
             if (ModelState.IsValid)
             {
+
+                // Hashear la contraseña antes de guardar
+                usuario.Contrasenia = SecretService.HashSecret(usuario.Contrasenia);
+
                 db.Usuarios.Add(usuario);
                 db.SaveChanges();
+
                 return RedirectToAction("Index");
             }
 

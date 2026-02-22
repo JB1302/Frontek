@@ -22,12 +22,12 @@ namespace Frontek_Full_Web_E_Commerce.Models
         public string Contrasenia { get; set; }
 
         [Display(Name = "Última conexión")]
-        public DateTime? UltimaConexion { get; set; }
+        public DateTime? UltimaConexion { get; set; } = DateTime.Now;
 
         public bool Activo { get; set; } = true;
 
         // FK
-        public int IdRol { get; set; }
+        public int IdRol { get; set; } = 1;
 
         public virtual Rol Rol { get; set; }
     }

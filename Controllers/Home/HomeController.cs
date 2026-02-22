@@ -4,7 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 
-namespace SGPT.Controllers
+namespace Frontek_Full_Web_E_Commerce.Controllers
 {
     public class HomeController : Controller
     {

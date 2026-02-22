@@ -1,0 +1,83 @@
+﻿@model Frontek_Full_Web_E_Commerce.Models.Usuario
+
+@{
+    ViewBag.Title = "Register";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-6 col-lg-4">
+
+            <div class="card shadow-sm border-0">
+                <div class="card-body p-4">
+
+                    <div class="text-center mb-4">
+                        <h4 class="fw-bold">Crear Cuenta</h4>
+                        <p class="text-muted small mb-0">
+                            Regístrate para comenzar a comprar
+                        </p>
+                    </div>
+
+                    @using (Html.BeginForm("Create", "Register", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+
+                        <!-- Nombre -->
+                        <div class="mb-3 w-100">
+                            @Html.LabelFor(model => model.Nombre, new { @class = "form-label" })
+
+                            @Html.TextBoxFor(model => model.Nombre, new
+                            {
+                                @class = "form-control w-100",
+                                placeholder = "Tu nombre completo"
+                            })
+
+                            @Html.ValidationMessageFor(model => model.Nombre, "", new { @class = "text-danger" })
+                        </div>
+
+                        <!-- Email -->
+                        <div class="mb-3 w-100">
+                            @Html.LabelFor(model => model.Email, new { @class = "form-label" })
+
+                            @Html.TextBoxFor(model => model.Email, new
+                            {
+                                @class = "form-control w-100",
+                                type = "email",
+                                placeholder = "correo@gmail.com"
+                            })
+
+                            @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+                        </div>
+
+                        <!-- Password -->
+                        <div class="mb-3 w-100">
+                            @Html.LabelFor(model => model.Contrasenia, new { @class = "form-label" })
+
+                            @Html.TextBoxFor(model => model.Contrasenia, new
+                            {
+                                @class = "form-control w-100",
+                                placeholder = "******"
+                            })
+
+                            @Html.ValidationMessageFor(model => model.Contrasenia, "", new { @class = "text-danger" })
+                        </div>
+
+                        <!-- Buttons -->
+                        <div class="d-grid gap-2">
+                            <button type="submit" value="Create" class="btn btn-primary w-100">
+                                Crear Cuenta
+                            </button>
+
+                            <a href="@Url.Action("Index", "Login")"
+                               class="btn btn-outline-primary w-100">
+                                Ya tengo cuenta
+                            </a>
+                        </div>
+                    }
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
