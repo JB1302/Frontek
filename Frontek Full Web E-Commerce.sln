@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 18
+VisualStudioVersion = 18.3.11512.155 d18.3
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontek Full Web E-Commerce", "Frontek Full Web E-Commerce.csproj", "{218F6D88-D7C2-48A6-9BEC-50991F1DB726}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{218F6D88-D7C2-48A6-9BEC-50991F1DB726}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{218F6D88-D7C2-48A6-9BEC-50991F1DB726}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{218F6D88-D7C2-48A6-9BEC-50991F1DB726}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{218F6D88-D7C2-48A6-9BEC-50991F1DB726}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {6DFFA4E7-3553-424C-A3CF-C42548322A2A}
+	EndGlobalSection
+EndGlobal
