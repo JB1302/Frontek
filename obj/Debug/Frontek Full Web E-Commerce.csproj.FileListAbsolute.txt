@@ -83,3 +83,87 @@ F:\GitHub\Projects\Csharp\Frontek Full Web E-Commerce\Frontek Full Web E-Commerc
 F:\GitHub\Projects\Csharp\Frontek Full Web E-Commerce\Frontek Full Web E-Commerce\bin\System.Numerics.Vectors.xml
 F:\GitHub\Projects\Csharp\Frontek Full Web E-Commerce\Frontek Full Web E-Commerce\bin\System.Runtime.CompilerServices.Unsafe.xml
 F:\GitHub\Projects\Csharp\Frontek Full Web E-Commerce\Frontek Full Web E-Commerce\obj\Debug\Frontek_Full_Web_E_Commerce.Migrations.FixRelaciones.resources
+C:\Users\Alejandro\source\repos\Frontek\App\bin\Frontek Full Web E-Commerce.dll.config
+C:\Users\Alejandro\source\repos\Frontek\App\bin\Frontek Full Web E-Commerce.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\Frontek Full Web E-Commerce.pdb
+C:\Users\Alejandro\source\repos\Frontek\App\bin\Antlr3.Runtime.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\BCrypt.Net-Next.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\EntityFramework.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\EntityFramework.SqlServer.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\Microsoft.Web.Infrastructure.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\Newtonsoft.Json.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Buffers.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Memory.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Numerics.Vectors.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.Helpers.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.Mvc.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.Optimization.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.Razor.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.WebPages.Deployment.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.WebPages.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.WebPages.Razor.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\WebGrease.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\BCrypt.Net-Next.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\EntityFramework.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\EntityFramework.SqlServer.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\Newtonsoft.Json.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Buffers.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Memory.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Numerics.Vectors.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Runtime.CompilerServices.Unsafe.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.Helpers.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.Mvc.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.Razor.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.WebPages.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.WebPages.Deployment.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.WebPages.Razor.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\System.Web.Optimization.xml
+C:\Users\Alejandro\source\repos\Frontek\App\bin\Antlr3.Runtime.pdb
+C:\Users\Alejandro\source\repos\Frontek\App\bin\es\System.Web.Helpers.resources.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\es\System.Web.Mvc.resources.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\es\System.Web.Razor.resources.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\es\System.Web.WebPages.resources.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\es\System.Web.WebPages.Deployment.resources.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\es\System.Web.WebPages.Razor.resources.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\es\System.Web.Optimization.resources.dll
+C:\Users\Alejandro\source\repos\Frontek\App\obj\Debug\Frontek Full Web E-Commerce.csproj.AssemblyReference.cache
+C:\Users\Alejandro\source\repos\Frontek\App\obj\Debug\Frontek Full Web E-Commerce.csproj.CoreCompileInputs.cache
+C:\Users\Alejandro\source\repos\Frontek\App\obj\Debug\Frontek .AD46E3B8.Up2Date
+C:\Users\Alejandro\source\repos\Frontek\App\obj\Debug\Frontek Full Web E-Commerce.dll
+C:\Users\Alejandro\source\repos\Frontek\App\obj\Debug\Frontek Full Web E-Commerce.pdb
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\csc.exe
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\csc.exe.config
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\csc.rsp
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\csi.exe
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\csi.exe.config
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\csi.rsp
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\Microsoft.Build.Tasks.CodeAnalysis.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\Microsoft.CodeAnalysis.CSharp.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\Microsoft.CodeAnalysis.CSharp.Scripting.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\Microsoft.CodeAnalysis.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\Microsoft.CodeAnalysis.Scripting.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\Microsoft.CodeAnalysis.VisualBasic.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\Microsoft.CSharp.Core.targets
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\Microsoft.DiaSymReader.Native.amd64.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\Microsoft.DiaSymReader.Native.x86.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\Microsoft.Managed.Core.CurrentVersions.targets
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\Microsoft.Managed.Core.targets
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\Microsoft.VisualBasic.Core.targets
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\System.Buffers.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\System.Collections.Immutable.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\System.Memory.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\System.Numerics.Vectors.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\System.Reflection.Metadata.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\System.Runtime.CompilerServices.Unsafe.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\System.Text.Encoding.CodePages.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\System.Threading.Tasks.Extensions.dll
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\vbc.exe
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\vbc.exe.config
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\vbc.rsp
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\VBCSCompiler.exe
+C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\VBCSCompiler.exe.config
+C:\Users\Alejandro\source\repos\Frontek\App\obj\Debug\Frontek_Full_Web_E_Commerce.Migrations.PrimeraMigracion.resources
+C:\Users\Alejandro\source\repos\Frontek\App\obj\Debug\Frontek Full Web E-Commerce.csproj.GenerateResource.cache
