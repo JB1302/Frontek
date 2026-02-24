@@ -149,7 +149,10 @@
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Rol\Rol.cs" />
+    <Compile Include="Models\Tarjeta\Tarjeta.cs" />
+    <Compile Include="Models\Tarjeta\ValidarFecha.cs" />
     <Compile Include="Models\Usuario\Usuario.cs" />
+    <Compile Include="Models\Utils\CryptoHelper.cs" />
     <Compile Include="Models\Utils\SecretService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -221,7 +224,6 @@
     <Folder Include="Models\Orden\" />
     <Folder Include="Models\Producto\" />
     <Folder Include="Models\Resena\" />
-    <Folder Include="Models\Tarjeta\" />
     <Folder Include="Views\Frontek\" />
   </ItemGroup>
   <ItemGroup>

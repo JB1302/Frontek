@@ -30,5 +30,8 @@ namespace Frontek_Full_Web_E_Commerce.Models
         public int RolId { get; set; } = 1;
 
         public virtual Rol Rol { get; set; }
+
+        //Relacion 1 a 1, si es 1 a 
+        public virtual Tarjeta.Tarjeta Tarjeta { get; set; }
     }
 }
