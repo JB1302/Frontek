@@ -21,5 +21,9 @@ namespace Frontek_Full_Web_E_Commerce.Models
         public string Estado { get; set; } = "Pendiente";
         public DateTime? FechaEntregaEstimada { get; set; }
         public virtual ICollection<OrdenDetalle> Detalles { get; set; }
+
+        public int IdUsuario { get; set; } = 1;
+
+        public virtual Usuario Usuario { get; set; }
     }
 }

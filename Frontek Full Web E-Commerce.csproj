@@ -156,9 +156,19 @@
     <Compile Include="Migrations\202602232239183_AgregarTablaOrdenes1.Designer.cs">
       <DependentUpon>202602232239183_AgregarTablaOrdenes1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202602232353292_ProductoResena.cs" />
+    <Compile Include="Migrations\202602232353292_ProductoResena.Designer.cs">
+      <DependentUpon>202602232353292_ProductoResena.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202602240002283_ProductoResena-Orden.cs" />
+    <Compile Include="Migrations\202602240002283_ProductoResena-Orden.Designer.cs">
+      <DependentUpon>202602240002283_ProductoResena-Orden.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\OrdenDetalle\OrdenDetalle.cs" />
     <Compile Include="Models\Orden\Orden.cs" />
+    <Compile Include="Models\Producto\Producto.cs" />
+    <Compile Include="Models\Resena\Resena.cs" />
     <Compile Include="Models\Rol\Rol.cs" />
     <Compile Include="Models\Usuario\Usuario.cs" />
     <Compile Include="Models\Utils\SecretService.cs" />
@@ -271,6 +281,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202602232239183_AgregarTablaOrdenes1.resx">
       <DependentUpon>202602232239183_AgregarTablaOrdenes1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202602232353292_ProductoResena.resx">
+      <DependentUpon>202602232353292_ProductoResena.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202602240002283_ProductoResena-Orden.resx">
+      <DependentUpon>202602240002283_ProductoResena-Orden.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

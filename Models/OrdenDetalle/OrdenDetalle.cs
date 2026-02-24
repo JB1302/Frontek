@@ -7,8 +7,6 @@ namespace Frontek_Full_Web_E_Commerce.Models
         public int OrdenDetalleId { get; set; }
         public int OrdenId { get; set; }
         public virtual Orden Orden { get; set; }
-        public int ProductoId { get; set; }
-        [Required, StringLength(150)]
         public string NombreProducto { get; set; }
         [StringLength(50)]
         public string SKU { get; set; }
@@ -18,5 +16,10 @@ namespace Frontek_Full_Web_E_Commerce.Models
         public decimal Subtotal { get; set; }
         [StringLength(200)]
         public string Garantia { get; set; }
+
+        //fk
+        public int ProductoId { get; set; } = 1;
+
+        public virtual Producto Producto{ get; set; }
     }
 }

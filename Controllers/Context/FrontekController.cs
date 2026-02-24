@@ -13,5 +13,7 @@ namespace Frontek_Full_Web_E_Commerce.Models
         public DbSet<Models.Rol> Roles { get; set; }
         public DbSet<Models.Orden> Ordenes { get; set; }
         public DbSet<Models.OrdenDetalle> OrdenDetalles { get; set; }
+        public DbSet<Models.Producto> Producto { get; set; }
+        public DbSet<Models.Resena> Resena { get; set; }
     }
 }
