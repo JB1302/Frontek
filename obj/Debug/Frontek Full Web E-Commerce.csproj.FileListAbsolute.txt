@@ -167,3 +167,4 @@ C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\VBCSCompiler.exe
 C:\Users\Alejandro\source\repos\Frontek\App\bin\roslyn\VBCSCompiler.exe.config
 C:\Users\Alejandro\source\repos\Frontek\App\obj\Debug\Frontek_Full_Web_E_Commerce.Migrations.PrimeraMigracion.resources
 C:\Users\Alejandro\source\repos\Frontek\App\obj\Debug\Frontek Full Web E-Commerce.csproj.GenerateResource.cache
+C:\Users\Alejandro\source\repos\Frontek\App\obj\Debug\Frontek_Full_Web_E_Commerce.Migrations.Tarjeta.resources
