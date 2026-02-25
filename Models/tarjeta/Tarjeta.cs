@@ -7,8 +7,11 @@ namespace Frontek_Full_Web_E_Commerce.Models.Tarjeta
 {
     public class Tarjeta
     {
-        [Key]
-        public int Id { get; set; }
+        //Esto lo hice asi para asegurar 1 a 1
+        [Key, ForeignKey("Usuario")]
+        public int IdUsuario { get; set; }
+
+        public virtual Usuario Usuario { get; set; }
 
         //Esto parece un mucho pero traté de meter la mayor cantidad de validaciones posibles para encriptar bien
 
@@ -56,13 +59,6 @@ namespace Frontek_Full_Web_E_Commerce.Models.Tarjeta
         [StringLength(50, MinimumLength = 1)]
         [Display(Name = "Propietario")]
         public string Propietario { get; set; }
-
-        [Required]
-        [Display(Name = "IdUsuario")]
-        public int IdUsuario{ get; set; }
-
-        [ForeignKey(nameof(IdUsuario))]
-        public virtual Usuario Usuario { get; set; }
 
     }
 }
