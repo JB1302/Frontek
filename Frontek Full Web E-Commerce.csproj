@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
-  <Import Project="..\packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
+  <Import Project="packages\EntityFramework.6.5.1\build\EntityFramework.props" Condition="Exists('..\packages\EntityFramework.6.5.1\build\EntityFramework.props')" />
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Frontek_Full_Web_E_Commerce</RootNamespace>
     <AssemblyName>Frontek Full Web E-Commerce</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -81,8 +82,6 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -101,9 +100,7 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -144,6 +141,35 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202602230422354_InitialCreate.cs" />
+    <Compile Include="Migrations\202602230422354_InitialCreate.Designer.cs">
+      <DependentUpon>202602230422354_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202602230436001_Ordenes.cs" />
+    <Compile Include="Migrations\202602230436001_Ordenes.Designer.cs">
+      <DependentUpon>202602230436001_Ordenes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202602232228015_AgregarTablaOrdenes.cs" />
+    <Compile Include="Migrations\202602232228015_AgregarTablaOrdenes.Designer.cs">
+      <DependentUpon>202602232228015_AgregarTablaOrdenes.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202602232239183_AgregarTablaOrdenes1.cs" />
+    <Compile Include="Migrations\202602232239183_AgregarTablaOrdenes1.Designer.cs">
+      <DependentUpon>202602232239183_AgregarTablaOrdenes1.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202602232353292_ProductoResena.cs" />
+    <Compile Include="Migrations\202602232353292_ProductoResena.Designer.cs">
+      <DependentUpon>202602232353292_ProductoResena.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202602240002283_ProductoResena-Orden.cs" />
+    <Compile Include="Migrations\202602240002283_ProductoResena-Orden.Designer.cs">
+      <DependentUpon>202602240002283_ProductoResena-Orden.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
+    <Compile Include="Models\OrdenDetalle\OrdenDetalle.cs" />
+    <Compile Include="Models\Orden\Orden.cs" />
+    <Compile Include="Models\Producto\Producto.cs" />
+    <Compile Include="Models\Resena\Resena.cs" />
     <Compile Include="Migrations\202602230416567_PrimeraMigracion.cs" />
     <Compile Include="Migrations\202602230416567_PrimeraMigracion.Designer.cs">
       <DependentUpon>202602230416567_PrimeraMigracion.cs</DependentUpon>
@@ -230,6 +256,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Controllers\Orden\" />
+    <Folder Include="Models\Tarjeta\" />
     <Folder Include="Models\DetalleOrden\" />
     <Folder Include="Models\Orden\" />
     <Folder Include="Models\Producto\" />
@@ -264,6 +292,23 @@
     <Content Include="Scripts\jquery-3.7.1.min.map" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Migrations\202602230422354_InitialCreate.resx">
+      <DependentUpon>202602230422354_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202602230436001_Ordenes.resx">
+      <DependentUpon>202602230436001_Ordenes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202602232228015_AgregarTablaOrdenes.resx">
+      <DependentUpon>202602232228015_AgregarTablaOrdenes.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202602232239183_AgregarTablaOrdenes1.resx">
+      <DependentUpon>202602232239183_AgregarTablaOrdenes1.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202602232353292_ProductoResena.resx">
+      <DependentUpon>202602232353292_ProductoResena.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202602240002283_ProductoResena-Orden.resx">
+      <DependentUpon>202602240002283_ProductoResena-Orden.cs</DependentUpon>
     <EmbeddedResource Include="Migrations\202602230416567_PrimeraMigracion.resx">
       <DependentUpon>202602230416567_PrimeraMigracion.cs</DependentUpon>
     </EmbeddedResource>
