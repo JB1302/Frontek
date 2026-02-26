@@ -309,6 +309,8 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202602240002283_ProductoResena-Orden.resx">
       <DependentUpon>202602240002283_ProductoResena-Orden.cs</DependentUpon>
+    </EmbeddedResource>
+
     <EmbeddedResource Include="Migrations\202602230416567_PrimeraMigracion.resx">
       <DependentUpon>202602230416567_PrimeraMigracion.cs</DependentUpon>
     </EmbeddedResource>
