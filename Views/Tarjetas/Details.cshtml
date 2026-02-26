@@ -1,0 +1,58 @@
+﻿@model Frontek_Full_Web_E_Commerce.Models.Tarjeta.Tarjeta
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Tarjeta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Usuario.Nombre)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Usuario.Nombre)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.TarjetaEncriptada)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.TarjetaEncriptada)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaVencimiento)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.FechaVencimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.CCVEncriptado)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.CCVEncriptado)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Propietario)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Propietario)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.IdUsuario }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

@@ -136,6 +136,7 @@
     <Compile Include="Controllers\Register\RegisterController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Rol\RolsController.cs" />
+    <Compile Include="Controllers\TarjetasController.cs" />
     <Compile Include="Controllers\Usuario\UsuariosController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
@@ -169,8 +170,20 @@
     <Compile Include="Models\Orden\Orden.cs" />
     <Compile Include="Models\Producto\Producto.cs" />
     <Compile Include="Models\Resena\Resena.cs" />
+    <Compile Include="Migrations\202602230416567_PrimeraMigracion.cs" />
+    <Compile Include="Migrations\202602230416567_PrimeraMigracion.Designer.cs">
+      <DependentUpon>202602230416567_PrimeraMigracion.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202602251926377_Tarjeta.cs" />
+    <Compile Include="Migrations\202602251926377_Tarjeta.Designer.cs">
+      <DependentUpon>202602251926377_Tarjeta.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Rol\Rol.cs" />
+    <Compile Include="Models\Tarjeta\Tarjeta.cs" />
+    <Compile Include="Models\Tarjeta\ValidarFecha.cs" />
     <Compile Include="Models\Usuario\Usuario.cs" />
+    <Compile Include="Models\Utils\CryptoHelper.cs" />
     <Compile Include="Models\Utils\SecretService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -235,11 +248,20 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Register\Index.cshtml" />
+    <Content Include="Views\Tarjetas\Create.cshtml" />
+    <Content Include="Views\Tarjetas\Delete.cshtml" />
+    <Content Include="Views\Tarjetas\Details.cshtml" />
+    <Content Include="Views\Tarjetas\Edit.cshtml" />
+    <Content Include="Views\Tarjetas\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Orden\" />
     <Folder Include="Models\Tarjeta\" />
+    <Folder Include="Models\DetalleOrden\" />
+    <Folder Include="Models\Orden\" />
+    <Folder Include="Models\Producto\" />
+    <Folder Include="Models\Resena\" />
     <Folder Include="Views\Frontek\" />
   </ItemGroup>
   <ItemGroup>
@@ -287,6 +309,11 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202602240002283_ProductoResena-Orden.resx">
       <DependentUpon>202602240002283_ProductoResena-Orden.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202602230416567_PrimeraMigracion.resx">
+      <DependentUpon>202602230416567_PrimeraMigracion.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202602251926377_Tarjeta.resx">
+      <DependentUpon>202602251926377_Tarjeta.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
