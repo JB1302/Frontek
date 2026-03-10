@@ -131,6 +131,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Context\FrontekController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
+    <Compile Include="Controllers\Product\ProductoController.cs" />
     <Compile Include="Controllers\Register\RegisterController.cs" />
     <Compile Include="Controllers\Login\LoginController.cs" />
     <Compile Include="Controllers\Rol\RolsController.cs" />
@@ -142,6 +143,10 @@
     <Compile Include="Migrations\202602271834245_InitialCreate.cs" />
     <Compile Include="Migrations\202602271834245_InitialCreate.Designer.cs">
       <DependentUpon>202602271834245_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202603100347409_ActualizacionModelo.cs" />
+    <Compile Include="Migrations\202603100347409_ActualizacionModelo.Designer.cs">
+      <DependentUpon>202603100347409_ActualizacionModelo.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\Orden\Orden.cs" />
@@ -222,15 +227,16 @@
     <Content Include="Views\Tarjetas\Details.cshtml" />
     <Content Include="Views\Tarjetas\Edit.cshtml" />
     <Content Include="Views\Tarjetas\Index.cshtml" />
+    <Content Include="Views\Producto\Create.cshtml" />
+    <Content Include="Views\Producto\Delete.cshtml" />
+    <Content Include="Views\Producto\Details.cshtml" />
+    <Content Include="Views\Producto\Edit.cshtml" />
+    <Content Include="Views\Producto\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
     <Folder Include="Controllers\Orden\" />
-    <Folder Include="Models\Tarjeta\" />
     <Folder Include="Models\DetalleOrden\" />
-    <Folder Include="Models\Orden\" />
-    <Folder Include="Models\Producto\" />
-    <Folder Include="Models\Resena\" />
     <Folder Include="Views\Frontek\" />
   </ItemGroup>
   <ItemGroup>
@@ -263,6 +269,9 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\202602271834245_InitialCreate.resx">
       <DependentUpon>202602271834245_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202603100347409_ActualizacionModelo.resx">
+      <DependentUpon>202603100347409_ActualizacionModelo.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
