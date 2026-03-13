@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Frontek.Models;
 
 namespace Frontek_Full_Web_E_Commerce.Models
 {
@@ -8,8 +9,10 @@ namespace Frontek_Full_Web_E_Commerce.Models
     {
         [Key]
         public int OrdenId { get; set; }
+
         public string NumeroOrden { get; set; }
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
+
         public string ClienteId { get; set; }
         public string NombreCliente { get; set; }
         public string EmailCliente { get; set; }
@@ -20,10 +23,11 @@ namespace Frontek_Full_Web_E_Commerce.Models
         public string MetodoPago { get; set; }
         public string Estado { get; set; } = "Pendiente";
         public DateTime? FechaEntregaEstimada { get; set; }
+
         public virtual ICollection<OrdenDetalle> Detalles { get; set; }
 
-        public int IdUsuario { get; set; } = 1;
-
-        public virtual Usuario Usuario { get; set; }
+        // FK a Identity
+        public string IdUsuario { get; set; } 
+        public virtual ApplicationUser Usuario { get; set; }
     }
 }

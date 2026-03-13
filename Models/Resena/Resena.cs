@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
+using Frontek.Models;
 
 namespace Frontek_Full_Web_E_Commerce.Models
 {
@@ -8,8 +8,12 @@ namespace Frontek_Full_Web_E_Commerce.Models
     {
         [Key]
         public int Id { get; set; }
+
         public int ProductoId { get; set; }
-        public int UsuarioId { get; set; }
+
+        // FK a Identity
+        public string UsuarioId { get; set; }
+
         [StringLength(100)]
         public string Titulo { get; set; }
 
@@ -22,8 +26,7 @@ namespace Frontek_Full_Web_E_Commerce.Models
         public int Estado { get; set; } = 0;
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
 
-        //fks
         public virtual Producto Producto { get; set; }
-        public virtual Usuario Usuario { get; set; }
+        public virtual ApplicationUser Usuario { get; set; }
     }
 }

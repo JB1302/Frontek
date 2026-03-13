@@ -1,19 +1,16 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using Frontek.Models;
+using Frontek_Full_Web_E_Commerce.Models.Tarjeta;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Web;
 using System.Web.Mvc;
-using Frontek_Full_Web_E_Commerce.Models;
-using Frontek_Full_Web_E_Commerce.Models.Tarjeta;
 
 namespace Frontek_Full_Web_E_Commerce.Controllers
 {
     public class TarjetasController : Controller
     {
-        private FrontekController db = new FrontekController();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Tarjetas
         public ActionResult Index()
@@ -23,30 +20,30 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
         }
 
         // GET: Tarjetas/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Tarjeta tarjeta = db.Tarjetas.Find(id);
             if (tarjeta == null)
             {
                 return HttpNotFound();
             }
+
             return View(tarjeta);
         }
 
         // GET: Tarjetas/Create
         public ActionResult Create()
         {
-            ViewBag.IdUsuario = new SelectList(db.Usuarios, "Id", "Nombre");
+            ViewBag.IdUsuario = new SelectList(db.Users.ToList(), "Id", "Nombre");
             return View();
         }
 
         // POST: Tarjetas/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "IdUsuario,TarjetaEncriptada,FechaVencimiento,CCVEncriptado,Propietario")] Tarjeta tarjeta)
@@ -58,29 +55,29 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
                 return RedirectToAction("Index");
             }
 
-            ViewBag.IdUsuario = new SelectList(db.Usuarios, "Id", "Nombre", tarjeta.IdUsuario);
+            ViewBag.IdUsuario = new SelectList(db.Users.ToList(), "Id", "Nombre", tarjeta.IdUsuario);
             return View(tarjeta);
         }
 
         // GET: Tarjetas/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Tarjeta tarjeta = db.Tarjetas.Find(id);
             if (tarjeta == null)
             {
                 return HttpNotFound();
             }
-            ViewBag.IdUsuario = new SelectList(db.Usuarios, "Id", "Nombre", tarjeta.IdUsuario);
+
+            ViewBag.IdUsuario = new SelectList(db.Users.ToList(), "Id", "Nombre", tarjeta.IdUsuario);
             return View(tarjeta);
         }
 
         // POST: Tarjetas/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "IdUsuario,TarjetaEncriptada,FechaVencimiento,CCVEncriptado,Propietario")] Tarjeta tarjeta)
@@ -91,29 +88,32 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            ViewBag.IdUsuario = new SelectList(db.Usuarios, "Id", "Nombre", tarjeta.IdUsuario);
+
+            ViewBag.IdUsuario = new SelectList(db.Users.ToList(), "Id", "Nombre", tarjeta.IdUsuario);
             return View(tarjeta);
         }
 
         // GET: Tarjetas/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(string id)
         {
-            if (id == null)
+            if (string.IsNullOrEmpty(id))
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
+
             Tarjeta tarjeta = db.Tarjetas.Find(id);
             if (tarjeta == null)
             {
                 return HttpNotFound();
             }
+
             return View(tarjeta);
         }
 
         // POST: Tarjetas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(string id)
         {
             Tarjeta tarjeta = db.Tarjetas.Find(id);
             db.Tarjetas.Remove(tarjeta);

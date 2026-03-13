@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Frontek.Models;
+using Frontek_Full_Web_E_Commerce.Models;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.Entity;
@@ -7,13 +9,12 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Frontek_Full_Web_E_Commerce.Models;
 
 namespace Frontek_Full_Web_E_Commerce.Controllers.Product
 {
     public class ProductoController : Controller
     {
-        private FrontekController db = new FrontekController();
+        private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Producto
         public ActionResult Index()

@@ -1,7 +1,8 @@
-﻿using System;
+﻿using Frontek.Models;
+using Frontek_Full_Web_E_Commerce.Models.Utils;
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using Frontek_Full_Web_E_Commerce.Models.Utils;
 
 namespace Frontek_Full_Web_E_Commerce.Models.Tarjeta
 {
@@ -9,9 +10,9 @@ namespace Frontek_Full_Web_E_Commerce.Models.Tarjeta
     {
         //Esto lo hice asi para asegurar 1 a 1
         [Key, ForeignKey("Usuario")]
-        public int IdUsuario { get; set; }
+        public string IdUsuario { get; set; }
 
-        public virtual Usuario Usuario { get; set; }
+        public virtual ApplicationUser Usuario { get; set; }
 
         //Esto parece un mucho pero traté de meter la mayor cantidad de validaciones posibles para encriptar bien
 
