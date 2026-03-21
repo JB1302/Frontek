@@ -101,6 +101,9 @@
                             else if (Request.IsAuthenticated && User.IsInRole("Cliente"))
                             {
                                 <li class="nav-item">
+                                    @Html.ActionLink("Catálogo", "Catalogo", "Producto", null, new { @class = "nav-link" })
+                                </li>
+                                <li class="nav-item">
                                     @Html.ActionLink("Mis pedidos", "MisPedidos", "Ordenes", null, new { @class = "nav-link" })
                                 </li>
                             }
