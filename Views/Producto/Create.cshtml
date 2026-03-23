@@ -128,7 +128,7 @@
 <div class="container pb-5">
     <div class="form-card">
 
-        @using (Html.BeginForm("Create", "Productos", FormMethod.Post, new { enctype = "multipart/form-data" }))
+        @using (Html.BeginForm("Create", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true, "", new { @class = "alert alert-danger rounded-3 mb-4" })

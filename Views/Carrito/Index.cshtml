@@ -1,0 +1,67 @@
+﻿@model IEnumerable<Frontek_Full_Web_E_Commerce.Models.Carrito.CarritoItem>
+
+<h2>Carrito de Compras</h2>
+
+@if (!Model.Any())
+{
+    <p>El carrito está vacío</p>
+}
+else
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Imagen</th>
+                <th>Producto</th>
+                <th>Precio</th>
+                <th>Cantidad</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @if (item.Imagen != null && item.Imagen.Length > 0)
+                        {
+                            <img src="data:image/jpeg;base64,@Convert.ToBase64String(item.Imagen)"
+                                 alt=""
+                                 style="width:56px; height:56px; object-fit:cover; border-radius:8px;" />
+                        }
+                        else
+                        {
+                            <div style="width:56px; height:56px; background:#f0f0f0; border-radius:8px;
+                            display:flex; align-items:center; justify-content:center;
+                            font-size:0.7rem; color:#aaa;">
+                                Sin img
+                            </div>
+                        }
+                    </td>
+                    
+                    <td>@item.NombreProducto</td>
+                    <td>₡@item.Precio</td>
+                    <td>
+                        <div class="d-flex align-items-center gap-2">
+
+                            @Html.ActionLink("-", "Disminuir", new { id = item.ProductoId },
+                                new { @class = "btn btn-sm btn-outline-danger" })
+
+                            <span>@item.Cantidad</span>
+
+                            @Html.ActionLink("+", "Aumentar", new { id = item.ProductoId },
+                                new { @class = "btn btn-sm btn-outline-success" })
+
+                        </div>
+                    </td>
+                    <td>₡@(item.Precio * item.Cantidad)</td>
+                    <td>
+                        @Html.ActionLink("Eliminar", "Eliminar", new { id = item.ProductoId },
+                    new { @class = "btn btn-danger btn-sm" })</td>
+</tr>
+            }
+        </tbody>
+    </table>
+
+    <h4>Total: ₡@Model.Sum(x => x.Precio * x.Cantidad)</h4>
+}

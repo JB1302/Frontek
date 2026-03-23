@@ -46,17 +46,18 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
         // POST: Tarjetas/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "IdUsuario,TarjetaEncriptada,FechaVencimiento,CCVEncriptado,Propietario")] Tarjeta tarjeta)
+        public ActionResult Create(Tarjeta tarjeta)
         {
-            if (ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                db.Tarjetas.Add(tarjeta);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                ViewBag.IdUsuario = new SelectList(db.Users.ToList(), "Id", "Nombre", tarjeta.IdUsuario);
+                return View(tarjeta);
             }
 
-            ViewBag.IdUsuario = new SelectList(db.Users.ToList(), "Id", "Nombre", tarjeta.IdUsuario);
-            return View(tarjeta);
+            db.Tarjetas.Add(tarjeta);
+            db.SaveChanges();
+
+            return RedirectToAction("Index");
         }
 
         // GET: Tarjetas/Edit/5

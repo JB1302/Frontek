@@ -151,7 +151,7 @@
             </div>
         </div>
 
-        @using (Html.BeginForm("Delete", "Productos", new { id = Model.Id }, FormMethod.Post))
+        @using (Html.BeginForm("Delete", "Producto", new { id = Model.Id }, FormMethod.Post))
         {
             @Html.AntiForgeryToken()
             <div class="d-flex gap-3 justify-content-center">

@@ -1,8 +1,6 @@
 ﻿using Frontek.Models;
 using Frontek_Full_Web_E_Commerce.Models;
 using System;
-using System.Collections.Generic;
-using System.Data;
 using System.Data.Entity;
 using System.IO;
 using System.Linq;

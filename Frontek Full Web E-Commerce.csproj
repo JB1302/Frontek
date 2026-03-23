@@ -178,6 +178,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\Carrito\CarritoController.cs" />
     <Compile Include="Controllers\Dashboard\DashboardController.cs" />
     <Compile Include="Controllers\Home\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
@@ -190,20 +191,21 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CrearRoles.cs" />
-    <Compile Include="Migrations\202603130459248_Initial.cs" />
-    <Compile Include="Migrations\202603130459248_Initial.Designer.cs">
-      <DependentUpon>202603130459248_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\202603221828255_baseDeDatos.cs" />
+    <Compile Include="Migrations\202603221828255_baseDeDatos.Designer.cs">
+      <DependentUpon>202603221828255_baseDeDatos.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
+    <Compile Include="Models\Carrito\CarritoItem.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\Orden\Orden.cs" />
     <Compile Include="Models\OrdenDetalle\OrdenDetalle.cs" />
     <Compile Include="Models\Producto\Producto.cs" />
     <Compile Include="Models\Resena\Resena.cs" />
-    <Compile Include="Models\tarjeta\Tarjeta.cs" />
-    <Compile Include="Models\tarjeta\ValidarFecha.cs" />
+    <Compile Include="Models\Tarjeta\Tarjeta.cs" />
+    <Compile Include="Models\Tarjeta\ValidarFecha.cs" />
     <Compile Include="Models\Utils\CryptoHelper.cs" />
     <Compile Include="Models\Utils\SecretService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -302,6 +304,7 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Resenas\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
+    <Content Include="Views\Carrito\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -335,8 +338,8 @@
     <Content Include="Scripts\jquery-3.7.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202603130459248_Initial.resx">
-      <DependentUpon>202603130459248_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202603221828255_baseDeDatos.resx">
+      <DependentUpon>202603221828255_baseDeDatos.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

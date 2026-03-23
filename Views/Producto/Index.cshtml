@@ -1,4 +1,4 @@
-@model IEnumerable<Frontek_Full_Web_E_Commerce.Models.Producto>
+﻿@model IEnumerable<Frontek_Full_Web_E_Commerce.Models.Producto>
 
 @{
     ViewBag.Title = "Productos";
@@ -54,7 +54,7 @@
                             </td>
                             <td>@producto.NombreProducto</td>
                             <td>₡@producto.Precio.ToString("N2")</td>
-                            <td>
+                            <td><
                                 @if (producto.Stock <= 0)
                                 {
                                     <span class="badge bg-danger">Agotado</span>
@@ -81,6 +81,9 @@
                                     @Html.ActionLink("Editar", "Edit", new { id = producto.Id }, new { @class = "btn btn-sm btn-outline-primary me-2" })
                                     @Html.ActionLink("Eliminar", "Delete", new { id = producto.Id }, new { @class = "btn btn-sm btn-outline-danger" })
                                 }
+                                @Html.ActionLink("Agregar", "Agregar", "Carrito",
+                                new { id = producto.Id },
+                                new { @class = "btn btn-sm btn-success me-2" })
                             </td>
                         </tr>
                     }
