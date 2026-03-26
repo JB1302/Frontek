@@ -191,9 +191,9 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helpers\CrearRoles.cs" />
-    <Compile Include="Migrations\202603221828255_baseDeDatos.cs" />
-    <Compile Include="Migrations\202603221828255_baseDeDatos.Designer.cs">
-      <DependentUpon>202603221828255_baseDeDatos.cs</DependentUpon>
+    <Compile Include="Migrations\202603262049096_Inicial.cs" />
+    <Compile Include="Migrations\202603262049096_Inicial.Designer.cs">
+      <DependentUpon>202603262049096_Inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -213,6 +213,10 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include=".gitignore" />
+    <Content Include="App_Data\DefaultConnection.mdf" />
+    <Content Include="App_Data\DefaultConnection_log.ldf">
+      <DependentUpon>DefaultConnection.mdf</DependentUpon>
+    </Content>
     <Content Include="Content\bootstrap-grid.css" />
     <Content Include="Content\bootstrap-grid.min.css" />
     <Content Include="Content\bootstrap-grid.rtl.css" />
@@ -233,6 +237,7 @@
     <Content Include="Frontek.csproj.user" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Properties\serviceDependencies.local.json.user" />
     <Content Include="Scripts\bootstrap.bundle.js" />
     <Content Include="Scripts\bootstrap.bundle.min.js" />
     <Content Include="Scripts\bootstrap.esm.js" />
@@ -244,6 +249,8 @@
     <Content Include="Scripts\jquery-3.7.0.slim.min.map" />
     <Content Include="Frontek.csproj" />
     <Content Include="README.md" />
+    <Content Include="Properties\serviceDependencies.json" />
+    <Content Include="Properties\serviceDependencies.local.json" />
     <None Include="Scripts\jquery-3.7.1.intellisense.js" />
     <None Include="Scripts\jquery-3.7.0.intellisense.js" />
     <Content Include="Scripts\jquery-3.7.0.js" />
@@ -305,9 +312,14 @@
     <Content Include="Views\Resenas\Index.cshtml" />
     <Content Include="Views\Dashboard\Index.cshtml" />
     <Content Include="Views\Carrito\Index.cshtml" />
+    <Content Include="Views\Manage\AddPhoneNumber.cshtml" />
+    <Content Include="Views\Manage\ChangePassword.cshtml" />
+    <Content Include="Views\Manage\Index.cshtml" />
+    <Content Include="Views\Manage\ManageLogins.cshtml" />
+    <Content Include="Views\Manage\SetPassword.cshtml" />
+    <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Models\DetalleOrden\" />
   </ItemGroup>
   <ItemGroup>
@@ -338,8 +350,8 @@
     <Content Include="Scripts\jquery-3.7.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202603221828255_baseDeDatos.resx">
-      <DependentUpon>202603221828255_baseDeDatos.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202603262049096_Inicial.resx">
+      <DependentUpon>202603262049096_Inicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
