@@ -15,8 +15,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
-        //
-        // GET: Ordens
+        // GET: Ordenes
         public async Task<ActionResult> Index()
         {
             var ordenes = await db.Ordenes
@@ -27,14 +26,11 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
             return View(ordenes);
         }
 
-        //
-        // GET: Ordens/Details/5
+        // GET: Ordenes/Details/5
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
             var orden = await db.Ordenes
                 .Include(o => o.Usuario)
@@ -42,19 +38,18 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
                 .FirstOrDefaultAsync(o => o.OrdenId == id);
 
             if (orden == null)
-            {
                 return HttpNotFound();
-            }
 
             return View(orden);
         }
 
-        //
-        // GET: Ordens/Create
-        public ActionResult Create()
+        // GET: Ordenes/Create
+        public async Task<ActionResult> Create()
         {
             ViewBag.IdUsuario = new SelectList(
-                db.Users.OrderBy(u => u.Nombre).ToList(),
+                await db.Users
+                    .OrderBy(u => u.Nombre)
+                    .ToListAsync(),
                 "Id",
                 "Nombre"
             );
@@ -62,8 +57,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
             return View();
         }
 
-        //
-        // POST: Ordens/Create
+        // POST: Ordenes/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "NumeroOrden,FechaCreacion,ClienteId,NombreCliente,EmailCliente,DireccionEnvio,Ciudad,Pais,Total,MetodoPago,Estado,FechaEntregaEstimada,IdUsuario")] Orden orden)
@@ -71,14 +65,10 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
             if (ModelState.IsValid)
             {
                 if (string.IsNullOrWhiteSpace(orden.NumeroOrden))
-                {
                     orden.NumeroOrden = "FRK-" + DateTime.Now.ToString("yyyyMMddHHmmss");
-                }
 
                 if (orden.FechaCreacion == default(DateTime))
-                {
                     orden.FechaCreacion = DateTime.Now;
-                }
 
                 db.Ordenes.Add(orden);
                 await db.SaveChangesAsync();
@@ -88,7 +78,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
             }
 
             ViewBag.IdUsuario = new SelectList(
-                db.Users.OrderBy(u => u.Nombre).ToList(),
+                await db.Users.OrderBy(u => u.Nombre).ToListAsync(),
                 "Id",
                 "Nombre",
                 orden.IdUsuario
@@ -97,23 +87,19 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
             return View(orden);
         }
 
-        //
-        // GET: Ordens/Edit/5
+        // GET: Ordenes/Edit/5
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
             var orden = await db.Ordenes.FindAsync(id);
+
             if (orden == null)
-            {
                 return HttpNotFound();
-            }
 
             ViewBag.IdUsuario = new SelectList(
-                db.Users.OrderBy(u => u.Nombre).ToList(),
+                await db.Users.OrderBy(u => u.Nombre).ToListAsync(),
                 "Id",
                 "Nombre",
                 orden.IdUsuario
@@ -122,8 +108,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
             return View(orden);
         }
 
-        //
-        // POST: Ordens/Edit/5
+        // POST: Ordenes/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "OrdenId,NumeroOrden,FechaCreacion,ClienteId,NombreCliente,EmailCliente,DireccionEnvio,Ciudad,Pais,Total,MetodoPago,Estado,FechaEntregaEstimada,IdUsuario")] Orden orden)
@@ -138,7 +123,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
             }
 
             ViewBag.IdUsuario = new SelectList(
-                db.Users.OrderBy(u => u.Nombre).ToList(),
+                await db.Users.OrderBy(u => u.Nombre).ToListAsync(),
                 "Id",
                 "Nombre",
                 orden.IdUsuario
@@ -147,29 +132,23 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
             return View(orden);
         }
 
-        //
-        // GET: Ordens/Delete/5
+        // GET: Ordenes/Delete/5
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
             var orden = await db.Ordenes
                 .Include(o => o.Usuario)
                 .FirstOrDefaultAsync(o => o.OrdenId == id);
 
             if (orden == null)
-            {
                 return HttpNotFound();
-            }
 
             return View(orden);
         }
 
-        //
-        // POST: Ordens/Delete/5
+        // POST: Ordenes/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -179,11 +158,9 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
                 .FirstOrDefaultAsync(o => o.OrdenId == id);
 
             if (orden == null)
-            {
                 return HttpNotFound();
-            }
 
-            if (orden.Detalles != null && orden.Detalles.Any())
+            if (orden.Detalles?.Any() == true)
             {
                 db.OrdenDetalles.RemoveRange(orden.Detalles);
             }
@@ -195,8 +172,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
             return RedirectToAction("Index");
         }
 
-        //
-        // GET: Ordens/MisPedidos
+        // GET: Ordenes/MisPedidos
         [Authorize(Roles = "Cliente")]
         public async Task<ActionResult> MisPedidos()
         {
@@ -213,9 +189,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
         protected override void Dispose(bool disposing)
         {
             if (disposing)
-            {
                 db.Dispose();
-            }
 
             base.Dispose(disposing);
         }
