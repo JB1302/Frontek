@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace Frontek_Full_Web_E_Commerce.Controllers.Carrito
 {
+    [Authorize]
     public class CarritoController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();

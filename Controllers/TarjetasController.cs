@@ -1,5 +1,6 @@
 ﻿using Frontek.Models;
 using Frontek_Full_Web_E_Commerce.Models.Tarjeta;
+using Microsoft.AspNet.Identity;
 using System.Data;
 using System.Data.Entity;
 using System.Linq;
@@ -8,29 +9,40 @@ using System.Web.Mvc;
 
 namespace Frontek_Full_Web_E_Commerce.Controllers
 {
+    [Authorize]
     public class TarjetasController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Tarjetas
+        /*
         public ActionResult Index()
         {
             var tarjetas = db.Tarjetas.Include(t => t.Usuario);
             return View(tarjetas.ToList());
+        }*/
+
+        public ActionResult Index()
+        {
+            return RedirectToAction("Index", "Manage");
         }
 
         // GET: Tarjetas/Details/5
-        public ActionResult Details(string id)
+
+        public ActionResult Details()
         {
-            if (string.IsNullOrEmpty(id))
+            string userId = User.Identity.GetUserId();
+
+            if (string.IsNullOrEmpty(userId))
             {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
 
-            Tarjeta tarjeta = db.Tarjetas.Find(id);
+            var tarjeta = db.Tarjetas.Find(userId);
+
             if (tarjeta == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("Create");
             }
 
             return View(tarjeta);
@@ -39,6 +51,14 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
         // GET: Tarjetas/Create
         public ActionResult Create()
         {
+            string userId = User.Identity.GetUserId();
+
+            var tarjeta = db.Tarjetas.Find(userId);
+
+            if (tarjeta != null)
+            {
+                return RedirectToAction("Details");
+            }
             ViewBag.IdUsuario = new SelectList(db.Users.ToList(), "Id", "Nombre");
             return View();
         }
@@ -48,65 +68,46 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Tarjeta tarjeta)
         {
+            string userId = User.Identity.GetUserId();
+
+            if (string.IsNullOrEmpty(userId))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
+            tarjeta.IdUsuario = userId;
+
+            if (db.Tarjetas.Any(t => t.IdUsuario == userId))
+            {
+                ModelState.AddModelError("", "Ya tienes una tarjeta registrada.");
+                return RedirectToAction("Edit");
+            }
+
+            if (db.Tarjetas.Any(t => t.IdUsuario == userId))
+            {
+                return RedirectToAction("Details");
+            }
+
             if (!ModelState.IsValid)
             {
-                ViewBag.IdUsuario = new SelectList(db.Users.ToList(), "Id", "Nombre", tarjeta.IdUsuario);
                 return View(tarjeta);
             }
 
             db.Tarjetas.Add(tarjeta);
             db.SaveChanges();
 
-            return RedirectToAction("Index");
-        }
-
-        // GET: Tarjetas/Edit/5
-        public ActionResult Edit(string id)
-        {
-            if (string.IsNullOrEmpty(id))
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-
-            Tarjeta tarjeta = db.Tarjetas.Find(id);
-            if (tarjeta == null)
-            {
-                return HttpNotFound();
-            }
-
-            ViewBag.IdUsuario = new SelectList(db.Users.ToList(), "Id", "Nombre", tarjeta.IdUsuario);
-            return View(tarjeta);
-        }
-
-        // POST: Tarjetas/Edit/5
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "IdUsuario,TarjetaEncriptada,FechaVencimiento,CCVEncriptado,Propietario")] Tarjeta tarjeta)
-        {
-            if (ModelState.IsValid)
-            {
-                db.Entry(tarjeta).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-
-            ViewBag.IdUsuario = new SelectList(db.Users.ToList(), "Id", "Nombre", tarjeta.IdUsuario);
-            return View(tarjeta);
+            return RedirectToAction("index");
         }
 
         // GET: Tarjetas/Delete/5
-        public ActionResult Delete(string id)
+        public ActionResult Delete()
         {
-            if (string.IsNullOrEmpty(id))
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
+            string userId = User.Identity.GetUserId();
 
-            Tarjeta tarjeta = db.Tarjetas.Find(id);
+            var tarjeta = db.Tarjetas.Find(userId);
+
             if (tarjeta == null)
-            {
-                return HttpNotFound();
-            }
+                return RedirectToAction("Create");
 
             return View(tarjeta);
         }
@@ -114,12 +115,19 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
         // POST: Tarjetas/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(string id)
+        public ActionResult DeleteConfirmed()
         {
-            Tarjeta tarjeta = db.Tarjetas.Find(id);
-            db.Tarjetas.Remove(tarjeta);
-            db.SaveChanges();
-            return RedirectToAction("Index");
+            string userId = User.Identity.GetUserId();
+
+            var tarjeta = db.Tarjetas.Find(userId);
+
+            if (tarjeta != null)
+            {
+                db.Tarjetas.Remove(tarjeta);
+                db.SaveChanges();
+            }
+
+            return RedirectToAction("Index", "Manage");
         }
 
         protected override void Dispose(bool disposing)
