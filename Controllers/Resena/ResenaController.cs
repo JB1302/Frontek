@@ -1,11 +1,12 @@
-ï»¿using Frontek.Models;
+using Frontek.Models;
 using Frontek_Full_Web_E_Commerce.Models;
 using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
 using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
 using System.Net;
-using System.Threading.Tasks;
 using System.Web.Mvc;
 
 namespace Frontek_Full_Web_E_Commerce.Controllers
@@ -14,87 +15,87 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
     public class ResenaController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
+
+        // GET: Resena/Index
         public ActionResult Index()
-        {
-            return View();
-        }
-        //este ajax get traeria las resenas para mostrar una tabla en este caso que solo ej
-        // admin y vendedor pueden ver todas las resenas y el cliente solo las suyas
-        public async Task<ActionResult> GetResenas()
         {
             IQueryable<Resena> query = db.Resenas
                 .Include(r => r.Producto)
                 .Include(r => r.Usuario);
 
-            if (User.IsInRole("Cliente"))
+            // Los administradores ven todas las reseñas; los clientes solo las suyas
+            if (User.IsInRole("Cliente") && !User.IsInRole("Administrador"))
             {
                 var userId = User.Identity.GetUserId();
                 query = query.Where(r => r.UsuarioId == userId);
             }
 
-            var resenas = await query
+            var resenas = query
                 .OrderByDescending(r => r.FechaCreacion)
-                .Select(r => new
-                {
-                    id = r.Id,
-                    producto = r.Producto.NombreProducto,
-                    usuario = r.Usuario.Nombre,
-                    titulo = r.Titulo,
-                    cuerpo = r.Cuerpo,
-                    calificacion = r.Calificacion,
-                    estado = r.Estado,
-                    estadoTexto = r.Estado == 0 ? "Pendiente"
-                                  : r.Estado == 1 ? "Aprobada"
-                                  : "Rechazada",
-                    fechaCreacion = r.FechaCreacion.ToString()
-                })
-                .ToListAsync();
+                .ToList() ?? new List<Resena>();
 
-            return Json(resenas, JsonRequestBehavior.AllowGet);
+            ViewBag.TotalPendientes = resenas.Count(r => r.Estado == 0);
+            ViewBag.TotalAprobadas = resenas.Count(r => r.Estado == 1);
+            ViewBag.TotalRechazadas = resenas.Count(r => r.Estado == 2);
+
+            if (TempData["Mensaje"] != null)
+                ViewBag.Mensaje = TempData["Mensaje"].ToString();
+
+            if (TempData["Error"] != null)
+                ViewBag.Error = TempData["Error"].ToString();
+
+            return View(resenas);
         }
-        //esta accion es para que el admin pueda aprobar o rechazar una resena
-        // esto depende de lo que se le envie a ajax
+
+        // POST: Resena/Moderar
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public async Task<ActionResult> Moderar(int id, int accion)
+        public ActionResult Moderar(int id, int accion)
         {
             if (accion != 1 && accion != 2)
-                return Json(new { ok = false, mensaje = "La accion no es valida" });
-
-            var resena = await db.Resenas.FindAsync(id);
-            if (resena == null)
-                return Json(new { ok = false, mensaje = "No se encontro la resena" });
-            resena.Estado = accion; //aqui cambia la accion dependendo si es aprobada o rechazada
-            await db.SaveChangesAsync();
-
-            string estadoTexto = accion == 1 ? "Aprobada" : "Rechazada";
-
-            return Json(new
             {
-                ok = true,
-                mensaje = "Resena " + estadoTexto.ToLower() + " correctamente",
-                estadoTexto = estadoTexto
-            });
+                TempData["Error"] = "La accion no es valida";
+                return RedirectToAction("Index");
+            }
+
+            var resena = db.Resenas.Find(id);
+            if (resena == null)
+            {
+                TempData["Error"] = "No se encontro la resena";
+                return RedirectToAction("Index");
+            }
+
+            resena.Estado = accion;
+            db.SaveChanges();
+
+            string estadoTexto = accion == 1 ? "aprobada" : "rechazada";
+            TempData["Mensaje"] = "Resena " + estadoTexto + " correctamente";
+
+            return RedirectToAction("Index");
         }
 
-      //para eliminar resena 
+        // POST: Resena/Eliminar
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Administrador")]
-        public async Task<ActionResult> Eliminar(int id)
+        public ActionResult Eliminar(int id)
         {
-            var resena = await db.Resenas.FindAsync(id);
+            var resena = db.Resenas.Find(id);
             if (resena == null)
-                return Json(new { ok = false, mensaje = "Resena no encontrada" });
+            {
+                TempData["Error"] = "Resena no encontrada";
+                return RedirectToAction("Index");
+            }
 
             db.Resenas.Remove(resena);
-            await db.SaveChangesAsync();
+            db.SaveChanges();
 
-            return Json(new { ok = true, mensaje = "Resena eliminada" });
+            TempData["Mensaje"] = "Resena eliminada correctamente";
+            return RedirectToAction("Index");
         }
 
-       
+        // GET: Resena/Create?productoId=X
         [Authorize(Roles = "Cliente")]
         public ActionResult Create(int? productoId)
         {
@@ -109,20 +110,21 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
             return View();
         }
 
+        // POST: Resena/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         [Authorize(Roles = "Cliente")]
-        public async Task<ActionResult> Create(
+        public ActionResult Create(
             [Bind(Include = "ProductoId,Titulo,Cuerpo,Calificacion")] Resena resena)
         {
             if (ModelState.IsValid)
             {
                 resena.UsuarioId = User.Identity.GetUserId();
-                resena.Estado = 0; 
+                resena.Estado = 0;
                 resena.FechaCreacion = DateTime.Now;
 
                 db.Resenas.Add(resena);
-                await db.SaveChangesAsync();
+                db.SaveChanges();
 
                 TempData["Mensaje"] = "Resena enviada y pendiente de ser evaluada";
                 return RedirectToAction("Index", "Producto");

@@ -1,280 +1,87 @@
 @model Frontek_Full_Web_E_Commerce.Models.Producto
 
 @{
-    ViewBag.Title = "Detalle del Producto";
+    ViewBag.Title = Model.NombreProducto;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    @@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=DM+Sans:wght@300;400;500&display=swap');
+<div class="container mt-4">
 
-    body {
-        font-family: 'DM Sans', sans-serif;
-        background: #f8f8f8;
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success">@TempData["Mensaje"]</div>
     }
 
-    .page-header {
-        background: #1a1a2e;
-        color: white;
-        padding: 32px 0 24px;
-        margin-bottom: 36px;
-    }
+    <div class="row">
 
-        .page-header h2 {
-            font-size: 1.8rem;
-            font-weight: 600;
-            margin: 0;
-        }
+        <!-- Imagenes del producto -->
+        <div class="col-md-6">
+            @if (Model.Imagen1 != null)
+            {
+                <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Imagen1)"
+                     class="img-fluid mb-2" alt="Imagen 1" />
+            }
+            @if (Model.Imagen2 != null)
+            {
+                <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Imagen2)"
+                     class="img-fluid mb-2" alt="Imagen 2" />
+            }
+            @if (Model.Imagen3 != null)
+            {
+                <img src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Imagen3)"
+                     class="img-fluid mb-2" alt="Imagen 3" />
+            }
+            @if (Model.Imagen1 == null && Model.Imagen2 == null && Model.Imagen3 == null)
+            {
+                <div class="text-center text-muted p-5 border">Sin imagen</div>
+            }
+        </div>
 
-    .detail-card {
-        background: white;
-        border-radius: 16px;
-        overflow: hidden;
-        box-shadow: 0 4px 24px rgba(0,0,0,0.07);
-        max-width: 900px;
-        margin: 0 auto;
-    }
+        <!-- Info del producto -->
+        <div class="col-md-6">
+            <h2>@Model.NombreProducto</h2>
 
-    .img-gallery {
-        display: flex;
-        gap: 12px;
-        padding: 24px;
-        background: #f5f5f5;
-    }
+            <hr />
 
-    .img-main {
-        flex: 1;
-        border-radius: 12px;
-        overflow: hidden;
-        height: 320px;
-    }
-
-        .img-main img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-    .img-thumbs {
-        display: flex;
-        flex-direction: column;
-        gap: 10px;
-        width: 90px;
-    }
-
-    .img-thumb {
-        width: 90px;
-        height: 90px;
-        border-radius: 8px;
-        overflow: hidden;
-        cursor: pointer;
-        border: 2px solid transparent;
-        transition: border-color 0.2s;
-    }
-
-        .img-thumb:hover, .img-thumb.active {
-            border-color: #e94560;
-        }
-
-        .img-thumb img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-
-    .no-img {
-        width: 100%;
-        height: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        background: #eee;
-        color: #aaa;
-        font-size: 0.8rem;
-        border-radius: 12px;
-    }
-
-    .detail-body {
-        padding: 32px 36px;
-    }
-
-    .product-title {
-        font-family: 'Playfair Display', serif;
-        font-size: 1.8rem;
-        color: #1a1a2e;
-        margin-bottom: 8px;
-    }
-
-    .product-price {
-        font-size: 1.6rem;
-        font-weight: 700;
-        color: #e94560;
-        margin-bottom: 20px;
-    }
-
-    .info-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 16px;
-        margin-bottom: 28px;
-    }
-
-    .info-item label {
-        font-size: 0.72rem;
-        text-transform: uppercase;
-        letter-spacing: 1px;
-        color: #999;
-        font-weight: 600;
-        display: block;
-        margin-bottom: 4px;
-    }
-
-    .info-item span {
-        font-size: 0.95rem;
-        color: #333;
-        font-weight: 500;
-    }
-
-    .badge-estado {
-        display: inline-block;
-        padding: 4px 14px;
-        border-radius: 20px;
-        font-size: 0.78rem;
-        font-weight: 600;
-    }
-
-    .btn-edit {
-        background: #1a1a2e;
-        color: white;
-        border: none;
-        border-radius: 10px;
-        padding: 11px 28px;
-        font-size: 0.9rem;
-        font-weight: 500;
-        text-decoration: none;
-        transition: background 0.2s;
-        display: inline-block;
-    }
-
-        .btn-edit:hover {
-            background: #e94560;
-            color: white;
-            text-decoration: none;
-        }
-
-    .btn-back {
-        border: 1.5px solid #ddd;
-        border-radius: 10px;
-        padding: 11px 24px;
-        font-size: 0.9rem;
-        color: #555;
-        background: white;
-        text-decoration: none;
-        transition: all 0.2s;
-        display: inline-block;
-    }
-
-        .btn-back:hover {
-            border-color: #1a1a2e;
-            color: #1a1a2e;
-            text-decoration: none;
-        }
-</style>
-
-<div class="page-header">
-    <div class="container">
-        <h2>Detalle del Producto</h2>
-    </div>
-</div>
-
-<div class="container pb-5">
-    <div class="detail-card">
-
-        @{
-            var imgs = new[] { Model.Imagen1, Model.Imagen2, Model.Imagen3 };
-            var validImgs = imgs.Where(x => x != null && x.Length > 0).ToList();
-        }
-
-        @if (validImgs.Any())
-        {
-            <div class="img-gallery">
-                <div class="img-main">
-                    <img id="imgMain" src="data:image/jpeg;base64,@Convert.ToBase64String(validImgs[0])"
-                         alt="@Model.NombreProducto" />
-                </div>
-                @if (validImgs.Count > 1)
+            <p><strong>Precio:</strong> &#8353;@Model.Precio.ToString("N2")</p>
+            <p><strong>Stock:</strong> @Model.Stock unidades</p>
+            <p>
+                <strong>Estado:</strong>
+                @if (Model.Activo)
                 {
-                    <div class="img-thumbs">
-                        @for (int i = 0; i < validImgs.Count; i++)
-                        {
-                            <div class="img-thumb @(i == 0 ? "active" : "")"
-                                 onclick="cambiarImagen(this, 'data:image/jpeg;base64,@Convert.ToBase64String(validImgs[i])')">
-                                <img src="data:image/jpeg;base64,@Convert.ToBase64String(validImgs[i])" alt="Imagen @(i+1)" />
-                            </div>
-                        }
-                    </div>
+                    <span class="badge badge-success">Disponible</span>
                 }
-            </div>
-        }
-        else
-        {
-            <div class="img-gallery">
-                <div class="no-img" style="height:280px;">Sin imágenes</div>
-            </div>
-        }
-
-        <div class="detail-body">
-            <h1 class="product-title">@Model.NombreProducto</h1>
-            <div class="product-price">₡@Model.Precio.ToString("N2")</div>
-
-            <div class="info-grid">
-                <div class="info-item">
-                    <label>Stock disponible</label>
-                    <span>@Model.Stock unidades</span>
-                </div>
-                <div class="info-item">
-                    <label>Estado</label>
-                    <span>
-                        @if (Model.Activo)
-                        {
-                            <span class="badge-estado bg-success text-white">Activo</span>
-                        }
-                        else
-                        {
-                            <span class="badge-estado bg-secondary text-white">Inactivo</span>
-                        }
-                    </span>
-                </div>
-                <div class="info-item">
-                    <label>Fecha de ingreso</label>
-                    <span>@Model.FechaIngreso.ToString("dd/MM/yyyy")</span>
-                </div>
-                @if (Model.FechaMod.HasValue)
+                else
                 {
-                    <div class="info-item">
-                        <label>Última modificación</label>
-                        <span>@Model.FechaMod.Value.ToString("dd/MM/yyyy")</span>
-                    </div>
+                    <span class="badge badge-secondary">No disponible</span>
                 }
-            </div>
+            </p>
+            <p><strong>Fecha de ingreso:</strong> @Model.FechaIngreso.ToString("dd/MM/yyyy")</p>
 
-            <div class="d-flex gap-3 flex-wrap">
+            <hr />
+
+            <div class="mt-3">
+                <a href="@Url.Action("Index", "Producto")" class="btn btn-secondary">
+                    Volver al catalogo
+                </a>
+
+                @if (User.IsInRole("Cliente") && Model.Activo)
+                {
+                    <a href="@Url.Action("Create", "Resena", new { productoId = Model.Id })"
+                       class="btn btn-primary ml-2">
+                        Escribir resena
+                    </a>
+                }
+
                 @if (User.IsInRole("Administrador"))
                 {
-                    @Html.ActionLink("Editar", "Edit", new { id = Model.Id }, new { @class = "btn-edit" })
+                    <a href="@Url.Action("Edit", "Producto", new { id = Model.Id })"
+                       class="btn btn-warning ml-2">
+                        Editar
+                    </a>
                 }
-                @Html.ActionLink("Volver al listado", "Index", null, new { @class = "btn-back" })
             </div>
         </div>
+
     </div>
 </div>
-
-@section Scripts {
-    <script>
-        function cambiarImagen(thumb, src) {
-            document.getElementById('imgMain').src = src;
-            document.querySelectorAll('.img-thumb').forEach(t => t.classList.remove('active'));
-            thumb.classList.add('active');
-        }
-    </script>
-}
