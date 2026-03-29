@@ -6,6 +6,7 @@
 {
     <p>El carrito está vacío</p>
 }
+
 else
 {
     <table class="table">
@@ -38,7 +39,7 @@ else
                             </div>
                         }
                     </td>
-                    
+
                     <td>@item.NombreProducto</td>
                     <td>₡@item.Precio</td>
                     <td>
@@ -57,11 +58,16 @@ else
                     <td>₡@(item.Precio * item.Cantidad)</td>
                     <td>
                         @Html.ActionLink("Eliminar", "Eliminar", new { id = item.ProductoId },
-                    new { @class = "btn btn-danger btn-sm" })</td>
-</tr>
+                    new { @class = "btn btn-danger btn-sm" })
+                    </td>
+                </tr>
             }
         </tbody>
     </table>
 
     <h4>Total: ₡@Model.Sum(x => x.Precio * x.Cantidad)</h4>
+        <p>
+            <a href="#" class="btn btn-success btn-lg">Proceder con la compra</a>
+        </p>
+    
 }
