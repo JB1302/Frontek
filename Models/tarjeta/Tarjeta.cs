@@ -23,7 +23,7 @@ namespace Frontek_Full_Web_E_Commerce.Models.Tarjeta
         [DataType(DataType.Date)]
         [ValidarFecha]
         [Display(Name = "Fecha de Vencimiento")]
-        public DateTime? FechaVencimiento { get; set; } 
+        public DateTime? FechaVencimiento { get; set; }
 
         [Required]
         [StringLength(50)]

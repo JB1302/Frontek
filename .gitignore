@@ -3,5 +3,3 @@ bin/
 obj/ 
 packages/ 
 *.user 
-App_Data/DefaultConnection.mdf
-App_Data/DefaultConnection_log.ldf

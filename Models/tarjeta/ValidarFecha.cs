@@ -6,7 +6,7 @@ namespace Frontek_Full_Web_E_Commerce.Models.Tarjeta
     public class ValidarFecha : ValidationAttribute
     {
 
-        protected override ValidationResult IsValid(object value,ValidationContext validationContext)
+        protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
 
             if (value is DateTime fecha)

@@ -29,28 +29,29 @@
         <th></th>
     </tr>
 
-@foreach (var item in Model) {
-    <tr>
-        <td>
-            @Html.DisplayFor(modelItem => item.Usuario.Nombre)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.TarjetaEncriptada)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.FechaVencimiento)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.CCVEncriptado)
-        </td>
-        <td>
-            @Html.DisplayFor(modelItem => item.Propietario)
-        </td>
-        <td>
-            @Html.ActionLink("Details", "Details", new { id=item.IdUsuario }) |
-            @Html.ActionLink("Delete", "Delete", new { id=item.IdUsuario })
-        </td>
-    </tr>
-}
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Usuario.Nombre)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TarjetaEncriptada)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FechaVencimiento)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CCVEncriptado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Propietario)
+            </td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = item.IdUsuario }) |
+                @Html.ActionLink("Delete", "Delete", new { id = item.IdUsuario })
+            </td>
+        </tr>
+    }
 
 </table>

@@ -33,9 +33,9 @@ namespace Frontek.Controllers
             {
                 return _signInManager ?? HttpContext.GetOwinContext().Get<ApplicationSignInManager>();
             }
-            private set 
-            { 
-                _signInManager = value; 
+            private set
+            {
+                _signInManager = value;
             }
         }
 
@@ -335,7 +335,7 @@ namespace Frontek.Controllers
             base.Dispose(disposing);
         }
 
-#region Aplicaciones auxiliares
+        #region Aplicaciones auxiliares
         // Se usa para la protección XSRF al agregar inicios de sesión externos
         private const string XsrfKey = "XsrfId";
 
@@ -380,6 +380,6 @@ namespace Frontek.Controllers
             Error
         }
 
-#endregion
+        #endregion
     }
 }

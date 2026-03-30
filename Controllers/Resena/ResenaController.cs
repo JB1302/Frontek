@@ -1,4 +1,4 @@
-using Frontek.Models;
+ï»¿using Frontek.Models;
 using Frontek_Full_Web_E_Commerce.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
@@ -23,7 +23,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
                 .Include(r => r.Producto)
                 .Include(r => r.Usuario);
 
-            // Los administradores ven todas las reseñas; los clientes solo las suyas
+            // Los administradores ven todas las reseï¿½as; los clientes solo las suyas
             if (User.IsInRole("Cliente") && !User.IsInRole("Administrador"))
             {
                 var userId = User.Identity.GetUserId();
