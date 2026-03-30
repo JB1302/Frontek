@@ -10,12 +10,12 @@ using System.Web.Mvc;
 
 namespace Frontek_Full_Web_E_Commerce.Controllers
 {
-    [Authorize(Roles = "Administrador,Vendedor")]
     public class OrdenesController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
 
         // GET: Ordenes
+        [Authorize(Roles = "Administrador,Vendedor")]
         public async Task<ActionResult> Index()
         {
             var ordenes = await db.Ordenes
@@ -27,6 +27,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
         }
 
         // GET: Ordenes/Details/5
+        [Authorize(Roles = "Administrador,Vendedor,Cliente")]
         public async Task<ActionResult> Details(int? id)
         {
             if (id == null)
@@ -40,10 +41,19 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
             if (orden == null)
                 return HttpNotFound();
 
+            if (User.IsInRole("Cliente"))
+            {
+                var userId = User.Identity.GetUserId();
+
+                if (orden.IdUsuario != userId)
+                    return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
+            }
+
             return View(orden);
         }
 
         // GET: Ordenes/Create
+        [Authorize(Roles = "Administrador,Vendedor")]
         public async Task<ActionResult> Create()
         {
             ViewBag.IdUsuario = new SelectList(
@@ -58,6 +68,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
         }
 
         // POST: Ordenes/Create
+        [Authorize(Roles = "Administrador,Vendedor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create([Bind(Include = "NumeroOrden,FechaCreacion,ClienteId,NombreCliente,EmailCliente,DireccionEnvio,Ciudad,Pais,Total,MetodoPago,Estado,FechaEntregaEstimada,IdUsuario")] Orden orden)
@@ -88,6 +99,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
         }
 
         // GET: Ordenes/Edit/5
+        [Authorize(Roles = "Administrador,Vendedor")]
         public async Task<ActionResult> Edit(int? id)
         {
             if (id == null)
@@ -109,6 +121,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
         }
 
         // POST: Ordenes/Edit/5
+        [Authorize(Roles = "Administrador,Vendedor")]
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Edit([Bind(Include = "OrdenId,NumeroOrden,FechaCreacion,ClienteId,NombreCliente,EmailCliente,DireccionEnvio,Ciudad,Pais,Total,MetodoPago,Estado,FechaEntregaEstimada,IdUsuario")] Orden orden)
@@ -133,6 +146,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
         }
 
         // GET: Ordenes/Delete/5
+        [Authorize(Roles = "Administrador,Vendedor")]
         public async Task<ActionResult> Delete(int? id)
         {
             if (id == null)
@@ -149,6 +163,7 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
         }
 
         // POST: Ordenes/Delete/5
+        [Authorize(Roles = "Administrador,Vendedor")]
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> DeleteConfirmed(int id)
@@ -171,7 +186,6 @@ namespace Frontek_Full_Web_E_Commerce.Controllers
             TempData["Mensaje"] = "Orden eliminada correctamente.";
             return RedirectToAction("Index");
         }
-
         // GET: Ordenes/MisPedidos
         [Authorize(Roles = "Cliente")]
         public async Task<ActionResult> MisPedidos()

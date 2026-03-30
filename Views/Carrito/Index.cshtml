@@ -2,6 +2,20 @@
 
 <h2>Carrito de Compras</h2>
 
+@if (TempData["Mensaje"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["Mensaje"]
+    </div>
+}
+
+@if (TempData["Error"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["Error"]
+    </div>
+}
+
 @if (!Model.Any())
 {
     <p>El carrito está vacío</p>
@@ -67,7 +81,13 @@ else
 
     <h4>Total: ₡@Model.Sum(x => x.Precio * x.Cantidad)</h4>
     <p>
-        <a href="#" class="btn btn-success btn-lg">Proceder con la compra</a>
+        @using (Html.BeginForm("ProcesarCompra", "Carrito", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <button type="submit" class="btn btn-success btn-lg">
+                Proceder con la compra
+            </button>
+        }
     </p>
 
 }
