@@ -61,5 +61,10 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Repositories
         {
             _context.SaveChanges();
         }
+
+        public IEnumerable<Resena> GetByUserId(string userId)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
