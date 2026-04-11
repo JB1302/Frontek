@@ -7,12 +7,9 @@ namespace Frontek_Full_Web_E_Commerce.Domain.Entities
 {
     public class Orden
     {
-        [Key]
         public int OrdenId { get; set; }
-
         public string NumeroOrden { get; set; }
         public DateTime FechaCreacion { get; set; } = DateTime.Now;
-
         public string ClienteId { get; set; }
         public string NombreCliente { get; set; }
         public string EmailCliente { get; set; }
@@ -23,9 +20,7 @@ namespace Frontek_Full_Web_E_Commerce.Domain.Entities
         public string MetodoPago { get; set; }
         public string Estado { get; set; } = "Pendiente";
         public DateTime? FechaEntregaEstimada { get; set; }
-
         public virtual ICollection<OrdenDetalle> Detalles { get; set; }
-
         // Solo guardamos el ID, no la referencia al objeto
         public string IdUsuario { get; set; }
     }

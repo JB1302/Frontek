@@ -45,10 +45,12 @@
     <Compile Include="Interfaces\IOrdenService.cs" />
     <Compile Include="Interfaces\IProductoService.cs" />
     <Compile Include="Interfaces\IResenaService.cs" />
+    <Compile Include="Interfaces\ITarjetaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\OrdenService.cs" />
     <Compile Include="Services\ProductoService.cs" />
     <Compile Include="Services\ResenaService.cs" />
+    <Compile Include="Services\TarjetaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Frontek Full Web E-Commerce.Domain\Frontek Full Web E-Commerce.Domain.csproj">

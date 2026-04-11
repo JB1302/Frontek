@@ -53,32 +53,21 @@ namespace Frontek_Full_Web_E_Commerce.IoC
         public static void RegisterComponents()
         {
             var container = new UnityContainer();
-            
-             container.RegisterType<ApplicationDbContext>();
-            /*
-            // DbContext
+
             container.RegisterType<ApplicationDbContext>();
 
             // Repositorios
             container.RegisterType<IProductoRepository, ProductoRepository>();
-            container.RegisterType<IOrdenRepository,    OrdenRepository>();
-            container.RegisterType<IResenaRepository,   ResenaRepository>();
-            container.RegisterType<ITarjetaRepository,  TarjetaRepository>();
+            container.RegisterType<IOrdenRepository, OrdenRepository>();
+            container.RegisterType<IResenaRepository, ResenaRepository>();
+            container.RegisterType<ITarjetaRepository, TarjetaRepository>();
 
             // Servicios
+            /*
             container.RegisterType<IProductoService, ProductoService>();
-            container.RegisterType<IOrdenService,    OrdenService>();
-            container.RegisterType<IResenaService,   ResenaService>();
-            container.RegisterType<ITarjetaService,  TarjetaService>();
-            /*
-            /*
-             Acá se coloca por servicio y repositorio
-
-             container.RegisterType<IClaseRepository, ClaseRepository>();
-             container.RegisterType<IClaseService, ClaseService>();
-            cont
-
-             */
+            container.RegisterType<IOrdenService, OrdenService>();
+            container.RegisterType<IResenaService, ResenaService>();
+            container.RegisterType<ITarjetaService, TarjetaService>();*/
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(container));
 

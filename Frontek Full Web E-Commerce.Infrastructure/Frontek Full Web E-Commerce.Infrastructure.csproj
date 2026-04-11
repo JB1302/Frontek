@@ -60,24 +60,29 @@
   <ItemGroup>
     <Compile Include="Data\ApplicationDbContext.cs" />
     <Compile Include="Data\DbInitializer.cs" />
+    <Compile Include="Identity\AplicationUser.cs" />
+    <Compile Include="Identity\IdentitySeeder.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\OrdenRepository.cs" />
     <Compile Include="Repositories\ProductoRepository.cs" />
     <Compile Include="Repositories\ResenaRepository.cs" />
+    <Compile Include="Repositories\TarjetaRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Frontek Full Web E-Commerce.Application\Frontek Full Web E-Commerce.Application.csproj">
+      <Project>{df4399f8-359d-400a-9f39-782040af5715}</Project>
+      <Name>Frontek Full Web E-Commerce.Application</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Frontek Full Web E-Commerce.Domain\Frontek Full Web E-Commerce.Domain.csproj">
       <Project>{11f5adc9-84ea-4dc3-bd65-3b38f157a115}</Project>
       <Name>Frontek Full Web E-Commerce.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="NewFolder1\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>

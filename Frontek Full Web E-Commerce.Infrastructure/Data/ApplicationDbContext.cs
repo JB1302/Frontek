@@ -11,7 +11,7 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Data
             : base("DefaultConnection")
         {
         }
-        public DbSet<Producto> Producto { get; set; }
+        public DbSet<Producto> Productos { get; set; }
         public DbSet<Orden> Ordenes { get; set; }
         public DbSet<OrdenDetalle> OrdenDetalles { get; set; }
         public DbSet<Resena> Resenas { get; set; }
@@ -21,26 +21,39 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Data
         {
             return new ApplicationDbContext();
         }
-
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<ApplicationUser>()
-                .HasOptional(u => u.Tarjeta)
-                .WithRequired(t => t.Usuario);
+            modelBuilder.Entity<Tarjeta>()
+                .HasKey(t => t.IdUsuario);
 
             modelBuilder.Entity<Orden>()
-                .HasRequired(o => o.Usuario)
-                .WithMany(u => u.Ordenes)
-                .HasForeignKey(o => o.IdUsuario)
-                .WillCascadeOnDelete(false);
+                .HasKey(o => o.OrdenId);
+
+            modelBuilder.Entity<Orden>()
+                .Property(o => o.IdUsuario)
+                .IsRequired();
 
             modelBuilder.Entity<Resena>()
-                .HasRequired(r => r.Usuario)
-                .WithMany(u => u.Resenas)
-                .HasForeignKey(r => r.UsuarioId)
-                .WillCascadeOnDelete(false);
+                .HasKey(r => r.Id);
+
+            modelBuilder.Entity<Resena>()
+                .Property(r => r.UsuarioId)
+                .IsRequired();
+
+            modelBuilder.Entity<OrdenDetalle>()
+                .HasKey(od => od.OrdenDetalleId);
+
+            modelBuilder.Entity<OrdenDetalle>()
+                .Property(od => od.OrdenId)
+                .IsRequired();
+
+            modelBuilder.Entity<OrdenDetalle>()
+                .Property(od => od.ProductoId)
+                .IsRequired();
+            modelBuilder.Entity<Producto>()
+                .HasKey(p => p.Id);
         }
     }
 }

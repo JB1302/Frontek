@@ -14,13 +14,8 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Identity
         [Required]
         [StringLength(75)]
         public string Nombre { get; set; }
-
         public DateTime? UltimaConexion { get; set; } = DateTime.Now;
         public bool Activo { get; set; } = true;
-        public virtual Tarjeta Tarjeta { get; set; }
-        public virtual ICollection<Orden> Ordenes { get; set; }
-        public virtual ICollection<Resena> Resenas { get; set; }
-
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(
             UserManager<ApplicationUser> manager)
         {
