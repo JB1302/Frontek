@@ -42,7 +42,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\IOrdenService.cs" />
+    <Compile Include="Interfaces\IProductoService.cs" />
+    <Compile Include="Interfaces\IResenaService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Services\OrdenService.cs" />
+    <Compile Include="Services\ProductoService.cs" />
+    <Compile Include="Services\ResenaService.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Frontek Full Web E-Commerce.Domain\Frontek Full Web E-Commerce.Domain.csproj">
@@ -50,9 +56,6 @@
       <Name>Frontek Full Web E-Commerce.Domain</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Interfaces\" />
-    <Folder Include="Services\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

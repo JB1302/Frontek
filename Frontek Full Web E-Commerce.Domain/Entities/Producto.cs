@@ -22,7 +22,7 @@ namespace Frontek_Full_Web_E_Commerce.Domain.Entities
         [Display(Name = "Fecha de Ingreso")]
         public DateTime FechaIngreso { get; set; }
 
-        [Display(Name = "Fecha de Modificación")]
+        [Display(Name = "Fecha de Modificaciopn")]
         public DateTime? FechaMod { get; set; }
 
         public byte[] Imagen1 { get; set; }

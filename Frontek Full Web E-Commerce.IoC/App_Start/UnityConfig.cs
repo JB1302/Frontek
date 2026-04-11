@@ -1,4 +1,8 @@
+using Frontek_Full_Web_E_Commerce.Application.Interfaces;
+using Frontek_Full_Web_E_Commerce.Application.Services;
+using Frontek_Full_Web_E_Commerce.Domain.Repositories;
 using Frontek_Full_Web_E_Commerce.Infrastructure.Data;
+using Frontek_Full_Web_E_Commerce.Infrastructure.Repositories;
 using System;
 using System.Web.Mvc;
 using Unity;
@@ -51,12 +55,28 @@ namespace Frontek_Full_Web_E_Commerce.IoC
             var container = new UnityContainer();
             
              container.RegisterType<ApplicationDbContext>();
+            /*
+            // DbContext
+            container.RegisterType<ApplicationDbContext>();
 
+            // Repositorios
+            container.RegisterType<IProductoRepository, ProductoRepository>();
+            container.RegisterType<IOrdenRepository,    OrdenRepository>();
+            container.RegisterType<IResenaRepository,   ResenaRepository>();
+            container.RegisterType<ITarjetaRepository,  TarjetaRepository>();
+
+            // Servicios
+            container.RegisterType<IProductoService, ProductoService>();
+            container.RegisterType<IOrdenService,    OrdenService>();
+            container.RegisterType<IResenaService,   ResenaService>();
+            container.RegisterType<ITarjetaService,  TarjetaService>();
+            /*
             /*
              Acá se coloca por servicio y repositorio
 
              container.RegisterType<IClaseRepository, ClaseRepository>();
              container.RegisterType<IClaseService, ClaseService>();
+            cont
 
              */
 
