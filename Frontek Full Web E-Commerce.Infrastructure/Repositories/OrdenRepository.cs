@@ -37,7 +37,7 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Repositories
                 .OrderByDescending(o => o.FechaCreacion)
                 .ToList();
         }
-        public IEnumerable<Orden> GetOrdersByUserId(string userId)
+        public IEnumerable<Orden> GetByUserId(string userId)
         {
             return _context.Ordenes
                 .Where(o => o.IdUsuario == userId)
@@ -51,11 +51,6 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Repositories
         public void Update(Orden orden)
         {
             _context.Entry(orden).State = EntityState.Modified;
-        }
-
-        public IEnumerable<Orden> GetByUserId(string userId)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }

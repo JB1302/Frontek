@@ -36,7 +36,7 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Repositories
                 .OrderByDescending(r => r.FechaCreacion)
                 .ToList();
         }
-        public IEnumerable<Resena> GetReviewsByUserId(string userId)
+        public IEnumerable<Resena> GetByUserId(string userId)
         {
             return _context.Resenas
                 .Include(r => r.Producto)
@@ -60,11 +60,6 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Repositories
         public void Save()
         {
             _context.SaveChanges();
-        }
-
-        public IEnumerable<Resena> GetByUserId(string userId)
-        {
-            throw new System.NotImplementedException();
         }
     }
 }
