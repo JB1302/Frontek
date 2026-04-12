@@ -1,5 +1,6 @@
 ﻿using Frontek_Full_Web_E_Commerce.Application.Interfaces;
 using Frontek_Full_Web_E_Commerce.Domain.Entities;
+using Frontek_Full_Web_E_Commerce.Presentacion.Models;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Linq;
@@ -22,31 +23,31 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
 
         public ActionResult Index()
         {
-            var userId = User.Identity.GetUserId();
-            var resenas = User.IsInRole("Administrador")
-                ? _resenaService.ListarResenas()
-                : _resenaService.ListarResenasUsuario(userId);
+            var resenas = _resenaService.ListarResenas().ToList();
 
-            var lista = resenas.OrderByDescending(r => r.FechaCreacion).ToList();
-
-            ViewBag.TotalPendientes = lista.Count(r => r.Estado == 0);
-            ViewBag.TotalAprobadas = lista.Count(r => r.Estado == 1);
-            ViewBag.TotalRechazadas = lista.Count(r => r.Estado == 2);
-
-            if (TempData["Mensaje"] != null)
+            using (var db = new ApplicationDbContext())
             {
-                ViewBag.Mensaje = TempData["Mensaje"];
-            }
+                var usuarios = db.Users.ToList();
 
-            if (TempData["Error"] != null)
-            {
-                ViewBag.Error = TempData["Error"];
-            }
+                var model = resenas.Select(r => new ResenaViewModel
+                {
+                    Id = r.Id,
+                    NombreProducto = r.Producto != null ? r.Producto.NombreProducto : "Sin producto",
+                    NombreUsuario = usuarios
+                        .Where(u => u.Id == r.UsuarioId)
+                        .Select(u => u.Nombre)
+                        .FirstOrDefault() ?? "Sin usuario",
+                    Titulo = r.Titulo,
+                    Cuerpo = r.Cuerpo,
+                    Calificacion = r.Calificacion,
+                    Estado = r.Estado,
+                    FechaCreacion = r.FechaCreacion
+                }).ToList();
 
-            return View(lista);
+                return View(model);
+            }
         }
-
-        [Authorize(Roles = "Cliente")]
+            [Authorize(Roles = "Cliente")]
         public ActionResult Create(int? productoId)
         {
             if (!productoId.HasValue)

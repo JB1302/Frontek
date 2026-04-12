@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Frontek_Full_Web_E_Commerce.Presentacion.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using Microsoft.AspNet.Identity.Owin;
+
+using Microsoft.Owin.Security;
+using System;
 using System.Globalization;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Frontek_Full_Web_E_Commerce.Presentacion.Models;
 
 namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
 {
@@ -79,6 +81,12 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    var usuario = await UserManager.FindByEmailAsync(model.Email);
+                    if (usuario != null)
+                    {
+                        usuario.UltimaConexion = DateTime.Now;
+                        await UserManager.UpdateAsync(usuario);
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -151,10 +159,28 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Nombre = model.Nombre,
+                    Activo = true,
+                    UltimaConexion = DateTime.Now
+                };
+
                 var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
+                    using (var db = new ApplicationDbContext())
+                    {
+                        var roleManager = new RoleManager<IdentityRole>(new RoleStore<IdentityRole>(db));
+                        if (!await roleManager.RoleExistsAsync("Cliente"))
+                        {
+                            await roleManager.CreateAsync(new IdentityRole("Cliente"));
+                        }
+                    }
+
+                    await UserManager.AddToRoleAsync(user.Id, "Cliente");
                     await SignInManager.SignInAsync(user, isPersistent:false, rememberBrowser:false);
                     
                     // Para obtener más información sobre cómo habilitar la confirmación de cuentas y el restablecimiento de contraseña, visite https://go.microsoft.com/fwlink/?LinkID=320771
@@ -333,6 +359,12 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
             switch (result)
             {
                 case SignInStatus.Success:
+                    var usuario = await UserManager.FindByEmailAsync(loginInfo.Email);
+                    if (usuario != null)
+                    {
+                        usuario.UltimaConexion = DateTime.Now;
+                        await UserManager.UpdateAsync(usuario);
+                    }
                     return RedirectToLocal(returnUrl);
                 case SignInStatus.LockedOut:
                     return View("Lockout");
@@ -367,7 +399,14 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    Nombre = model.Email,
+                    Activo = true,
+                    UltimaConexion = DateTime.Now
+                };
                 var result = await UserManager.CreateAsync(user);
                 if (result.Succeeded)
                 {

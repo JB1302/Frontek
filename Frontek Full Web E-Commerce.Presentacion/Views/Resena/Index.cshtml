@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Frontek_Full_Web_E_Commerce.Domain.Entities.Resena>
+﻿@model IEnumerable<Frontek_Full_Web_E_Commerce.Presentacion.Models.ResenaViewModel>
 
 @{
     ViewBag.Title = "Gestion de Resenas";
@@ -16,13 +16,13 @@
         <span class="badge badge-danger">Rechazadas: @ViewBag.TotalRechazadas</span>
     </div>
 
-    @if (ViewBag.Mensaje != null)
+    @if (TempData["Mensaje"] != null)
     {
-        <div class="alert alert-success">@ViewBag.Mensaje</div>
+        <div class="alert alert-success">@TempData["Mensaje"]</div>
     }
-    @if (ViewBag.Error != null)
+    @if (TempData["Error"] != null)
     {
-        <div class="alert alert-danger">@ViewBag.Error</div>
+        <div class="alert alert-danger">@TempData["Error"]</div>
     }
 
     <div class="table-responsive">
@@ -61,8 +61,8 @@
 
                         <tr>
                             <td>@r.Id</td>
-                            <td><strong>@r.Producto.NombreProducto</strong></td>
-                            <td>@r.Usuario.Nombre</td>
+                            <td><strong>@r.NombreProducto</strong></td>
+                            <td>@r.NombreUsuario</td>
                             <td>@r.Titulo</td>
                             <td>
                                 <span title="@r.Cuerpo">

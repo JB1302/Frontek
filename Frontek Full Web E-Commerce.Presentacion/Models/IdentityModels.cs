@@ -1,15 +1,17 @@
-﻿using System.Data.Entity;
+﻿using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.EntityFramework;
+using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.EntityFramework;
 
 namespace Frontek_Full_Web_E_Commerce.Presentacion.Models
 {
     public class ApplicationUser : IdentityUser
     {
         public string Nombre { get; set; }
-        public bool Activo { get; internal set; }
+        public bool Activo { get; set; }
+        public DateTime? UltimaConexion { get; set; }
 
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
