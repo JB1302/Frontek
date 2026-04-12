@@ -1,38 +1,38 @@
 using System.Linq;
 using System.Web.Mvc;
-
 using Unity.AspNet.Mvc;
 
-[assembly: WebActivatorEx.PreApplicationStartMethod(typeof(Frontek_Full_Web_E_Commerce.Presentacion.UnityMvcActivator), nameof(Frontek_Full_Web_E_Commerce.Presentacion.UnityMvcActivator.Start))]
-[assembly: WebActivatorEx.ApplicationShutdownMethod(typeof(Frontek_Full_Web_E_Commerce.Presentacion.UnityMvcActivator), nameof(Frontek_Full_Web_E_Commerce.Presentacion.UnityMvcActivator.Shutdown))]
+[assembly: WebActivatorEx.PreApplicationStartMethod(
+    typeof(Frontek_Full_Web_E_Commerce.Presentacion.UnityMvcActivator),
+    nameof(Frontek_Full_Web_E_Commerce.Presentacion.UnityMvcActivator.Start))]
+[assembly: WebActivatorEx.ApplicationShutdownMethod(
+    typeof(Frontek_Full_Web_E_Commerce.Presentacion.UnityMvcActivator),
+    nameof(Frontek_Full_Web_E_Commerce.Presentacion.UnityMvcActivator.Shutdown))]
 
 namespace Frontek_Full_Web_E_Commerce.Presentacion
 {
-    /// <summary>
-    /// Provides the bootstrapping for integrating Unity with ASP.NET MVC.
-    /// </summary>
     public static class UnityMvcActivator
     {
-        /// <summary>
-        /// Integrates Unity when the application starts.
-        /// </summary>
-        public static void Start() 
+        public static void Start()
         {
-            FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
-            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(UnityConfig.Container));
+            var container = Frontek_Full_Web_E_Commerce.IoC.UnityConfig.Container;
 
-            DependencyResolver.SetResolver(new UnityDependencyResolver(UnityConfig.Container));
+            var defaultFilterProvider = FilterProviders.Providers
+                .OfType<FilterAttributeFilterProvider>()
+                .FirstOrDefault();
 
-            // TODO: Uncomment if you want to use PerRequestLifetimeManager
-            // Microsoft.Web.Infrastructure.DynamicModuleHelper.DynamicModuleUtility.RegisterModule(typeof(UnityPerRequestHttpModule));
+            if (defaultFilterProvider != null)
+            {
+                FilterProviders.Providers.Remove(defaultFilterProvider);
+            }
+
+            FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(container));
+            DependencyResolver.SetResolver(new UnityDependencyResolver(container));
         }
 
-        /// <summary>
-        /// Disposes the Unity container when the application is shut down.
-        /// </summary>
         public static void Shutdown()
         {
-            UnityConfig.Container.Dispose();
+            Frontek_Full_Web_E_Commerce.IoC.UnityConfig.Container.Dispose();
         }
     }
 }

@@ -1,7 +1,4 @@
-﻿using Frontek_Full_Web_E_Commerce.Domain.Utils;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+﻿using System;
 
 namespace Frontek_Full_Web_E_Commerce.Domain.Entities
 {

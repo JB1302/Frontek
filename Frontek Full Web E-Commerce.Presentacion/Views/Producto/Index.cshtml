@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Frontek_Full_Web_E_Commerce.Models.Producto>
+﻿@model IEnumerable<Frontek_Full_Web_E_Commerce.Domain.Entities.Producto>
 
 @{
     ViewBag.Title = "Productos";
@@ -54,7 +54,7 @@
                             </td>
                             <td>@producto.NombreProducto</td>
                             <td>₡@producto.Precio.ToString("N2")</td>
-                            <td><
+                            <td>
                                 @if (producto.Stock <= 0)
                                 {
                                     <span class="badge bg-danger">Agotado</span>

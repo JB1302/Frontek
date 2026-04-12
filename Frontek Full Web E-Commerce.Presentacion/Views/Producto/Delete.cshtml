@@ -1,5 +1,4 @@
-@model Frontek_Full_Web_E_Commerce.Models.Producto
-
+@model IEnumerable<Frontek_Full_Web_E_Commerce.Domain.Entities.Producto>
 @{
     ViewBag.Title = "Eliminar Producto";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -8,7 +7,10 @@
 <style>
     @@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
 
-    body { font-family: 'DM Sans', sans-serif; background: #f8f8f8; }
+    body {
+        font-family: 'DM Sans', sans-serif;
+        background: #f8f8f8;
+    }
 
     .page-header {
         background: #1a1a2e;
@@ -17,7 +19,11 @@
         margin-bottom: 36px;
     }
 
-    .page-header h2 { font-size: 1.8rem; font-weight: 600; margin: 0; }
+        .page-header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+        }
 
     .confirm-card {
         background: white;
@@ -47,7 +53,11 @@
         margin-bottom: 6px;
     }
 
-    .confirm-card p { color: #777; font-size: 0.92rem; margin-bottom: 28px; }
+    .confirm-card p {
+        color: #777;
+        font-size: 0.92rem;
+        margin-bottom: 28px;
+    }
 
     .product-summary {
         background: #f8f8f8;
@@ -65,9 +75,19 @@
         border-bottom: 1px solid #eee;
     }
 
-    .product-summary-row:last-child { border-bottom: none; }
-    .product-summary-row span:first-child { color: #999; font-weight: 500; }
-    .product-summary-row span:last-child { color: #333; font-weight: 600; }
+        .product-summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .product-summary-row span:first-child {
+            color: #999;
+            font-weight: 500;
+        }
+
+        .product-summary-row span:last-child {
+            color: #333;
+            font-weight: 600;
+        }
 
     .product-img-preview {
         width: 80px;
@@ -89,7 +109,9 @@
         cursor: pointer;
     }
 
-    .btn-delete:hover { background: #c0392b; }
+        .btn-delete:hover {
+            background: #c0392b;
+        }
 
     .btn-cancel {
         border: 1.5px solid #ddd;
@@ -103,7 +125,11 @@
         display: inline-block;
     }
 
-    .btn-cancel:hover { border-color: #1a1a2e; color: #1a1a2e; text-decoration: none; }
+        .btn-cancel:hover {
+            border-color: #1a1a2e;
+            color: #1a1a2e;
+            text-decoration: none;
+        }
 </style>
 
 <div class="page-header">

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations;
 
 namespace Frontek_Full_Web_E_Commerce.Domain.Entities
 {

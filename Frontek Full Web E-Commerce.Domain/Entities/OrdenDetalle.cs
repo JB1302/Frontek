@@ -1,7 +1,4 @@
-﻿using Frontek_Full_Web_E_Commerce.Models;
-using System.ComponentModel.DataAnnotations;
-
-namespace Frontek_Full_Web_E_Commerce.Domain.Entities  // ← solo cambiar esto
+﻿namespace Frontek_Full_Web_E_Commerce.Domain.Entities  
 {
     public class OrdenDetalle
     {

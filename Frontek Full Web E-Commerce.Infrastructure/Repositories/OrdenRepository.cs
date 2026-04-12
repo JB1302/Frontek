@@ -15,28 +15,31 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Repositories
         {
             _context = context;
         }
+
         public void Add(Orden orden)
         {
             _context.Ordenes.Add(orden);
         }
+
         public void Delete(Orden orden)
         {
             _context.Ordenes.Remove(orden);
         }
+
         public Orden GetById(int id)
         {
             return _context.Ordenes
                 .Include(o => o.Detalles)
-                .Include(o => o.NombreCliente)
                 .SingleOrDefault(o => o.OrdenId == id);
         }
+
         public IEnumerable<Orden> GetAll()
         {
             return _context.Ordenes
-                .Include(o => o.NombreCliente)
                 .OrderByDescending(o => o.FechaCreacion)
                 .ToList();
         }
+
         public IEnumerable<Orden> GetByUserId(string userId)
         {
             return _context.Ordenes
@@ -44,10 +47,12 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Repositories
                 .OrderByDescending(o => o.FechaCreacion)
                 .ToList();
         }
+
         public void Save()
         {
             _context.SaveChanges();
         }
+
         public void Update(Orden orden)
         {
             _context.Entry(orden).State = EntityState.Modified;

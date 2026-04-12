@@ -1,4 +1,4 @@
-@model Frontek_Full_Web_E_Commerce.Models.Producto
+@model IEnumerable<Frontek_Full_Web_E_Commerce.Domain.Entities.Producto>
 
 @{
     ViewBag.Title = "Editar Producto";
@@ -8,7 +8,9 @@
 <style>
     @@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
 
-    body, .form-control, .btn, label { font-family: 'DM Sans', sans-serif; }
+    body, .form-control, .btn, label {
+        font-family: 'DM Sans', sans-serif;
+    }
 
     .page-header {
         background: #1a1a2e;
@@ -17,7 +19,11 @@
         margin-bottom: 36px;
     }
 
-    .page-header h2 { font-size: 1.8rem; font-weight: 600; margin: 0; }
+        .page-header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+        }
 
     .form-card {
         background: white;
@@ -47,9 +53,17 @@
         transition: border-color 0.2s;
     }
 
-    .form-control:focus { border-color: #1a1a2e; box-shadow: none; }
+        .form-control:focus {
+            border-color: #1a1a2e;
+            box-shadow: none;
+        }
 
-    label { font-size: 0.88rem; font-weight: 500; color: #444; margin-bottom: 5px; }
+    label {
+        font-size: 0.88rem;
+        font-weight: 500;
+        color: #444;
+        margin-bottom: 5px;
+    }
 
     .img-preview-wrap {
         border: 2px dashed #ddd;
@@ -65,11 +79,26 @@
         position: relative;
     }
 
-    .img-preview-wrap:hover { border-color: #1a1a2e; }
-    .img-preview-wrap img { width: 100%; height: 100%; object-fit: cover; border-radius: 10px; }
+        .img-preview-wrap:hover {
+            border-color: #1a1a2e;
+        }
 
-    .img-placeholder { text-align: center; color: #bbb; font-size: 0.8rem; }
-    .img-placeholder svg { margin-bottom: 6px; }
+        .img-preview-wrap img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 10px;
+        }
+
+    .img-placeholder {
+        text-align: center;
+        color: #bbb;
+        font-size: 0.8rem;
+    }
+
+        .img-placeholder svg {
+            margin-bottom: 6px;
+        }
 
     .img-change-overlay {
         position: absolute;
@@ -86,7 +115,9 @@
         border-radius: 10px;
     }
 
-    .img-preview-wrap:hover .img-change-overlay { opacity: 1; }
+    .img-preview-wrap:hover .img-change-overlay {
+        opacity: 1;
+    }
 
     .btn-guardar {
         background: #1a1a2e;
@@ -99,7 +130,10 @@
         transition: background 0.2s;
     }
 
-    .btn-guardar:hover { background: #e94560; color: white; }
+        .btn-guardar:hover {
+            background: #e94560;
+            color: white;
+        }
 
     .btn-volver {
         border: 1.5px solid #ddd;
@@ -111,7 +145,10 @@
         transition: all 0.2s;
     }
 
-    .btn-volver:hover { border-color: #1a1a2e; color: #1a1a2e; }
+        .btn-volver:hover {
+            border-color: #1a1a2e;
+            color: #1a1a2e;
+        }
 </style>
 
 <div class="page-header">
