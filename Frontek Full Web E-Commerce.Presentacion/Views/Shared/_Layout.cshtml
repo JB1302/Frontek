@@ -1,5 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
-@using Frontek_Full_Web_E_Commerce.Models.Carrito
+@using Frontek_Full_Web_E_Commerce.Domain.Entities
 
 @{
     var carrito = Session["Carrito"] as List<CarritoItem>;
@@ -134,16 +134,16 @@
 
                             if (User.IsInRole("Cliente"))
                             {
-                    <a href="@Url.Action("Index", "Carrito")" class="icon-btn icon-badge">
-                        <i class="bi bi-bag-check fs-5"></i>
+                                <a href="@Url.Action("Index", "Carrito")" class="icon-btn icon-badge">
+                                    <i class="bi bi-bag-check fs-5"></i>
 
-                        @if (cantidadCarrito > 0)
-                        {
-                            <span class="icon-badge-count">@cantidadCarrito</span>
-                        }
+                                    @if (cantidadCarrito > 0)
+                                    {
+                                        <span class="icon-badge-count">@cantidadCarrito</span>
+                                    }
 
-                        <span class="d-none d-sm-inline">Carrito</span>
-                    </a>
+                                    <span class="d-none d-sm-inline">Carrito</span>
+                                </a>
                             }
 
                             using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "logout-form" }))

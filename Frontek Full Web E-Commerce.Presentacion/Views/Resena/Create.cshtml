@@ -1,9 +1,9 @@
-﻿@model IEnumerable<Frontek_Full_Web_E_Commerce.Domain.Entities.Resena>
+﻿﻿@model Frontek_Full_Web_E_Commerce.Domain.Entities.Resena
 
 @{
     ViewBag.Title = "Escribir Resena";
     Layout = "~/Views/Shared/_Layout.cshtml";
-    var producto = ViewBag.Producto as Frontek_Full_Web_E_Commerce.Models.Producto;
+    var producto = ViewBag.Producto as Frontek_Full_Web_E_Commerce.Domain.Entities.Producto;
     int productoId = ViewBag.ProductoId != null ? (int)ViewBag.ProductoId : 0;
 }
 

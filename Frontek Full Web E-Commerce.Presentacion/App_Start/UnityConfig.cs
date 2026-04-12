@@ -1,8 +1,6 @@
 using Frontek_Full_Web_E_Commerce.Application.Interfaces;
 using Frontek_Full_Web_E_Commerce.Application.Services;
 using Frontek_Full_Web_E_Commerce.Domain.Repositories;
-using Frontek_Full_Web_E_Commerce.Presentacion.Models;
-using System;
 using Unity;
 
 

@@ -24,7 +24,7 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion
 
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/bootstrap.css",
-                      "~/Content/site.css"));
+                      "~/Content/Site.css"));
         }
     }
 }
