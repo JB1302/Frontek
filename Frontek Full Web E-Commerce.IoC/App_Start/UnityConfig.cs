@@ -4,21 +4,13 @@ using Frontek_Full_Web_E_Commerce.Domain.Repositories;
 using Frontek_Full_Web_E_Commerce.Infrastructure.Data;
 using Frontek_Full_Web_E_Commerce.Infrastructure.Repositories;
 using System;
-using System.Web.Mvc;
 using Unity;
-using Unity.AspNet.Mvc;
 using Unity.Lifetime;
 
 namespace Frontek_Full_Web_E_Commerce.IoC
 {
-    /// <summary>
-    /// Specifies the Unity configuration for the main container.
-    /// </summary>
     public static class UnityConfig
     {
-
-
-
         private static readonly Lazy<IUnityContainer> container =
             new Lazy<IUnityContainer>(() =>
             {
@@ -27,15 +19,11 @@ namespace Frontek_Full_Web_E_Commerce.IoC
                 return unityContainer;
             });
 
-
         public static IUnityContainer Container => container.Value;
 
         public static void RegisterTypes(IUnityContainer container)
         {
-
             container.RegisterType<ApplicationDbContext>(new HierarchicalLifetimeManager());
-
-
 
             // Repositorios
             container.RegisterType<IProductoRepository, ProductoRepository>();
@@ -43,11 +31,10 @@ namespace Frontek_Full_Web_E_Commerce.IoC
             container.RegisterType<IResenaRepository, ResenaRepository>();
             container.RegisterType<ITarjetaRepository, TarjetaRepository>();
 
-
+            // Servicios
             container.RegisterType<IProductoService, ProductoService>();
             container.RegisterType<IOrdenService, OrdenService>();
             container.RegisterType<IResenaService, ResenaService>();
-
             container.RegisterType<ITarjetaService, TarjetaService>();
         }
     }
