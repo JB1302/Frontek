@@ -17,30 +17,30 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Repositories
         }
         public void Add(Producto producto)
         {
-            _context.Producto.Add(producto);
+            _context.Productos.Add(producto);
         }
         public void Delete(Producto producto)
         {
-            _context.Producto.Remove(producto);
+            _context.Productos.Remove(producto);
         }
         public bool ExistsName(string nombre, int? idExcluir = null)
         {
-            return _context.Producto.Any(p =>
+            return _context.Productos.Any(p =>
                 p.NombreProducto == nombre &&
                 (!idExcluir.HasValue || p.Id != idExcluir.Value));
         }
         public Producto GetById(int id)
         {
-            return _context.Producto
+            return _context.Productos
                 .SingleOrDefault(p => p.Id == id);
         }
         public IEnumerable<Producto> GetAll()
         {
-            return _context.Producto.ToList();
+            return _context.Productos.ToList();
         }
         public IEnumerable<Producto> GetActive()
         {
-            return _context.Producto
+            return _context.Productos
                 .Where(p => p.Activo)
                 .ToList();
         }

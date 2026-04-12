@@ -1,4 +1,4 @@
-﻿@model Frontek.Models.VerifyCodeViewModel
+﻿﻿@model Frontek_Full_Web_E_Commerce.Presentacion.Models.VerifyCodeViewModel
 @{
     ViewBag.Title = "Verificar";
 }
@@ -6,7 +6,8 @@
 <main aria-labelledby="title">
     <h2 id="title">@ViewBag.Title.</h2>
 
-    @using (Html.BeginForm("VerifyCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { role = "form" })) {
+    @using (Html.BeginForm("VerifyCode", "Account", new { ReturnUrl = Model.ReturnUrl }, FormMethod.Post, new { role = "form" }))
+    {
         @Html.AntiForgeryToken()
         @Html.Hidden("provider", @Model.Provider)
         @Html.Hidden("rememberMe", @Model.RememberMe)
