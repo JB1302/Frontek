@@ -1,44 +1,16 @@
 using Frontek_Full_Web_E_Commerce.Application.Interfaces;
 using Frontek_Full_Web_E_Commerce.Application.Services;
 using Frontek_Full_Web_E_Commerce.Domain.Repositories;
-using Frontek_Full_Web_E_Commerce.Infrastructure.Data;
-using Frontek_Full_Web_E_Commerce.Infrastructure.Repositories;
 using Frontek_Full_Web_E_Commerce.Presentacion.Models;
 using System;
-using System.Web.Mvc;
 using Unity;
-using Unity.AspNet.Mvc;
-using Unity.Lifetime;
 
-namespace Frontek_Full_Web_E_Commerce.IoC
+
+namespace Frontek_Full_Web_E_Commerce.Presentacion
 {
     public static class UnityConfig
     {
-        private static readonly Lazy<IUnityContainer> container =
-            new Lazy<IUnityContainer>(() =>
-            {
-                var unityContainer = new UnityContainer();
-                RegisterTypes(unityContainer);
-                return unityContainer;
-            });
-
-        public static IUnityContainer Container => container.Value;
-
-        public static void RegisterTypes(IUnityContainer container)
-        {
-            container.RegisterType<ApplicationDbContext>(new HierarchicalLifetimeManager());
-
-            // Repositorios
-            container.RegisterType<IProductoRepository, ProductoRepository>();
-            container.RegisterType<IOrdenRepository, OrdenRepository>();
-            container.RegisterType<IResenaRepository, ResenaRepository>();
-            container.RegisterType<ITarjetaRepository, TarjetaRepository>();
-
-            // Servicios
-            container.RegisterType<IProductoService, ProductoService>();
-            container.RegisterType<IOrdenService, OrdenService>();
-            container.RegisterType<IResenaService, ResenaService>();
-            container.RegisterType<ITarjetaService, TarjetaService>();
-        }
+        public static IUnityContainer Container => Frontek_Full_Web_E_Commerce.IoC.UnityConfig.Container;
     }
+
 }
