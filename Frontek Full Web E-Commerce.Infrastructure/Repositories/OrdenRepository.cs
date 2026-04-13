@@ -1,6 +1,7 @@
 ﻿using Frontek_Full_Web_E_Commerce.Domain.Entities;
 using Frontek_Full_Web_E_Commerce.Domain.Repositories;
 using Frontek_Full_Web_E_Commerce.Infrastructure.Data;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -50,12 +51,29 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Repositories
 
         public void Save()
         {
-            _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (System.Data.Entity.Validation.DbEntityValidationException ex)
+            {
+                var errores = string.Join("\n", ex.EntityValidationErrors
+                    .SelectMany(e => e.ValidationErrors)
+                    .Select(e => $"{e.PropertyName}: {e.ErrorMessage}"));
+
+                throw new InvalidOperationException("Errores de validacion:\n" + errores);
+            }
         }
 
-        public void Update(Orden orden)
+        public void Update(Orden ordenEditada)
         {
-            _context.Entry(orden).State = EntityState.Modified;
+            var local = _context.Set<Orden>().Local
+                                .FirstOrDefault(o => o.OrdenId == ordenEditada.OrdenId);
+
+            if (local != null)
+                _context.Entry(local).State = EntityState.Detached;
+
+            _context.Entry(ordenEditada).State = EntityState.Modified;
         }
     }
 }

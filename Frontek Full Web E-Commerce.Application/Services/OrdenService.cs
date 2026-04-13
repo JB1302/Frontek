@@ -27,10 +27,30 @@ namespace Frontek_Full_Web_E_Commerce.Application.Services
             _ordenRepository.Save();
         }
 
+        public void EditarOrden(Orden orden)
+        {
+            var existente = _ordenRepository.GetById(orden.OrdenId);
+            if (existente == null)
+                throw new InvalidOperationException("La orden no existe");
+
+            existente.NombreCliente = orden.NombreCliente;
+            existente.EmailCliente = orden.EmailCliente;
+            existente.DireccionEnvio = orden.DireccionEnvio;
+            existente.Ciudad = orden.Ciudad;
+            existente.Pais = orden.Pais;
+            existente.Total = orden.Total;
+            existente.MetodoPago = orden.MetodoPago;
+            existente.Estado = orden.Estado;
+            existente.FechaEntregaEstimada = orden.FechaEntregaEstimada;
+            existente.IdUsuario = orden.IdUsuario;
+
+            _ordenRepository.Update(existente);
+            _ordenRepository.Save();
+        }
+
         public void ActualizarEstado(int ordenId, string nuevoEstado)
         {
             var orden = _ordenRepository.GetById(ordenId);
-
             if (orden == null)
                 throw new InvalidOperationException("La orden no existe");
 
@@ -42,7 +62,6 @@ namespace Frontek_Full_Web_E_Commerce.Application.Services
         public void EliminarOrden(int id)
         {
             var orden = _ordenRepository.GetById(id);
-
             if (orden == null)
                 throw new InvalidOperationException("La orden no existe");
 

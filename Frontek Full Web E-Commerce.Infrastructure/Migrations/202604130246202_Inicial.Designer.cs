@@ -7,13 +7,13 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.5.1")]
-    public sealed partial class configDeDB : IMigrationMetadata
+    public sealed partial class Inicial : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(configDeDB));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(Inicial));
         
         string IMigrationMetadata.Id
         {
-            get { return "202604120729229_configDeDB"; }
+            get { return "202604130246202_Inicial"; }
         }
         
         string IMigrationMetadata.Source

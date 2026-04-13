@@ -12,10 +12,23 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
     public class OrdenesController : Controller
     {
         private readonly IOrdenService _ordenService;
+        private readonly Frontek_Full_Web_E_Commerce.Infrastructure.Data.ApplicationDbContext _db;
 
-        public OrdenesController(IOrdenService ordenService)
+        public OrdenesController(
+            IOrdenService ordenService,
+            Frontek_Full_Web_E_Commerce.Infrastructure.Data.ApplicationDbContext db)
         {
             _ordenService = ordenService;
+            _db = db;
+        }
+
+        private SelectList GetUsuariosSelectList(string selectedId = null)
+        {
+            var usuarios = _db.Users
+                .Select(u => new { u.Id, u.UserName })
+                .ToList();
+
+            return new SelectList(usuarios, "Id", "UserName", selectedId);
         }
 
         [Authorize(Roles = "Administrador,Vendedor")]
@@ -43,20 +56,14 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
         public ActionResult Details(int? id)
         {
             if (!id.HasValue)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
             var orden = _ordenService.ObtenerPorId(id.Value);
             if (orden == null)
-            {
                 return HttpNotFound();
-            }
 
             if (User.IsInRole("Cliente") && orden.IdUsuario != User.Identity.GetUserId())
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.Forbidden);
-            }
 
             return View(orden);
         }
@@ -64,7 +71,7 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
         [Authorize(Roles = "Administrador,Vendedor")]
         public ActionResult Create()
         {
-            ViewBag.IdUsuario = new SelectList(Enumerable.Empty<SelectListItem>());
+            ViewBag.IdUsuario = GetUsuariosSelectList();
             return View(new Orden { FechaEntregaEstimada = DateTime.Now.AddDays(5) });
         }
 
@@ -75,7 +82,7 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.IdUsuario = new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text", orden.IdUsuario);
+                ViewBag.IdUsuario = GetUsuariosSelectList(orden.IdUsuario);
                 return View(orden);
             }
 
@@ -88,7 +95,7 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
             catch (InvalidOperationException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                ViewBag.IdUsuario = new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text", orden.IdUsuario);
+                ViewBag.IdUsuario = GetUsuariosSelectList(orden.IdUsuario);
                 return View(orden);
             }
         }
@@ -97,17 +104,13 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
         public ActionResult Edit(int? id)
         {
             if (!id.HasValue)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
             var orden = _ordenService.ObtenerPorId(id.Value);
             if (orden == null)
-            {
                 return HttpNotFound();
-            }
 
-            ViewBag.IdUsuario = new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text", orden.IdUsuario);
+            ViewBag.IdUsuario = GetUsuariosSelectList(orden.IdUsuario);
             return View(orden);
         }
 
@@ -118,26 +121,20 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
         {
             if (!ModelState.IsValid)
             {
-                ViewBag.IdUsuario = new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text", orden.IdUsuario);
+                ViewBag.IdUsuario = GetUsuariosSelectList(orden.IdUsuario);
                 return View(orden);
-            }
-
-            var actual = _ordenService.ObtenerPorId(orden.OrdenId);
-            if (actual == null)
-            {
-                return HttpNotFound();
             }
 
             try
             {
-                _ordenService.ActualizarEstado(orden.OrdenId, orden.Estado);
-                TempData["Mensaje"] = "Estado de la orden actualizado correctamente.";
+                _ordenService.EditarOrden(orden);
+                TempData["Mensaje"] = "Orden actualizada correctamente.";
                 return RedirectToAction("Index");
             }
             catch (InvalidOperationException ex)
             {
                 ModelState.AddModelError(string.Empty, ex.Message);
-                ViewBag.IdUsuario = new SelectList(Enumerable.Empty<SelectListItem>(), "Value", "Text", orden.IdUsuario);
+                ViewBag.IdUsuario = GetUsuariosSelectList(orden.IdUsuario);
                 return View(orden);
             }
         }
@@ -146,15 +143,11 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
         public ActionResult Delete(int? id)
         {
             if (!id.HasValue)
-            {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
 
             var orden = _ordenService.ObtenerPorId(id.Value);
             if (orden == null)
-            {
                 return HttpNotFound();
-            }
 
             return View(orden);
         }

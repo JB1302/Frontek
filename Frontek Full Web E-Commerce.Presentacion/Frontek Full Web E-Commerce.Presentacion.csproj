@@ -14,7 +14,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Frontek_Full_Web_E_Commerce.Presentacion</RootNamespace>
     <AssemblyName>Frontek Full Web E-Commerce.Presentacion</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MvcBuildViews>false</MvcBuildViews>
     <UseIISExpress>true</UseIISExpress>
     <Use64BitIISExpress />
@@ -25,6 +25,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -99,8 +100,6 @@
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
-    <Reference Include="System.Core" />
-    <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Helpers, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.Helpers.dll</HintPath>
     </Reference>
@@ -119,9 +118,7 @@
     <Reference Include="System.Web.WebPages.Razor, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.AspNet.WebPages.3.3.0\lib\net45\System.Web.WebPages.Razor.dll</HintPath>
     </Reference>
-    <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Web" />
-    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Abstractions" />
     <Reference Include="System.Web.Routing" />
     <Reference Include="System.Xml" />
@@ -335,6 +332,10 @@
     <ProjectReference Include="..\Frontek Full Web E-Commerce.Domain\Frontek Full Web E-Commerce.Domain.csproj">
       <Project>{11f5adc9-84ea-4dc3-bd65-3b38f157a115}</Project>
       <Name>Frontek Full Web E-Commerce.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Frontek Full Web E-Commerce.Infrastructure\Frontek Full Web E-Commerce.Infrastructure.csproj">
+      <Project>{8fe34ea6-9623-4b15-b2b1-11f08bc8b354}</Project>
+      <Name>Frontek Full Web E-Commerce.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="..\Frontek Full Web E-Commerce.IoC\Frontek Full Web E-Commerce.IoC.csproj">
       <Project>{007347d8-9b91-410f-81a6-e2ecf582f15d}</Project>

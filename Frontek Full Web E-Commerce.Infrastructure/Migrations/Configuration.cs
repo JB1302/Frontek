@@ -14,10 +14,7 @@
 
         protected override void Seed(Frontek_Full_Web_E_Commerce.Infrastructure.Data.ApplicationDbContext context)
         {
-            //  This method will be called after migrating to the latest version.
-
-            //  You can use the DbSet<T>.AddOrUpdate() helper extension method
-            //  to avoid creating duplicate seed data.
+            Frontek_Full_Web_E_Commerce.Infrastructure.Identity.IdentitySeeder.Seed(context);
         }
     }
 }

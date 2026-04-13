@@ -62,9 +62,9 @@
     <Compile Include="Data\DbInitializer.cs" />
     <Compile Include="Identity\AplicationUser.cs" />
     <Compile Include="Identity\IdentitySeeder.cs" />
-    <Compile Include="Migrations\202604120729229_configDeDB.cs" />
-    <Compile Include="Migrations\202604120729229_configDeDB.Designer.cs">
-      <DependentUpon>202604120729229_configDeDB.cs</DependentUpon>
+    <Compile Include="Migrations\202604130246202_Inicial.cs" />
+    <Compile Include="Migrations\202604130246202_Inicial.Designer.cs">
+      <DependentUpon>202604130246202_Inicial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,8 +84,8 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202604120729229_configDeDB.resx">
-      <DependentUpon>202604120729229_configDeDB.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202604130246202_Inicial.resx">
+      <DependentUpon>202604130246202_Inicial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

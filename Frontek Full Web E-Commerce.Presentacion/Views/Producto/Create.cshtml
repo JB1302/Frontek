@@ -143,6 +143,7 @@
         @using (Html.BeginForm("Create", "Producto", FormMethod.Post, new { enctype = "multipart/form-data" }))
         {
             @Html.AntiForgeryToken()
+            @Html.HiddenFor(m => m.FechaIngreso)
             @Html.ValidationSummary(true, "", new { @class = "alert alert-danger rounded-3 mb-4" })
 
             <p class="section-label">Información general</p>
@@ -153,20 +154,15 @@
                     @Html.TextBoxFor(m => m.NombreProducto, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.NombreProducto, "", new { @class = "text-danger small" })
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label>Precio</label>
                     @Html.TextBoxFor(m => m.Precio, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Precio, "", new { @class = "text-danger small" })
                 </div>
-                <div class="col-md-4">
+                <div class="col-md-6">
                     <label>Stock</label>
                     @Html.TextBoxFor(m => m.Stock, new { @class = "form-control" })
                     @Html.ValidationMessageFor(m => m.Stock, "", new { @class = "text-danger small" })
-                </div>
-                <div class="col-md-4">
-                    <label>@Html.DisplayNameFor(m => m.FechaIngreso)</label>
-                    @Html.TextBoxFor(m => m.FechaIngreso, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
-                    @Html.ValidationMessageFor(m => m.FechaIngreso, "", new { @class = "text-danger small" })
                 </div>
                 <div class="col-md-6">
                     <div class="form-check mt-2">

@@ -47,12 +47,12 @@
                                 <span class="badge bg-secondary">@item.Estado</span>
                             </td>
                             <td>@item.MetodoPago</td>
-                            <td class="text-end">
-                                @Html.ActionLink("Ver", "Details", new { id = item.OrdenId }, new { @class = "btn btn-sm btn-outline-secondary me-2" })
+                            <td class="text-end text-nowrap">
+                                @Html.ActionLink("Ver", "Details", new { id = item.OrdenId }, new { @class = "btn btn-sm btn-outline-secondary me-1" })
 
                                 @if (User.IsInRole("Administrador") || User.IsInRole("Vendedor"))
                                 {
-                                    @Html.ActionLink("Editar", "Edit", new { id = item.OrdenId }, new { @class = "btn btn-sm btn-outline-primary me-2" })
+                                    @Html.ActionLink("Editar", "Edit", new { id = item.OrdenId }, new { @class = "btn btn-sm btn-outline-primary me-1" })
                                     @Html.ActionLink("Eliminar", "Delete", new { id = item.OrdenId }, new { @class = "btn btn-sm btn-outline-danger" })
                                 }
                             </td>

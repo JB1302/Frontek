@@ -6,6 +6,7 @@ namespace Frontek_Full_Web_E_Commerce.Application.Interfaces
     public interface IOrdenService
     {
         void CrearOrden(Orden orden);
+        void EditarOrden(Orden orden);
         void ActualizarEstado(int ordenId, string nuevoEstado);
         void EliminarOrden(int id);
         IEnumerable<Orden> ListarOrdenes();

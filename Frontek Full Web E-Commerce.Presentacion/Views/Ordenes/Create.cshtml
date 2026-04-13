@@ -1,4 +1,4 @@
-﻿﻿@model Frontek_Full_Web_E_Commerce.Domain.Entities.Orden
+﻿@model Frontek_Full_Web_E_Commerce.Domain.Entities.Orden
 
 @{
     ViewBag.Title = "Nueva orden";
@@ -13,63 +13,69 @@
                 @using (Html.BeginForm())
                 {
                     @Html.AntiForgeryToken()
+                    @Html.HiddenFor(m => m.NumeroOrden)
 
                     @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
 
                     <div class="row g-3">
                         <div class="col-md-6">
-                            @Html.LabelFor(m => m.NumeroOrden, new { @class = "form-label fw-semibold" })
-                            @Html.TextBoxFor(m => m.NumeroOrden, new { @class = "form-control" })
-                        </div>
-
-                        <div class="col-md-6">
                             @Html.LabelFor(m => m.IdUsuario, "Usuario", new { @class = "form-label fw-semibold" })
                             @Html.DropDownList("IdUsuario", null, "Seleccione un usuario", new { @class = "form-select" })
+                            @Html.ValidationMessageFor(m => m.IdUsuario, "", new { @class = "text-danger small" })
                         </div>
 
                         <div class="col-md-6">
                             @Html.LabelFor(m => m.NombreCliente, new { @class = "form-label fw-semibold" })
                             @Html.TextBoxFor(m => m.NombreCliente, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.NombreCliente, "", new { @class = "text-danger small" })
                         </div>
 
                         <div class="col-md-6">
                             @Html.LabelFor(m => m.EmailCliente, new { @class = "form-label fw-semibold" })
                             @Html.TextBoxFor(m => m.EmailCliente, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.EmailCliente, "", new { @class = "text-danger small" })
                         </div>
 
                         <div class="col-md-12">
                             @Html.LabelFor(m => m.DireccionEnvio, new { @class = "form-label fw-semibold" })
                             @Html.TextBoxFor(m => m.DireccionEnvio, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.DireccionEnvio, "", new { @class = "text-danger small" })
                         </div>
 
                         <div class="col-md-6">
                             @Html.LabelFor(m => m.Ciudad, new { @class = "form-label fw-semibold" })
                             @Html.TextBoxFor(m => m.Ciudad, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Ciudad, "", new { @class = "text-danger small" })
                         </div>
 
                         <div class="col-md-6">
                             @Html.LabelFor(m => m.Pais, new { @class = "form-label fw-semibold" })
                             @Html.TextBoxFor(m => m.Pais, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Pais, "", new { @class = "text-danger small" })
                         </div>
 
                         <div class="col-md-4">
                             @Html.LabelFor(m => m.Total, new { @class = "form-label fw-semibold" })
-                            @Html.TextBoxFor(m => m.Total, new { @class = "form-control", type = "number", step = "0.01" })
+                            @Html.TextBoxFor(m => m.Total, "{0:F2}", new { @class = "form-control", type = "number", step = "0.01", min = "0" })
+                            @Html.ValidationMessageFor(m => m.Total, "", new { @class = "text-danger small" })
                         </div>
 
                         <div class="col-md-4">
                             @Html.LabelFor(m => m.MetodoPago, new { @class = "form-label fw-semibold" })
                             @Html.TextBoxFor(m => m.MetodoPago, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.MetodoPago, "", new { @class = "text-danger small" })
                         </div>
 
                         <div class="col-md-4">
                             @Html.LabelFor(m => m.Estado, new { @class = "form-label fw-semibold" })
                             @Html.TextBoxFor(m => m.Estado, new { @class = "form-control" })
+                            @Html.ValidationMessageFor(m => m.Estado, "", new { @class = "text-danger small" })
                         </div>
 
                         <div class="col-md-6">
                             @Html.LabelFor(m => m.FechaEntregaEstimada, new { @class = "form-label fw-semibold" })
                             @Html.TextBoxFor(m => m.FechaEntregaEstimada, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+                            @Html.ValidationMessageFor(m => m.FechaEntregaEstimada, "", new { @class = "text-danger small" })
                         </div>
                     </div>
 

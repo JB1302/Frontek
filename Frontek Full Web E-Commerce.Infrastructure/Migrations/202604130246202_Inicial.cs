@@ -3,7 +3,7 @@
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class configDeDB : DbMigration
+    public partial class Inicial : DbMigration
     {
         public override void Up()
         {

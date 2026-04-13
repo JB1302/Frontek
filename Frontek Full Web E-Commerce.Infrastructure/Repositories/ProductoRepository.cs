@@ -50,6 +50,12 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Repositories
         }
         public void Update(Producto producto)
         {
+            var local = _context.Set<Producto>().Local
+                                .FirstOrDefault(p => p.Id == producto.Id);
+
+            if (local != null)
+                _context.Entry(local).State = EntityState.Detached;
+
             _context.Entry(producto).State = EntityState.Modified;
         }
     }
