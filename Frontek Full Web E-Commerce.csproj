@@ -320,9 +320,7 @@
     <Content Include="Views\Manage\VerifyPhoneNumber.cshtml" />
     <Content Include="Views\Resena\Create.cshtml" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\DetalleOrden\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />
     <Content Include="Content\bootstrap.rtl.css.map" />
@@ -363,6 +361,10 @@
     <ProjectReference Include="Frontek Full Web E-Commerce.Domain\Frontek Full Web E-Commerce.Domain.csproj">
       <Project>{11f5adc9-84ea-4dc3-bd65-3b38f157a115}</Project>
       <Name>Frontek Full Web E-Commerce.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="Frontek Full Web E-Commerce.Infrastructure\Frontek Full Web E-Commerce.Infrastructure.csproj">
+      <Project>{8FE34EA6-9623-4B15-B2B1-11F08BC8B354}</Project>
+      <Name>Frontek Full Web E-Commerce.Infrastructure</Name>
     </ProjectReference>
     <ProjectReference Include="Frontek Full Web E-Commerce.IoC\Frontek Full Web E-Commerce.IoC.csproj">
       <Project>{007347d8-9b91-410f-81a6-e2ecf582f15d}</Project>

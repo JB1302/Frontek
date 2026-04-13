@@ -9,9 +9,10 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>Frontek_Full_Web_E_Commerce.Domain</RootNamespace>
     <AssemblyName>Frontek Full Web E-Commerce.Domain</AssemblyName>
-    <TargetFrameworkVersion>v4.8.1</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -32,6 +33,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -41,14 +43,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Class1.cs" />
+    <Compile Include="Entities\CarritoItem.cs" />
+    <Compile Include="Entities\Orden.cs" />
+    <Compile Include="Entities\OrdenDetalle.cs" />
+    <Compile Include="Entities\Producto.cs" />
+    <Compile Include="Entities\Resena.cs" />
+    <Compile Include="Entities\Tarjeta.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\IOrdenRepository.cs" />
+    <Compile Include="Repositories\IProductoRepository.cs" />
+    <Compile Include="Repositories\IResenaRepository.cs" />
+    <Compile Include="Repositories\ITarjetaRepository.cs" />
+    <Compile Include="Utils\CryptoHelper.cs" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Entities\" />
     <Folder Include="Enums\" />
-    <Folder Include="Repositories\" />
-    <Folder Include="Utils\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
