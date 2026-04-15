@@ -52,8 +52,8 @@
             )
 
             <button class="navbar-toggler" type="button"
-                    data-toggle="collapse"
-                    data-target="#mainNavbar"
+                    data-bs-toggle="collapse"
+                    data-bs-target="#mainNavbar"
                     aria-controls="mainNavbar"
                     aria-expanded="false"
                     aria-label="Toggle navigation">
@@ -178,7 +178,7 @@
     </footer>
 
     @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <script src="@Url.Content("~/Scripts/bootstrap.bundle.min.js")"></script>
     @RenderSection("scripts", required: false)
 
 </body>
