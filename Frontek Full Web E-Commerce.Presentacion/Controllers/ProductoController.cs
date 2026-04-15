@@ -1,6 +1,8 @@
 ﻿using Frontek_Full_Web_E_Commerce.Application.Interfaces;
 using Frontek_Full_Web_E_Commerce.Domain.Entities;
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Net;
 using System.Web;
@@ -10,6 +12,14 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
 {
     public class ProductoController : Controller
     {
+        private const int MaxImagenBytes = 5 * 1024 * 1024; // 5 MB por imagen
+        private static readonly HashSet<string> ExtensionesPermitidas = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
+        {
+            ".jpg",
+            ".jpeg",
+            ".png"
+        };
+
         private readonly IProductoService _productoService;
 
         public ProductoController(IProductoService productoService)
@@ -50,14 +60,22 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create(Producto producto, HttpPostedFileBase ImagenFile1, HttpPostedFileBase ImagenFile2, HttpPostedFileBase ImagenFile3)
         {
+            try
+            {
+                producto.Imagen1 = ProcesarImagenSiValida(ImagenFile1, nameof(ImagenFile1));
+                producto.Imagen2 = ProcesarImagenSiValida(ImagenFile2, nameof(ImagenFile2));
+                producto.Imagen3 = ProcesarImagenSiValida(ImagenFile3, nameof(ImagenFile3));
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error procesando imágenes: " + ex.Message);
+                return View(producto);
+            }
             if (!ModelState.IsValid)
             {
                 return View(producto);
             }
 
-            producto.Imagen1 = LeerImagen(ImagenFile1);
-            producto.Imagen2 = LeerImagen(ImagenFile2);
-            producto.Imagen3 = LeerImagen(ImagenFile3);
 
             try
             {
@@ -65,9 +83,9 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
                 TempData["Mensaje"] = "Producto creado correctamente.";
                 return RedirectToAction("Index");
             }
-            catch (InvalidOperationException ex)
+            catch (Exception)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ModelState.AddModelError(string.Empty, "No se pudo guardar el producto. Verificá las imágenes e intentá nuevamente.");
                 return View(producto);
             }
         }
@@ -94,10 +112,6 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(Producto producto, HttpPostedFileBase ImagenFile1, HttpPostedFileBase ImagenFile2, HttpPostedFileBase ImagenFile3)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(producto);
-            }
 
             var actual = _productoService.ObtenerPorId(producto.Id);
             if (actual == null)
@@ -105,9 +119,18 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
                 return HttpNotFound();
             }
 
-            producto.Imagen1 = LeerImagen(ImagenFile1) ?? actual.Imagen1;
-            producto.Imagen2 = LeerImagen(ImagenFile2) ?? actual.Imagen2;
-            producto.Imagen3 = LeerImagen(ImagenFile3) ?? actual.Imagen3;
+            var nuevaImagen1 = ProcesarImagenSiValida(ImagenFile1, nameof(ImagenFile1));
+            var nuevaImagen2 = ProcesarImagenSiValida(ImagenFile2, nameof(ImagenFile2));
+            var nuevaImagen3 = ProcesarImagenSiValida(ImagenFile3, nameof(ImagenFile3));
+
+            producto.Imagen1 = nuevaImagen1 ?? actual.Imagen1;
+            producto.Imagen2 = nuevaImagen2 ?? actual.Imagen2;
+            producto.Imagen3 = nuevaImagen3 ?? actual.Imagen3;
+
+            if (!ModelState.IsValid)
+            {
+                return View(producto);
+            }
 
             try
             {
@@ -115,9 +138,9 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
                 TempData["Mensaje"] = "Producto actualizado correctamente.";
                 return RedirectToAction("Index");
             }
-            catch (InvalidOperationException ex)
+            catch (Exception)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
+                ModelState.AddModelError(string.Empty, "No se pudo actualizar el producto. Verificá las imágenes e intentá nuevamente.");
                 return View(producto);
             }
         }
@@ -164,10 +187,29 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
             return View("Index", productos);
         }
 
-        private static byte[] LeerImagen(HttpPostedFileBase archivo)
+        private byte[] ProcesarImagenSiValida(HttpPostedFileBase archivo, string campo)
         {
             if (archivo == null || archivo.ContentLength == 0)
             {
+                return null;
+            }
+
+            var extension = Path.GetExtension(archivo.FileName ?? string.Empty);
+            if (!ExtensionesPermitidas.Contains(extension))
+            {
+                ModelState.AddModelError(campo, "Solo se permiten archivos JPG, JPEG o PNG.");
+                return null;
+            }
+
+            if (archivo.ContentLength > MaxImagenBytes)
+            {
+                ModelState.AddModelError(campo, "La imagen supera el tamaño máximo permitido de 5 MB.");
+                return null;
+            }
+
+            if (!EsTipoContenidoPermitido(archivo.ContentType))
+            {
+                ModelState.AddModelError(campo, "El archivo seleccionado no es una imagen válida.");
                 return null;
             }
 
@@ -176,6 +218,19 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
                 archivo.InputStream.CopyTo(ms);
                 return ms.ToArray();
             }
+
+        }
+
+            private static bool EsTipoContenidoPermitido(string contentType)
+        {
+            if (string.IsNullOrWhiteSpace(contentType))
+            {
+                return false;
+            }
+
+            var tiposPermitidos = new[] { "image/jpeg", "image/jpg", "image/png" };
+            return tiposPermitidos.Contains(contentType, StringComparer.OrdinalIgnoreCase);
         }
     }
+    
 }
