@@ -1,0 +1,41 @@
+﻿﻿@model Frontek_Full_Web_E_Commerce.Presentacion.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Eliminar usuario";
+    var roles = ViewBag.Roles as IList<string>;
+}
+
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="card border-0 shadow-sm rounded-4">
+            <div class="card-body p-4">
+                <h2 class="fw-bold mb-3">Eliminar usuario</h2>
+                <p class="text-muted">¿Seguro que deseas eliminar este usuario?</p>
+
+                <dl class="row">
+                    <dt class="col-sm-4">Nombre</dt>
+                    <dd class="col-sm-8">@Model.Nombre</dd>
+
+                    <dt class="col-sm-4">Correo</dt>
+                    <dd class="col-sm-8">@Model.Email</dd>
+
+                    <dt class="col-sm-4">Rol</dt>
+                    <dd class="col-sm-8">@string.Join(", ", roles ?? new List<string>())</dd>
+
+                    <dt class="col-sm-4">Activo</dt>
+                    <dd class="col-sm-8">@(Model.Activo ? "Sí" : "No")</dd>
+                </dl>
+
+                @using (Html.BeginForm())
+                {
+                    @Html.AntiForgeryToken()
+
+                    <div class="d-flex gap-2">
+                        <button type="submit" class="btn btn-danger rounded-pill px-4">Eliminar</button>
+                        @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn btn-outline-secondary rounded-pill px-4" })
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

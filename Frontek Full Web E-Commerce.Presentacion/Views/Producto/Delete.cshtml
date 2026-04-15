@@ -1,0 +1,189 @@
+﻿@model Frontek_Full_Web_E_Commerce.Domain.Entities.Producto
+@{
+    ViewBag.Title = "Eliminar Producto";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    @@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600&display=swap');
+
+    body {
+        font-family: 'DM Sans', sans-serif;
+        background: #f8f8f8;
+    }
+
+    .page-header {
+        background: #1a1a2e;
+        color: white;
+        padding: 32px 0 24px;
+        margin-bottom: 36px;
+    }
+
+        .page-header h2 {
+            font-size: 1.8rem;
+            font-weight: 600;
+            margin: 0;
+        }
+
+    .confirm-card {
+        background: white;
+        border-radius: 16px;
+        padding: 40px;
+        box-shadow: 0 4px 24px rgba(0,0,0,0.07);
+        max-width: 600px;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .warning-icon {
+        width: 64px;
+        height: 64px;
+        background: #fff3f3;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+    }
+
+    .confirm-card h3 {
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: #1a1a2e;
+        margin-bottom: 6px;
+    }
+
+    .confirm-card p {
+        color: #777;
+        font-size: 0.92rem;
+        margin-bottom: 28px;
+    }
+
+    .product-summary {
+        background: #f8f8f8;
+        border-radius: 12px;
+        padding: 20px 24px;
+        text-align: left;
+        margin-bottom: 28px;
+    }
+
+    .product-summary-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 6px 0;
+        font-size: 0.9rem;
+        border-bottom: 1px solid #eee;
+    }
+
+        .product-summary-row:last-child {
+            border-bottom: none;
+        }
+
+        .product-summary-row span:first-child {
+            color: #999;
+            font-weight: 500;
+        }
+
+        .product-summary-row span:last-child {
+            color: #333;
+            font-weight: 600;
+        }
+
+    .product-img-preview {
+        width: 80px;
+        height: 80px;
+        object-fit: cover;
+        border-radius: 10px;
+        margin-bottom: 20px;
+    }
+
+    .btn-delete {
+        background: #e94560;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        padding: 12px 32px;
+        font-size: 0.95rem;
+        font-weight: 500;
+        transition: background 0.2s;
+        cursor: pointer;
+    }
+
+        .btn-delete:hover {
+            background: #c0392b;
+        }
+
+    .btn-cancel {
+        border: 1.5px solid #ddd;
+        border-radius: 10px;
+        padding: 12px 24px;
+        font-size: 0.95rem;
+        color: #555;
+        background: white;
+        text-decoration: none;
+        transition: all 0.2s;
+        display: inline-block;
+    }
+
+        .btn-cancel:hover {
+            border-color: #1a1a2e;
+            color: #1a1a2e;
+            text-decoration: none;
+        }
+</style>
+
+<div class="page-header">
+    <div class="container">
+        <h2>Eliminar Producto</h2>
+    </div>
+</div>
+
+<div class="container pb-5">
+    <div class="confirm-card">
+
+        <div class="warning-icon">
+            <svg width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="#e94560">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                      d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z" />
+            </svg>
+        </div>
+
+        @if (Model.Imagen1 != null && Model.Imagen1.Length > 0)
+        {
+            <img class="product-img-preview"
+                 src="data:image/jpeg;base64,@Convert.ToBase64String(Model.Imagen1)"
+                 alt="@Model.NombreProducto" />
+        }
+
+        <h3>¿Eliminar este producto?</h3>
+        <p>Esta acción no se puede deshacer. El producto será eliminado permanentemente.</p>
+
+        <div class="product-summary">
+            <div class="product-summary-row">
+                <span>Nombre</span>
+                <span>@Model.NombreProducto</span>
+            </div>
+            <div class="product-summary-row">
+                <span>Precio</span>
+                <span>₡@Model.Precio.ToString("N2")</span>
+            </div>
+            <div class="product-summary-row">
+                <span>Stock</span>
+                <span>@Model.Stock unidades</span>
+            </div>
+            <div class="product-summary-row">
+                <span>Estado</span>
+                <span>@(Model.Activo ? "Activo" : "Inactivo")</span>
+            </div>
+        </div>
+
+        @using (Html.BeginForm("Delete", "Producto", new { id = Model.Id }, FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+            <div class="d-flex gap-3 justify-content-center">
+                <button type="submit" class="btn-delete">Sí, eliminar</button>
+                @Html.ActionLink("Cancelar", "Index", null, new { @class = "btn-cancel" })
+            </div>
+        }
+    </div>
+</div>

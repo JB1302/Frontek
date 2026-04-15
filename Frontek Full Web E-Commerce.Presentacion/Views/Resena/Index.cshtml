@@ -1,0 +1,114 @@
+﻿@model IEnumerable<Frontek_Full_Web_E_Commerce.Presentacion.Models.ResenaViewModel>
+
+@{
+    ViewBag.Title = "Gestion de Resenas";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container mt-4">
+
+    <h2>Resenas</h2>
+    <p class="text-muted">Gestion y moderacion de opiniones</p>
+
+    <div class="mb-3">
+        <span class="badge badge-warning">Pendientes: @ViewBag.TotalPendientes</span>
+        <span class="badge badge-success">Aprobadas: @ViewBag.TotalAprobadas</span>
+        <span class="badge badge-danger">Rechazadas: @ViewBag.TotalRechazadas</span>
+    </div>
+
+    @if (TempData["Mensaje"] != null)
+    {
+        <div class="alert alert-success">@TempData["Mensaje"]</div>
+    }
+    @if (TempData["Error"] != null)
+    {
+        <div class="alert alert-danger">@TempData["Error"]</div>
+    }
+
+    <div class="table-responsive">
+        <table class="table table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>#</th>
+                    <th>Producto</th>
+                    <th>Usuario</th>
+                    <th>Titulo</th>
+                    <th>Resena</th>
+                    <th>Calificacion</th>
+                    <th>Estado</th>
+                    <th>Fecha</th>
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <th>Acciones</th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model == null || !Model.Any())
+                {
+                    <tr>
+                        <td colspan="@(User.IsInRole("Administrador") ? 9 : 8)" class="text-center text-muted">
+                            No hay resenas para mostrar
+                        </td>
+                    </tr>
+                }
+                else
+                {
+                    foreach (var r in Model)
+                    {
+                        string badge = r.Estado == 0 ? "warning" : r.Estado == 1 ? "success" : "danger";
+                        string estadoTexto = r.Estado == 0 ? "Pendiente" : r.Estado == 1 ? "Aprobada" : "Rechazada";
+
+                        <tr>
+                            <td>@r.Id</td>
+                            <td><strong>@r.NombreProducto</strong></td>
+                            <td>@r.NombreUsuario</td>
+                            <td>@r.Titulo</td>
+                            <td>
+                                <span title="@r.Cuerpo">
+                                    @(r.Cuerpo != null && r.Cuerpo.Length > 60 ? r.Cuerpo.Substring(0, 60) + "..." : r.Cuerpo)
+                                </span>
+                            </td>
+                            <td>@r.Calificacion / 5</td>
+                            <td>
+                                <span class="badge badge-@badge" style="color:#000 !important; font-size:0.85em;">@estadoTexto</span>
+                            </td>
+                            <td>@r.FechaCreacion.ToString("dd/MM/yyyy")</td>
+
+                            @if (User.IsInRole("Administrador"))
+                            {
+                                <td class="text-nowrap">
+                                    @if (r.Estado != 1)
+                                    {
+                                        <form method="post" action="@Url.Action("Moderar", "Resena")" style="display:inline-block; margin-right:4px;">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="id" value="@r.Id" />
+                                            <input type="hidden" name="accion" value="1" />
+                                            <button type="submit" class="btn btn-success btn-sm">Aprobar</button>
+                                        </form>
+                                    }
+                                    @if (r.Estado != 2)
+                                    {
+                                        <form method="post" action="@Url.Action("Moderar", "Resena")" style="display:inline-block; margin-right:4px;">
+                                            @Html.AntiForgeryToken()
+                                            <input type="hidden" name="id" value="@r.Id" />
+                                            <input type="hidden" name="accion" value="2" />
+                                            <button type="submit" class="btn btn-warning btn-sm">Rechazar</button>
+                                        </form>
+                                    }
+                                    <form method="post" action="@Url.Action("Eliminar", "Resena")" style="display:inline-block;"
+                                          onsubmit="return confirm('Eliminar esta resena permanentemente?');">
+                                        @Html.AntiForgeryToken()
+                                        <input type="hidden" name="id" value="@r.Id" />
+                                        <button type="submit" class="btn btn-danger btn-sm">Eliminar</button>
+                                    </form>
+                                </td>
+                            }
+                        </tr>
+                    }
+                }
+            </tbody>
+        </table>
+    </div>
+
+</div>

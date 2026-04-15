@@ -1,0 +1,53 @@
+﻿﻿@model Frontek_Full_Web_E_Commerce.Domain.Entities.Tarjeta
+@using Frontek_Full_Web_E_Commerce.Domain.Utils
+
+@{
+    ViewBag.Title = "Delete";
+}
+
+<h2>Eliminar mi método de pago</h2>
+
+<div>
+    <h4>Tarjeta</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            Número de Tarjeta
+        </dt>
+        <dd>
+            @{
+                var NumeroTarjeta = string.Empty;
+                if (!string.IsNullOrEmpty(Model.TarjetaEncriptada))
+                {
+                    NumeroTarjeta = CryptoHelper.Desencriptar(Model.TarjetaEncriptada);
+                    NumeroTarjeta = "Mi tarjeta acaba en: " + NumeroTarjeta.Substring(NumeroTarjeta.Length - 4);
+                }
+            }
+            @NumeroTarjeta
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.FechaVencimiento)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.FechaVencimiento)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Propietario)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Propietario)
+        </dd>
+    </dl>
+
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div class="form-actions">
+            <button type="submit" class="btn btn-danger">Eliminar</button>
+            &nbsp;
+            @Html.ActionLink("Volver a mi cuenta", "Index", "Manage", null, new { @class = "btn btn-secondary" })
+        </div>
+    }
+</div>

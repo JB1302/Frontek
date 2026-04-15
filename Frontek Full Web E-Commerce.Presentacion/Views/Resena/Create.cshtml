@@ -1,0 +1,61 @@
+﻿﻿@model Frontek_Full_Web_E_Commerce.Domain.Entities.Resena
+
+@{
+    ViewBag.Title = "Escribir Resena";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var producto = ViewBag.Producto as Frontek_Full_Web_E_Commerce.Domain.Entities.Producto;
+    int productoId = ViewBag.ProductoId != null ? (int)ViewBag.ProductoId : 0;
+}
+
+<div class="container mt-4">
+
+    <h2>Escribir Resena</h2>
+
+    @if (producto != null)
+    {
+        <p class="text-muted">Producto: <strong>@producto.NombreProducto</strong></p>
+    }
+
+    <hr />
+
+    @using (Html.BeginForm("Create", "Resena", FormMethod.Post))
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" name="ProductoId" value="@productoId" />
+
+        @Html.ValidationSummary(true, "", new { @class = "alert alert-danger" })
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Titulo, "Titulo")
+            @Html.TextBoxFor(m => m.Titulo, new { @class = "form-control", placeholder = "Escribe un titulo para tu resena", maxlength = "100" })
+            @Html.ValidationMessageFor(m => m.Titulo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Cuerpo, "Opinion")
+            @Html.TextAreaFor(m => m.Cuerpo, new { @class = "form-control", rows = "5", placeholder = "Describe tu experiencia con el producto", maxlength = "1000" })
+            @Html.ValidationMessageFor(m => m.Cuerpo, "", new { @class = "text-danger" })
+        </div>
+
+        <div class="form-group">
+            @Html.LabelFor(m => m.Calificacion, "Calificacion (1 al 5)")
+            @Html.DropDownListFor(m => m.Calificacion,
+                new SelectList(new[] {
+                    new { Value = "1", Text = "1 - Muy malo" },
+                    new { Value = "2", Text = "2 - Malo" },
+                    new { Value = "3", Text = "3 - Regular" },
+                    new { Value = "4", Text = "4 - Bueno" },
+                    new { Value = "5", Text = "5 - Excelente" }
+                }, "Value", "Text"),
+                "-- Selecciona una calificacion --",
+                new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Calificacion, "", new { @class = "text-danger" })
+        </div>
+
+        <hr />
+
+        <button type="submit" class="btn btn-primary">Enviar Resena</button>
+        <a href="@Url.Action("Details", "Producto", new { id = productoId })" class="btn btn-secondary">Cancelar</a>
+    }
+
+</div>

@@ -18,7 +18,14 @@ namespace Frontek_Full_Web_E_Commerce.IoC
         /// </summary>
         public static void Start() 
         {
-            FilterProviders.Providers.Remove(FilterProviders.Providers.OfType<FilterAttributeFilterProvider>().First());
+            var defaultFilterProvider = FilterProviders.Providers
+            .OfType<FilterAttributeFilterProvider>()
+            .FirstOrDefault();
+
+            if (defaultFilterProvider != null)
+            {
+                FilterProviders.Providers.Remove(defaultFilterProvider);
+            }
             FilterProviders.Providers.Add(new UnityFilterAttributeFilterProvider(UnityConfig.Container));
 
             DependencyResolver.SetResolver(new UnityDependencyResolver(UnityConfig.Container));
