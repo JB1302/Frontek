@@ -32,7 +32,6 @@ td {
     overflow: hidden;
 }
 
-
 :root {
     --color-primary: #6366f1;
     --color-primary-dark: #4f46e5;
@@ -76,32 +75,8 @@ body {
     white-space: nowrap;
 }
 
-.search-box {
+.navbar-collapse {
     width: 100%;
-    max-width: 280px;
-}
-
-.search-input {
-    border-radius: 999px;
-    border: 1px solid #e5e7eb;
-    padding-left: 2.4rem;
-    padding-right: 1rem;
-    font-size: 0.9rem;
-    min-height: 40px;
-}
-
-    .search-input:focus {
-        border-color: var(--color-primary);
-        box-shadow: 0 0 0 1px rgba(99, 102, 241, 0.25);
-    }
-
-.search-icon {
-    position: absolute;
-    left: 0.9rem;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #9ca3af;
-    font-size: 0.95rem;
 }
 
 .nav-link {
@@ -239,16 +214,22 @@ footer {
         gap: 1rem;
     }
 
+        .navbar-flex.guest-layout {
+            grid-template-columns: 0 auto 1fr;
+        }
+
     .navbar-left {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
         min-width: 0;
     }
 
     .navbar-center {
         display: flex;
         justify-content: center;
+        min-width: 0;
+    }
+
+    .guest-layout .navbar-center {
+        justify-content: flex-start;
     }
 
     .navbar-right {
@@ -256,6 +237,7 @@ footer {
         justify-content: flex-end;
         align-items: center;
         gap: 0.5rem;
+        flex-wrap: wrap;
     }
 
     .navbar-nav-custom {
@@ -267,23 +249,27 @@ footer {
         padding: 0;
         list-style: none;
     }
+
+    .guest-layout .navbar-nav-custom {
+        justify-content: flex-start;
+    }
 }
 
 @media (max-width: 991.98px) {
     .navbar-flex {
+        display: flex;
+        flex-direction: column;
         width: 100%;
+        gap: 0.75rem;
+        padding-top: 0.75rem;
     }
 
     .navbar-left {
-        display: flex;
-        flex-direction: column;
-        align-items: stretch;
-        gap: 0.75rem;
-        width: 100%;
+        display: none;
     }
 
     .navbar-center {
-        margin-top: 0.75rem;
+        margin-top: 0;
     }
 
     .navbar-right {
@@ -291,7 +277,7 @@ footer {
         align-items: center;
         gap: 0.5rem;
         flex-wrap: wrap;
-        margin-top: 0.75rem;
+        margin-top: 0;
     }
 
     .navbar-nav-custom {
@@ -302,10 +288,6 @@ footer {
         margin: 0;
         padding: 0;
         list-style: none;
-    }
-
-    .search-box {
-        max-width: 100%;
     }
 }
 
