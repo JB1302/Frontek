@@ -1,4 +1,4 @@
-﻿﻿@model Frontek_Full_Web_E_Commerce.Domain.Entities.Tarjeta
+﻿@model Frontek_Full_Web_E_Commerce.Presentacion.Models.TarjetaCreateViewModel
 
 @{
     ViewBag.Title = "Crear Tarjeta";
@@ -14,42 +14,30 @@
     <div class="form-horizontal">
 
         <div class="form-group">
-            @Html.LabelFor(m => m.NumeroTarjeta, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.NumeroTarjeta, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.NumeroTarjeta, "", new { @class = "text-danger" })
-            </div>
+            @Html.LabelFor(m => m.NumeroTarjeta)
+            @Html.TextBoxFor(m => m.NumeroTarjeta, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.NumeroTarjeta)
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.FechaVencimiento, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.FechaVencimiento, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
-                @Html.ValidationMessageFor(m => m.FechaVencimiento, "", new { @class = "text-danger" })
-            </div>
+            @Html.LabelFor(m => m.FechaVencimiento)
+            @Html.TextBoxFor(m => m.FechaVencimiento, "{0:yyyy-MM-dd}", new { @class = "form-control", type = "date" })
+            @Html.ValidationMessageFor(m => m.FechaVencimiento)
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.CCV, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.CCV, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.CCV, "", new { @class = "text-danger" })
-            </div>
+            @Html.LabelFor(m => m.CCV)
+            @Html.TextBoxFor(m => m.CCV, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.CCV)
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(m => m.Propietario, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.TextBoxFor(m => m.Propietario, new { @class = "form-control" })
-                @Html.ValidationMessageFor(m => m.Propietario, "", new { @class = "text-danger" })
-            </div>
+            @Html.LabelFor(m => m.Propietario)
+            @Html.TextBoxFor(m => m.Propietario, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Propietario)
         </div>
 
-        <div class="form-group">
-            <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Crear" class="btn btn-primary" />
-            </div>
-        </div>
+        <button type="submit" class="btn btn-primary">Crear</button>
     </div>
 }
 

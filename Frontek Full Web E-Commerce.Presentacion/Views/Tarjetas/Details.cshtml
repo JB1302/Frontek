@@ -1,50 +1,55 @@
-﻿﻿@model Frontek_Full_Web_E_Commerce.Domain.Entities.Tarjeta
-@using Frontek_Full_Web_E_Commerce.Domain.Utils
-
+﻿@model Frontek_Full_Web_E_Commerce.Presentacion.Models.TarjetaDetailsViewModel
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Detalles de mi método de pago";
 }
 
-<h2>Detalles de mi método de pago</h2>
+<h2>@ViewBag.Title</h2>
 
-<div>
+<div class="card p-3 mt-3">
+
     <h4>Tarjeta</h4>
     <hr />
+
     <dl class="dl-horizontal">
-        <dt>
-            Número de Tarjeta
-        </dt>
-        <dd>
-            @{
-                var NumeroTarjeta = string.Empty;
-                if (!string.IsNullOrEmpty(Model.TarjetaEncriptada))
-                {
-                    NumeroTarjeta = CryptoHelper.Desencriptar(Model.TarjetaEncriptada);
 
-                    NumeroTarjeta = "Mi tarjeta acaba en: " + NumeroTarjeta.Substring(NumeroTarjeta.Length - 4);
-                }
-            }
-            @NumeroTarjeta
+        <dt>Número de Tarjeta</dt>
+        <dd>
+            @Model.NumeroMascarado
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaVencimiento)
-        </dt>
-
+        <dt>Fecha de Vencimiento</dt>
         <dd>
-            @Html.DisplayFor(model => model.FechaVencimiento)
+            @(Model.FechaVencimiento?.ToShortDateString() ?? "No disponible")
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Propietario)
-        </dt>
-
+        <dt>Propietario</dt>
         <dd>
-            @Html.DisplayFor(model => model.Propietario)
+            @Model.Propietario
         </dd>
 
     </dl>
+
 </div>
-<p>
-    @Html.ActionLink("Volver a mi cuenta", "Index", "Manage", null, new { @class = "btn btn-secondary" })
-</p>
+
+<div class="mt-3">
+
+    @Html.ActionLink(
+        "Volver a mi cuenta",
+        "Index",
+        "Manage",
+        null,
+        new { @class = "btn btn-secondary" }
+    )
+
+    @Html.ActionLink(
+        "Eliminar tarjeta",
+        "Delete",
+        "Tarjetas",
+        null,
+        new
+        {
+            @class = "btn btn-danger ms-2",
+        }
+    )
+
+</div>

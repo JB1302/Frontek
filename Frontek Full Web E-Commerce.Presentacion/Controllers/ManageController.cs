@@ -1,12 +1,15 @@
-﻿using System;
+﻿using Frontek_Full_Web_E_Commerce.Application.Interfaces;
+using Frontek_Full_Web_E_Commerce.Presentacion.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.AspNet.Identity.Owin;
+using Microsoft.Owin.Security;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using Microsoft.AspNet.Identity;
-using Microsoft.AspNet.Identity.Owin;
-using Microsoft.Owin.Security;
-using Frontek_Full_Web_E_Commerce.Presentacion.Models;
+using Frontek_Full_Web_E_Commerce.Infrastructure.Repositories;
+using Frontek_Full_Web_E_Commerce.Infrastructure.Data;
+using Frontek_Full_Web_E_Commerce.Application.Services;
 
 namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
 {
@@ -15,15 +18,23 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
+        private readonly ITarjetaService _tarjetaService;
 
         public ManageController()
         {
+
         }
 
-        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager)
+        private ITarjetaService GetTarjetaService()
+        {
+            return DependencyResolver.Current.GetService<ITarjetaService>();
+        }
+
+        public ManageController(ApplicationUserManager userManager, ApplicationSignInManager signInManager, ITarjetaService tarjetaService)
         {
             UserManager = userManager;
             SignInManager = signInManager;
+            _tarjetaService = tarjetaService;
         }
 
         public ApplicationSignInManager SignInManager
@@ -54,6 +65,7 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
         // GET: /Manage/Index
         public async Task<ActionResult> Index(ManageMessageId? message)
         {
+
             ViewBag.StatusMessage =
                 message == ManageMessageId.ChangePasswordSuccess ? "Su contraseña se ha cambiado."
                 : message == ManageMessageId.SetPasswordSuccess ? "Su contraseña se ha establecido."
@@ -64,13 +76,18 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
                 : "";
 
             var userId = User.Identity.GetUserId();
+            var tarjetaService = GetTarjetaService();
+            var tieneTarjeta = tarjetaService.TieneTarjeta(userId);
+
             var model = new IndexViewModel
             {
                 HasPassword = HasPassword(),
                 PhoneNumber = await UserManager.GetPhoneNumberAsync(userId),
                 TwoFactor = await UserManager.GetTwoFactorEnabledAsync(userId),
                 Logins = await UserManager.GetLoginsAsync(userId),
-                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId)
+                BrowserRemembered = await AuthenticationManager.TwoFactorBrowserRememberedAsync(userId),
+                TarjetaExiste = tieneTarjeta
+
             };
             return View(model);
         }
@@ -332,6 +349,8 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
 
             base.Dispose(disposing);
         }
+
+
 
 #region Aplicaciones auxiliares
         // Se usa para la protección XSRF al agregar inicios de sesión externos

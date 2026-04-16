@@ -54,7 +54,6 @@
     <Compile Include="Repositories\IProductoRepository.cs" />
     <Compile Include="Repositories\IResenaRepository.cs" />
     <Compile Include="Repositories\ITarjetaRepository.cs" />
-    <Compile Include="Utils\CryptoHelper.cs" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Enums\" />

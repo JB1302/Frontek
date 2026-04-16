@@ -1,7 +1,9 @@
-﻿﻿@@model Frontek_Full_Web_E_Commerce.Presentacion.Models.IndexViewModel
-@{
+﻿﻿@model Frontek_Full_Web_E_Commerce.Presentacion.Models.IndexViewModel
+@{ 
+
     ViewBag.Title = "Administrar cuenta";
 }
+
 
 <main class="container py-4" aria-labelledby="title">
     <div class="row justify-content-center">
@@ -82,39 +84,37 @@
 
                         <!-- Tarjeta -->
                         <div class="col-12">
-                            <div class="border rounded-4 p-3">
-                                <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center mb-3">
-                                    <div class="mb-3 mb-md-0">
-                                        <h5 class="mb-1">Tarjeta</h5>
-                                        <p class="text-muted mb-0">Administra la tarjeta asociada a tu cuenta.</p>
-                                    </div>
-                                    <div>
-                                        @if (Model.Tarjeta == null)
-                                        {
-                                            <span class="badge bg-warning text-dark">No registrada</span>
-                                        }
-                                        else
-                                        {
-                                            <span class="badge bg-success">Registrada</span>
-                                        }
-                                    </div>
+                            <div class="border rounded-4 p-3 d-flex flex-column flex-md-row justify-content-between align-items-md-center">
+
+                                <div>
+                                    <h5 class="mb-1">Tarjeta</h5>
+
+                                    @if (Model.TarjetaExiste)
+                                    {
+                                        <p class="text-muted mb-0">Ya tienes una tarjeta registrada.</p>
+                                    }
+                                    else
+                                    {
+                                        <p class="text-muted mb-0">No tienes tarjeta registrada.</p>
+                                    }
                                 </div>
 
-                                @if (Model.Tarjeta == null)
-                                {
-                                    <p class="mb-3">No tienes una tarjeta registrada.</p>
-                                    @Html.ActionLink("Agregar tarjeta", "Create", "Tarjetas", null, new { @class = "btn btn-primary" })
-                                }
-                                else
-                                {
-                                    <p class="mb-3">Ya tienes una tarjeta registrada en tu cuenta.</p>
-                                    <div class="d-flex flex-wrap gap-2">
-                                        @Html.ActionLink("Ver detalles", "Details", "Tarjetas", null, new { @class = "btn btn-info text-white" })
-                                        @Html.ActionLink("Eliminar", "Delete", "Tarjetas", null, new { @class = "btn btn-danger" })
-                                    </div>
-                                }
+                                <div>
+                                    @if (Model.TarjetaExiste)
+                                    {
+                                        @Html.ActionLink("Ver detalles", "Details", "Tarjetas",
+                                            null, new { @class = "btn btn-info text-white" })
+                                    }
+                                    else
+                                    {
+                                        @Html.ActionLink("Agregar tarjeta", "Create", "Tarjetas",
+                                            null, new { @class = "btn btn-primary" })
+                                    }
+                                </div>
+
                             </div>
                         </div>
+
 
                     </div>
 

@@ -8,8 +8,9 @@ namespace Frontek_Full_Web_E_Commerce.Infrastructure.Data
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext()
-            : base("DefaultConnection")
+            : base("DefaultConnection", throwIfV1Schema: false)
         {
+            System.Diagnostics.Debug.WriteLine(Database.Connection.ConnectionString);
         }
         public DbSet<Producto> Productos { get; set; }
         public DbSet<Orden> Ordenes { get; set; }

@@ -1,8 +1,14 @@
-﻿﻿@model Frontek_Full_Web_E_Commerce.Domain.Entities.Tarjeta
-@using Frontek_Full_Web_E_Commerce.Domain.Utils
+﻿@model Frontek_Full_Web_E_Commerce.Domain.Entities.Tarjeta
 
 @{
     ViewBag.Title = "Delete";
+
+    string numeroMascarado = "No disponible";
+
+    if (!string.IsNullOrEmpty(Model.TarjetaEncriptada))
+    {
+        numeroMascarado = "**** **** **** " + "****";
+    }
 }
 
 <h2>Eliminar mi método de pago</h2>
@@ -10,44 +16,40 @@
 <div>
     <h4>Tarjeta</h4>
     <hr />
+
     <dl class="dl-horizontal">
-        <dt>
-            Número de Tarjeta
-        </dt>
-        <dd>
-            @{
-                var NumeroTarjeta = string.Empty;
-                if (!string.IsNullOrEmpty(Model.TarjetaEncriptada))
-                {
-                    NumeroTarjeta = CryptoHelper.Desencriptar(Model.TarjetaEncriptada);
-                    NumeroTarjeta = "Mi tarjeta acaba en: " + NumeroTarjeta.Substring(NumeroTarjeta.Length - 4);
-                }
-            }
-            @NumeroTarjeta
-        </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.FechaVencimiento)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.FechaVencimiento)
-        </dd>
+        <dt>Número de Tarjeta</dt>
+        <dd>@numeroMascarado</dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.Propietario)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.Propietario)
-        </dd>
+        <dt>Fecha de Vencimiento</dt>
+        <dd>@(Model.FechaVencimiento?.ToShortDateString() ?? "No disponible")</dd>
+
+        <dt>Propietario</dt>
+        <dd>@Model.Propietario</dd>
+
     </dl>
 
     @using (Html.BeginForm())
     {
         @Html.AntiForgeryToken()
+
         <div class="form-actions">
-            <button type="submit" class="btn btn-danger">Eliminar</button>
+            <button type="submit"
+                    class="btn btn-danger"
+                    onclick="return confirm('¿Seguro que deseas eliminar esta tarjeta?');">
+                Eliminar
+            </button>
+
             &nbsp;
-            @Html.ActionLink("Volver a mi cuenta", "Index", "Manage", null, new { @class = "btn btn-secondary" })
+
+            @Html.ActionLink(
+                "Volver a mi cuenta",
+                "Index",
+                "Manage",
+                null,
+                new { @class = "btn btn-secondary" }
+            )
         </div>
     }
 </div>

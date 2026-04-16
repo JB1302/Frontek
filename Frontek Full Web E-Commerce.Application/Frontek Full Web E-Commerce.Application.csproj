@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Interfaces\ICryptoService.cs" />
     <Compile Include="Interfaces\IOrdenService.cs" />
     <Compile Include="Interfaces\IProductoService.cs" />
     <Compile Include="Interfaces\IResenaService.cs" />

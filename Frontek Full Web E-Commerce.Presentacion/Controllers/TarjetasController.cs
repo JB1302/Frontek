@@ -1,5 +1,7 @@
 ﻿using Frontek_Full_Web_E_Commerce.Application.Interfaces;
 using Frontek_Full_Web_E_Commerce.Domain.Entities;
+using Frontek_Full_Web_E_Commerce.Presentacion.Models;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 using System;
 using System.Collections.Generic;
@@ -11,10 +13,12 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
     public class TarjetasController : Controller
     {
         private readonly ITarjetaService _tarjetaService;
+        private readonly ICryptoService _cryptoService;
 
-        public TarjetasController(ITarjetaService tarjetaService)
+        public TarjetasController(ITarjetaService tarjetaService, ICryptoService cryptoService)
         {
             _tarjetaService = tarjetaService;
+            _cryptoService = cryptoService;
         }
 
         public ActionResult Index()
@@ -27,54 +31,71 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
                 return RedirectToAction("Create");
             }
 
-            return View(new List<Tarjeta> { tarjeta });
+            return View(tarjeta);
         }
 
         public ActionResult Details()
         {
             var userId = User.Identity.GetUserId();
             var tarjeta = _tarjetaService.ObtenerTarjeta(userId);
-            if (tarjeta == null)
-            {
-                return HttpNotFound();
-            }
 
-            return View(tarjeta);
+            if (tarjeta == null)
+                return HttpNotFound();
+
+            var numero = _cryptoService.Decrypt(tarjeta.TarjetaEncriptada);
+
+            var model = new TarjetaDetailsViewModel
+            {
+                Propietario = tarjeta.Propietario,
+                FechaVencimiento = tarjeta.FechaVencimiento,
+                NumeroMascarado = string.IsNullOrEmpty(numero) || numero.Length < 4
+                    ? "No disponible"
+                    : "Mi tarjeta acaba en: " + numero.Substring(numero.Length - 4)
+            };
+
+            return View(model);
         }
 
         public ActionResult Create()
         {
             var userId = User.Identity.GetUserId();
-            if (_tarjetaService.TieneTarjeta(userId))
-            {
-                return RedirectToAction("Details");
-            }
 
-            return View();
+            if (_tarjetaService.TieneTarjeta(userId))
+                return RedirectToAction("Details");
+
+            return View(new TarjetaCreateViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create(Tarjeta tarjeta)
+        public ActionResult Create(TarjetaCreateViewModel model)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(tarjeta);
-            }
-
             var userId = User.Identity.GetUserId();
 
-            try
-            {
-                _tarjetaService.AgregarTarjeta(tarjeta, userId);
-                TempData["Mensaje"] = "Tarjeta agregada correctamente.";
+            if (_tarjetaService.TieneTarjeta(userId))
                 return RedirectToAction("Index", "Manage");
-            }
-            catch (InvalidOperationException ex)
+
+            if (!ModelState.IsValid)
+                return View(model);
+
+            if (model.FechaVencimiento <= DateTime.Today)
             {
-                ModelState.AddModelError(string.Empty, ex.Message);
-                return View(tarjeta);
+                ModelState.AddModelError("FechaVencimiento", "La tarjeta está vencida.");
+                return View(model);
             }
+
+            var tarjeta = new Tarjeta
+            {
+                TarjetaEncriptada = _cryptoService.Encrypt(model.NumeroTarjeta),
+                CCVEncriptado = _cryptoService.Encrypt(model.CCV),
+                FechaVencimiento = model.FechaVencimiento,
+                Propietario = model.Propietario,
+                IdUsuario = userId
+            };
+
+            _tarjetaService.AgregarTarjeta(tarjeta, userId);
+
+            return RedirectToAction("Index", "Manage");
         }
 
         public ActionResult Delete()

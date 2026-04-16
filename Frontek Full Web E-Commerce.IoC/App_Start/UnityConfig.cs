@@ -24,6 +24,7 @@ namespace Frontek_Full_Web_E_Commerce.IoC
         public static void RegisterTypes(IUnityContainer container)
         {
             container.RegisterType<ApplicationDbContext>(new HierarchicalLifetimeManager());
+            container.RegisterType<ICryptoService, CryptoService>();
 
             // Repositorios
             container.RegisterType<IProductoRepository, ProductoRepository>();
@@ -36,6 +37,7 @@ namespace Frontek_Full_Web_E_Commerce.IoC
             container.RegisterType<IOrdenService, OrdenService>();
             container.RegisterType<IResenaService, ResenaService>();
             container.RegisterType<ITarjetaService, TarjetaService>();
+            container.RegisterType<ICryptoService, CryptoService>();
         }
     }
 }

@@ -8,10 +8,14 @@ namespace Frontek_Full_Web_E_Commerce.Application.Services
     public class TarjetaService : ITarjetaService
     {
         private readonly ITarjetaRepository _tarjetaRepository;
+        private readonly ICryptoService _cryptoService;
 
-        public TarjetaService(ITarjetaRepository tarjetaRepository)
+        public TarjetaService(
+            ITarjetaRepository tarjetaRepository,
+            ICryptoService cryptoService)
         {
             _tarjetaRepository = tarjetaRepository;
+            _cryptoService = cryptoService;
         }
 
         public Tarjeta ObtenerTarjeta(string userId)
@@ -31,6 +35,9 @@ namespace Frontek_Full_Web_E_Commerce.Application.Services
                     "El usuario ya tiene una tarjeta registrada");
 
             tarjeta.IdUsuario = userId;
+
+            tarjeta.TarjetaEncriptada = _cryptoService.Encrypt(tarjeta.TarjetaEncriptada);
+            tarjeta.CCVEncriptado = _cryptoService.Encrypt(tarjeta.CCVEncriptado);
 
             _tarjetaRepository.Add(tarjeta);
             _tarjetaRepository.Save();
