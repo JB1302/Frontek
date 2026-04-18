@@ -1,0 +1,60 @@
+﻿.stat-card {
+    border-left: 4px solid #0d6efd;
+    border-radius: 6px;
+}
+
+    .stat-card.verde {
+        border-color: #198754;
+    }
+
+    .stat-card.naranja {
+        border-color: #fd7e14;
+    }
+
+    .stat-card.rojo {
+        border-color: #dc3545;
+    }
+
+.stat-numero {
+    font-size: 2rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.shimmer {
+    background: linear-gradient(90deg, #e9ecef 25%, #f8f9fa 50%, #e9ecef 75%);
+    background-size: 200% 100%;
+    animation: cargando 1.2s infinite;
+    border-radius: 4px;
+    display: inline-block;
+}
+
+@keyframes cargando {
+    0% {
+        background-position: 200% 0;
+    }
+
+    100% {
+        background-position: -200% 0;
+    }
+}
+
+.badge-pendiente {
+    background-color: #fff3cd;
+    color: #664d03;
+}
+
+.badge-procesando {
+    background-color: #cfe2ff;
+    color: #084298;
+}
+
+.badge-encamino {
+    background-color: #e2d9f3;
+    color: #432874;
+}
+
+.badge-entregada {
+    background-color: #d1e7dd;
+    color: #0a3622;
+}

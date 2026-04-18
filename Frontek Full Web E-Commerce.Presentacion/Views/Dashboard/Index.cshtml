@@ -1,114 +1,142 @@
 @{
     ViewBag.Title = "Dashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<link href="~/Content/dashboard.css" rel="stylesheet" />
 
-<h3>Dashboard</h3>
-<p class="text-muted">Informacion general del sistema</p>
-<hr />
+<div class="container-fluid py-4">
 
-<div id="msgError" class="alert alert-danger" style="display:none;">
-    Hubo un problema al cargar los datos
-</div>
+    <div class="d-flex align-items-center mb-4">
+        <h4 class="mb-0 fw-bold">Panel de administracion</h4>
+        <small class="text-muted ms-3" id="fechaActual"></small>
+    </div>
 
-<div class="row">
-    <div class="col-md-3 col-6">
-        <div class="caja-stat">
-            <div class="etiqueta">Usuarios registrados</div>
-            <div class="numero-grande" id="numUsuarios">...</div>
-            <small class="text-success" id="numActivos"></small>
+    <div class="row g-3 mb-4">
+        <div class="col-sm-6 col-xl-2">
+            <div class="card stat-card h-100 shadow-sm">
+                <div class="card-body">
+                    <p class="text-muted small mb-1">Usuarios</p>
+                    <div class="stat-numero" id="kpiUsuarios">
+                        <span class="shimmer" style="width:40px;height:32px"></span>
+                    </div>
+                    <small class="text-muted" id="kpiActivos"></small>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-md-3 col-6">
-        <div class="caja-stat">
-            <div class="etiqueta">Productos en catalogo</div>
-            <div class="numero-grande" id="numProductos">...</div>
-            <small class="text-warning" id="numBajoStock"></small>
+        <div class="col-sm-6 col-xl-2">
+            <div class="card stat-card verde h-100 shadow-sm">
+                <div class="card-body">
+                    <p class="text-muted small mb-1">Productos</p>
+                    <div class="stat-numero" id="kpiProductos">
+                        <span class="shimmer" style="width:40px;height:32px"></span>
+                    </div>
+                    <small class="text-muted" id="kpiStockBajo"></small>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-md-3 col-6">
-        <div class="caja-stat">
-            <div class="etiqueta">Ordenes totales</div>
-            <div class="numero-grande" id="numOrdenes">...</div>
-            <small class="text-muted" id="numEntregadas"></small>
+        <div class="col-sm-6 col-xl-2">
+            <div class="card stat-card naranja h-100 shadow-sm">
+                <div class="card-body">
+                    <p class="text-muted small mb-1">Ventas totales</p>
+                    <div class="stat-numero" id="kpiVentas" style="font-size:1.4rem">
+                        <span class="shimmer" style="width:70px;height:32px"></span>
+                    </div>
+                    <small class="text-muted" id="kpiOrdenesLabel"></small>
+                </div>
+            </div>
         </div>
-    </div>
-    <div class="col-md-3 col-6">
-        <div class="caja-stat">
-            <div class="etiqueta">Ventas totales</div>
-            <div class="numero-grande text-success" id="numVentas">...</div>
-            <small class="text-muted">acumulado</small>
+        <div class="col-sm-6 col-xl-2">
+            <div class="card stat-card h-100 shadow-sm">
+                <div class="card-body">
+                    <p class="text-muted small mb-1">Ordenes</p>
+                    <div class="stat-numero" id="kpiOrdenes">
+                        <span class="shimmer" style="width:40px;height:32px"></span>
+                    </div>
+                    <small class="text-muted" id="kpiOrdenesDetalle"></small>
+                </div>
+            </div>
         </div>
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-6">
-        <div class="seccion">
-            <h5>Estado de ordenes</h5>
-            <div id="contenidoBarras">
-                <p class="text-muted">Cargando...</p>
+        <div class="col-sm-6 col-xl-2">
+            <div class="card stat-card verde h-100 shadow-sm">
+                <div class="card-body">
+                    <p class="text-muted small mb-1">Entregadas</p>
+                    <div class="stat-numero" id="kpiEntregadas">
+                        <span class="shimmer" style="width:40px;height:32px"></span>
+                    </div>
+                    <small class="text-muted">completadas</small>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6 col-xl-2">
+            <div class="card stat-card rojo h-100 shadow-sm">
+                <div class="card-body">
+                    <p class="text-muted small mb-1">Resenas pendientes</p>
+                    <div class="stat-numero" id="kpiResenas">
+                        <span class="shimmer" style="width:40px;height:32px"></span>
+                    </div>
+                    <small class="text-muted" id="kpiResenasTotal"></small>
+                </div>
             </div>
         </div>
     </div>
-    <div class="col-md-6">
-        <div class="seccion">
-            <h5>Resenas</h5>
-            <p>Total: <strong id="numResenas">...</strong></p>
-            <p id="resenasAlert"></p>
-            <a href="@Url.Action("Index","Resena")" class="btn btn-sm btn-outline-secondary">
-                Ir a moderacion
-            </a>
+
+    <div class="row g-3">
+        <div class="col-lg-7">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white border-bottom">
+                    <span class="fw-semibold">Ultimas ordenes</span>
+                </div>
+                <div class="card-body p-0">
+                    <table class="table table-sm table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Numero</th>
+                                <th>Cliente</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+                        <tbody id="ordenesBody">
+                            @for (int i = 0; i < 5; i++)
+                            {
+                                <tr>
+                                    <td><span class="shimmer" style="width:80px;height:14px"></span></td>
+                                    <td><span class="shimmer" style="width:120px;height:14px"></span></td>
+                                    <td><span class="shimmer" style="width:60px;height:14px"></span></td>
+                                    <td><span class="shimmer" style="width:70px;height:14px"></span></td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-lg-5">
+            <div class="card shadow-sm">
+                <div class="card-header bg-white border-bottom">
+                    <span class="fw-semibold">Productos con stock bajo</span>
+                </div>
+                <div class="card-body" id="stockContainer">
+                    @for (int i = 0; i < 5; i++)
+                    {
+                        <div class="mb-3">
+                            <div class="d-flex justify-content-between mb-1">
+                                <span class="shimmer" style="width:130px;height:13px"></span>
+                                <span class="shimmer" style="width:30px;height:13px"></span>
+                            </div>
+                            <div class="progress" style="height:8px">
+                                <div class="progress-bar" style="width:0%"></div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
         </div>
     </div>
+
 </div>
 
-<div class="seccion">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5 class="mb-0">Ultimas 5 ordenes</h5>
-        <a href="@Url.Action("Index","Ordenes")" class="btn btn-sm btn-outline-primary">Ver todas</a>
-    </div>
-    <table class="table table-bordered table-sm">
-        <thead class="table-light">
-            <tr>
-                <th>Orden</th>
-                <th>Cliente</th>
-                <th>Total</th>
-                <th>Estado</th>
-                <th>Fecha</th>
-            </tr>
-        </thead>
-        <tbody id="filaOrdenes">
-            <tr><td colspan="5" class="text-center text-muted">Cargando...</td></tr>
-        </tbody>
-    </table>
-</div>
-
-<div class="seccion" id="seccionStock" style="display:none;">
-    <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5 class="mb-0">Productos con stock bajo <span class="badge bg-warning text-dark">Atencion</span></h5>
-        <a href="@Url.Action("Index","Producto")" class="btn btn-sm btn-outline-secondary">Ver productos</a>
-    </div>
-    <table class="table table-bordered table-sm">
-        <thead class="table-light">
-            <tr><th>Producto</th><th>Stock</th><th>Precio</th></tr>
-        </thead>
-        <tbody id="filaStock"></tbody>
-    </table>
-</div>
-
-<div class="mb-4">
-    <h5>Accesos directos</h5>
-    <a href="@Url.Action("Index","Usuarios")" class="btn btn-outline-secondary me-2 mb-2">Usuarios</a>
-    <a href="@Url.Action("Index","Producto")" class="btn btn-outline-secondary me-2 mb-2">Productos</a>
-    <a href="@Url.Action("Index","Ordenes")" class="btn btn-outline-secondary me-2 mb-2">Ordenes</a>
-    <a href="@Url.Action("Index","Resena")" class="btn btn-outline-secondary me-2 mb-2">Reseñas</a>
-</div>
-@section Scripts {
-    <script>
-        var urlStats   = '@Url.Action("GetStats",          "Dashboard")';
-        var urlOrdenes = '@Url.Action("GetUltimasOrdenes", "Dashboard")';
-        var urlStock   = '@Url.Action("GetStockBajo",      "Dashboard")';
-    </script>
-    <script src="~/Scripts/dashboard.js"></script>
-}
+<script src="~/Scripts/jquery-3.7.1.min.js"></script>
+<script src="~/Scripts/dashboard.js"></script>
