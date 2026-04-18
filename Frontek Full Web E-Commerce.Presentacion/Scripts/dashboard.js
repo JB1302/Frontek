@@ -19,9 +19,20 @@ function ajaxSeguro(url, callback, onError) {
         type: 'GET',
         dataType: 'json',
         timeout: 8000,
-        success: callback,
-        error: function () {
-            if (onError) onError();
+        success: function (data) {
+
+            
+            if (data && data.error) {
+                console.error("Error backend:", data);
+                if (onError) onError(data);
+                return;
+            }
+
+            callback(data);
+        },
+        error: function (err) {
+            console.error("Error AJAX:", err);
+            if (onError) onError(err);
         }
     });
 }
@@ -63,21 +74,35 @@ function cargarStats() {
 
 function cargarOrdenes() {
     ajaxSeguro('/Dashboard/GetUltimasOrdenes', function (ordenes) {
-        if (!ordenes || ordenes.length === 0) {
+
+        console.log("Respuesta ordenes:", ordenes); // 👈 debug
+
+       
+        if (!Array.isArray(ordenes)) {
+            document.getElementById('ordenesBody').innerHTML =
+                '<tr><td colspan="4" class="text-center text-danger py-3">Error al cargar datos</td></tr>';
+            return;
+        }
+
+        // ✔️ SIN DATOS
+        if (ordenes.length === 0) {
             document.getElementById('ordenesBody').innerHTML =
                 '<tr><td colspan="4" class="text-center text-muted py-3">Sin ordenes registradas</td></tr>';
             return;
         }
 
+        // ✔️ CON DATOS
         var html = '';
         ordenes.forEach(function (o) {
+
             html += '<tr>' +
-                '<td><small class="fw-semibold">' + o.numeroOrden + '</small></td>' +
-                '<td>' + o.nombreCliente + '</td>' +
-                '<td>' + colones(o.total) + '</td>' +
-                '<td>' + badgeEstado(o.estado) + '</td>' +
-            '</tr>';
+                '<td><small class="fw-semibold">' + (o.numeroOrden || '-') + '</small></td>' +
+                '<td>' + (o.nombreCliente || '-') + '</td>' +
+                '<td>' + colones(o.total || 0) + '</td>' +
+                '<td>' + badgeEstado(o.estado || 'Pendiente') + '</td>' +
+                '</tr>';
         });
+
         document.getElementById('ordenesBody').innerHTML = html;
 
     }, function () {
@@ -85,10 +110,19 @@ function cargarOrdenes() {
             '<tr><td colspan="4" class="text-center text-danger py-3">No se pudo cargar</td></tr>';
     });
 }
-
 function cargarStockBajo() {
     ajaxSeguro('/Dashboard/GetStockBajo', function (productos) {
-        if (!productos || productos.length === 0) {
+
+        console.log("StockBajo:", productos);
+
+       
+        if (!Array.isArray(productos)) {
+            document.getElementById('stockContainer').innerHTML =
+                '<p class="text-danger mb-0">Error al cargar datos</p>';
+            return;
+        }
+
+        if (productos.length === 0) {
             document.getElementById('stockContainer').innerHTML =
                 '<p class="text-success mb-0">Sin productos con stock critico.</p>';
             return;
@@ -101,14 +135,15 @@ function cargarStockBajo() {
 
             html += '<div class="mb-3">' +
                 '<div class="d-flex justify-content-between mb-1">' +
-                    '<small class="fw-semibold">' + p.nombreProducto + '</small>' +
-                    '<small class="text-muted">' + p.stock + ' uds</small>' +
+                '<small class="fw-semibold">' + p.nombreProducto + '</small>' +
+                '<small class="text-muted">' + p.stock + ' uds</small>' +
                 '</div>' +
                 '<div class="progress" style="height:8px">' +
-                    '<div class="progress-bar ' + color + '" style="width:' + pct + '%"></div>' +
+                '<div class="progress-bar ' + color + '" style="width:' + pct + '%"></div>' +
                 '</div>' +
-            '</div>';
+                '</div>';
         });
+
         document.getElementById('stockContainer').innerHTML = html;
 
     }, function () {
