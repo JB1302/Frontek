@@ -21,7 +21,14 @@
                 <ul class="navbar-nav flex-grow-1">
                     <li>@Html.ActionLink("Inicio", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
                     <li>@Html.ActionLink("API", "Index", "Help", new { area = "" }, new { @class = "nav-link" })</li>
+
+                    <li>
+                        <a class="nav-link" href="https://localhost:44372/swagger/ui/index">
+                            Swagger
+                        </a>
+                    </li>
                 </ul>
+
             </div>
         </div>
     </nav>
