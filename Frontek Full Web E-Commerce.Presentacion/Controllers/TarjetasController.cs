@@ -39,20 +39,21 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
             var userId = User.Identity.GetUserId();
             var tarjeta = _tarjetaService.ObtenerTarjeta(userId);
 
-            
-            string mensaje = "Hola mundo";
-            string encriptado = _cryptoService.Encrypt(mensaje);
-            Console.WriteLine("Original:" + mensaje);
-            Console.WriteLine("Encriptado:" + encriptado);
-            Console.WriteLine("Decrypted:" + _cryptoService.Decrypt(encriptado));
-            string decrypted = _cryptoService.Decrypt(encriptado);
-            Console.WriteLine(decrypted);
-
             if (tarjeta == null)
                 return HttpNotFound();
 
+            /*
+             Bug extraño que me topé. NI IDEA en que parte del flujo se encripta dos veces tarjeta
+             entonces mi solución fue usar Decrypt dos veces
+            También reescribí todo el código fuente del cryptohelper
+             */
+            //Debugging
+            /*
             var X = tarjeta.TarjetaEncriptada;
+            */
+
             var numero = _cryptoService.Decrypt(tarjeta.TarjetaEncriptada);
+            numero = _cryptoService.Decrypt(numero);
 
             var model = new TarjetaDetailsViewModel
             {
@@ -94,6 +95,7 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
                 return View(model);
             }
 
+
             var tarjeta = new Tarjeta
             {
                 TarjetaEncriptada = _cryptoService.Encrypt(model.NumeroTarjeta),
@@ -101,11 +103,9 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
                 FechaVencimiento = model.FechaVencimiento,
                 Propietario = model.Propietario,
                 IdUsuario = userId,
-                
+
             };
-
-
-
+            
             _tarjetaService.AgregarTarjeta(tarjeta, userId);
 
             return RedirectToAction("Index", "Manage");
