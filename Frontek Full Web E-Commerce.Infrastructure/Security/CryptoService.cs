@@ -7,15 +7,8 @@ using System.Text;
 
 public class CryptoService : ICryptoService
 {
-    private readonly byte[] Key;
-    private readonly byte[] IV;
-
-    public CryptoService()
-    {
-        Key = Encoding.UTF8.GetBytes("12345678901234567890123456789012");
-
-        IV = Encoding.UTF8.GetBytes("1234567890123456");
-    }
+    private readonly byte[] Key = Encoding.UTF8.GetBytes("Zx9Kp2Lm8Qw7Er5Ty6Ui1Op3As4Df8Gh");
+    private readonly byte[] IV = Encoding.UTF8.GetBytes("A1b2C3d4E5f6G7h8");
 
     public string Encrypt(string plainText)
     {
@@ -24,42 +17,44 @@ public class CryptoService : ICryptoService
             aes.Key = Key;
             aes.IV = IV;
 
-            using (var ms = new MemoryStream())
-            using (var cs = new CryptoStream(ms, aes.CreateEncryptor(), CryptoStreamMode.Write))
-            using (var sw = new StreamWriter(cs))
+            ICryptoTransform encryptor = aes.CreateEncryptor(aes.Key, aes.IV);
+
+            using (MemoryStream msEncrypt = new MemoryStream())
             {
-                sw.Write(plainText);
-                sw.Close();
-                return Convert.ToBase64String(ms.ToArray());
+                using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
+                {
+                    using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
+                    {
+                        swEncrypt.Write(plainText);
+                    }
+                }
+
+                return Convert.ToBase64String(msEncrypt.ToArray());
             }
         }
     }
 
-    public string Decrypt(string cipherText)
+    public string Decrypt(string cipheredText)
     {
-        if (string.IsNullOrWhiteSpace(cipherText))
-            return string.Empty;
-
-        try
+        using (Aes aes = Aes.Create())
         {
-            using (Aes aes = Aes.Create())
+            aes.Key = Key;
+            aes.IV = IV;
+
+            ICryptoTransform decryptor = aes.CreateDecryptor(aes.Key, aes.IV);
+
+            byte[] cipheredBytes = Convert.FromBase64String(cipheredText);
+
+            using (MemoryStream msDecrypt = new MemoryStream(cipheredBytes))
             {
-                aes.Key = Key;
-                aes.IV = IV;
-
-                byte[] buffer = Convert.FromBase64String(cipherText);
-
-                using (var ms = new MemoryStream(buffer))
-                using (var cs = new CryptoStream(ms, aes.CreateDecryptor(), CryptoStreamMode.Read))
-                using (var sr = new StreamReader(cs))
+                using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
                 {
-                    return sr.ReadToEnd();
+                    using (StreamReader srDecrypt = new StreamReader(csDecrypt))
+                    {
+                        return srDecrypt.ReadToEnd();
+                    }
                 }
             }
-        }
-        catch
-        {
-            return string.Empty;
         }
     }
 }

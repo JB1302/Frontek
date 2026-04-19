@@ -39,9 +39,19 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
             var userId = User.Identity.GetUserId();
             var tarjeta = _tarjetaService.ObtenerTarjeta(userId);
 
+            
+            string mensaje = "Hola mundo";
+            string encriptado = _cryptoService.Encrypt(mensaje);
+            Console.WriteLine("Original:" + mensaje);
+            Console.WriteLine("Encriptado:" + encriptado);
+            Console.WriteLine("Decrypted:" + _cryptoService.Decrypt(encriptado));
+            string decrypted = _cryptoService.Decrypt(encriptado);
+            Console.WriteLine(decrypted);
+
             if (tarjeta == null)
                 return HttpNotFound();
 
+            var X = tarjeta.TarjetaEncriptada;
             var numero = _cryptoService.Decrypt(tarjeta.TarjetaEncriptada);
 
             var model = new TarjetaDetailsViewModel
@@ -90,8 +100,11 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
                 CCVEncriptado = _cryptoService.Encrypt(model.CCV),
                 FechaVencimiento = model.FechaVencimiento,
                 Propietario = model.Propietario,
-                IdUsuario = userId
+                IdUsuario = userId,
+                
             };
+
+
 
             _tarjetaService.AgregarTarjeta(tarjeta, userId);
 
