@@ -89,14 +89,15 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
                 var listaOrdenes = _ordenService.ListarOrdenes() ?? new List<Orden>();
 
                 var ordenes = listaOrdenes
+                    .Where(o => o != null)
                     .OrderByDescending(o => o.FechaCreacion)
                     .Take(5)
                     .Select(o => new
                     {
-                        numeroOrden = o.NumeroOrden,
-                        nombreCliente = o.NombreCliente,
+                        numeroOrden = string.IsNullOrWhiteSpace(o.NumeroOrden) ? "-" : o.NumeroOrden,
+                        nombreCliente = string.IsNullOrWhiteSpace(o.NombreCliente) ? "Sin nombre" : o.NombreCliente,
                         total = o.Total,
-                        estado = o.Estado ?? "Sin estado",
+                        estado = string.IsNullOrWhiteSpace(o.Estado) ? "Pendiente" : o.Estado,
                         fechaCreacion = o.FechaCreacion.ToString("s")
                     })
                     .ToList();
@@ -122,12 +123,12 @@ namespace Frontek_Full_Web_E_Commerce.Presentacion.Controllers
                 var listaProductos = _productoService.ListarProductos() ?? new List<Producto>();
 
                 var productos = listaProductos
-                    .Where(p => p.Activo && p.Stock <= 5)
+                    .Where(p => p != null && p.Activo && p.Stock <= 5)
                     .OrderBy(p => p.Stock)
                     .Take(10)
                     .Select(p => new
                     {
-                        nombreProducto = p.NombreProducto,
+                        nombreProducto = string.IsNullOrWhiteSpace(p.NombreProducto) ? "Producto sin nombre" : p.NombreProducto,
                         stock = p.Stock,
                         precio = p.Precio
                     })

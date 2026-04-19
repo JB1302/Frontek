@@ -8,9 +8,12 @@ $(document).ready(function () {
             day: 'numeric'
         });
 
-    cargarStats();
-    cargarOrdenes();
-    cargarStockBajo();
+    // Evita 3 requests simultáneos contra el mismo contexto EF.
+    cargarStats(function () {
+        cargarOrdenes(function () {
+            cargarStockBajo();
+        });
+    });
 });
 
 function ajaxSeguro(url, callback, onError) {
@@ -20,15 +23,15 @@ function ajaxSeguro(url, callback, onError) {
         dataType: 'json',
         timeout: 8000,
         success: function (data) {
+            var payload = data && data.d ? data.d : data;
 
-            
-            if (data && data.error) {
-                console.error("Error backend:", data);
-                if (onError) onError(data);
+            if (payload && payload.error) {
+                console.error("Error backend:", payload);
+                if (onError) onError(payload);
                 return;
             }
 
-            callback(data);
+            callback(payload);
         },
         error: function (err) {
             console.error("Error AJAX:", err);
@@ -44,7 +47,7 @@ function colones(n) {
 function badgeEstado(estado) {
     var clases = {
         'Pendiente': 'badge-pendiente',
-        'Procesando':'badge-procesando',
+        'Procesando': 'badge-procesando',
         'En camino': 'badge-encamino',
         'Entregada': 'badge-entregada'
     };
@@ -52,10 +55,10 @@ function badgeEstado(estado) {
     return '<span class="badge ' + c + '">' + estado + '</span>';
 }
 
-function cargarStats() {
+function cargarStats(done) {
     ajaxSeguro('/Dashboard/GetStats', function (d) {
         document.getElementById('kpiUsuarios').textContent = d.totalUsuarios;
-        document.getElementById('kpiActivos').textContent  = d.usuariosActivos + ' activos';
+        document.getElementById('kpiActivos').textContent = d.usuariosActivos + ' activos';
         document.getElementById('kpiProductos').textContent = d.totalProductos;
         document.getElementById('kpiStockBajo').textContent = d.productosBajoStock + ' con stock bajo';
         document.getElementById('kpiVentas').textContent = colones(d.ventasTotal);
@@ -66,21 +69,21 @@ function cargarStats() {
         document.getElementById('kpiEntregadas').textContent = d.ordenesEntregadas;
         document.getElementById('kpiResenas').textContent = d.resenasPendientes;
         document.getElementById('kpiResenasTotal').textContent = d.totalResenas + ' en total';
+        if (done) done();
     }, function () {
         document.getElementById('kpiUsuarios').innerHTML =
             '<small class="text-danger">Error al cargar</small>';
+        if (done) done();
     });
 }
 
-function cargarOrdenes() {
+function cargarOrdenes(done) {
     ajaxSeguro('/Dashboard/GetUltimasOrdenes', function (ordenes) {
 
-        console.log("Respuesta ordenes:", ordenes); // 👈 debug
-
-       
         if (!Array.isArray(ordenes)) {
             document.getElementById('ordenesBody').innerHTML =
                 '<tr><td colspan="4" class="text-center text-danger py-3">Error al cargar datos</td></tr>';
+            if (done) done();
             return;
         }
 
@@ -88,6 +91,7 @@ function cargarOrdenes() {
         if (ordenes.length === 0) {
             document.getElementById('ordenesBody').innerHTML =
                 '<tr><td colspan="4" class="text-center text-muted py-3">Sin ordenes registradas</td></tr>';
+            if (done) done();
             return;
         }
 
@@ -104,18 +108,17 @@ function cargarOrdenes() {
         });
 
         document.getElementById('ordenesBody').innerHTML = html;
+        if (done) done();
 
-    }, function () {
+    }, function (err) {
+        var mensaje = (err && err.mensaje) ? err.mensaje : 'No se pudo cargar';
         document.getElementById('ordenesBody').innerHTML =
-            '<tr><td colspan="4" class="text-center text-danger py-3">No se pudo cargar</td></tr>';
+            '<tr><td colspan="4" class="text-center text-danger py-3">' + mensaje + '</td></tr>';
+        if (done) done();
     });
 }
 function cargarStockBajo() {
     ajaxSeguro('/Dashboard/GetStockBajo', function (productos) {
-
-        console.log("StockBajo:", productos);
-
-       
         if (!Array.isArray(productos)) {
             document.getElementById('stockContainer').innerHTML =
                 '<p class="text-danger mb-0">Error al cargar datos</p>';
@@ -146,8 +149,9 @@ function cargarStockBajo() {
 
         document.getElementById('stockContainer').innerHTML = html;
 
-    }, function () {
+    }, function (err) {
+        var mensaje = (err && err.mensaje) ? err.mensaje : 'No se pudo cargar el inventario';
         document.getElementById('stockContainer').innerHTML =
-            '<p class="text-danger mb-0">No se pudo cargar el inventario</p>';
+            '<p class="text-danger mb-0">' + mensaje + '</p>';
     });
 }
