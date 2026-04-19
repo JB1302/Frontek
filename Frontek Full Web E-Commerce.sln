@@ -13,6 +13,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontek Full Web E-Commerce
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontek Full Web E-Commerce.Presentacion", "Frontek Full Web E-Commerce.Presentacion\Frontek Full Web E-Commerce.Presentacion.csproj", "{EB936F3C-BFA1-49A2-964A-D9D738620A42}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Frontek Web API", "Frontek Web API\Frontek Web API.csproj", "{AA129EB0-55C5-497A-ACF0-E7CF50174B48}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -39,6 +41,10 @@ Global
 		{EB936F3C-BFA1-49A2-964A-D9D738620A42}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EB936F3C-BFA1-49A2-964A-D9D738620A42}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EB936F3C-BFA1-49A2-964A-D9D738620A42}.Release|Any CPU.Build.0 = Release|Any CPU
+		{AA129EB0-55C5-497A-ACF0-E7CF50174B48}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AA129EB0-55C5-497A-ACF0-E7CF50174B48}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AA129EB0-55C5-497A-ACF0-E7CF50174B48}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AA129EB0-55C5-497A-ACF0-E7CF50174B48}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
