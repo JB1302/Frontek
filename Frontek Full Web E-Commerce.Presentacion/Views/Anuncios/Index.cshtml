@@ -1,0 +1,49 @@
+@using System.Linq
+@model IEnumerable<Frontek_Full_Web_E_Commerce.Presentacion.Models.AnuncioViewModel>
+
+@{
+    ViewBag.Title = "Anuncios";
+}
+
+<div class="d-flex justify-content-between align-items-center mb-4">
+    <h2 class="mb-0">Anuncios</h2>
+    <span class="badge bg-primary">@Model.Count() activos</span>
+</div>
+
+@if (ViewBag.ErrorAnuncios != null)
+{
+    <div class="alert alert-warning" role="alert">
+        @ViewBag.ErrorAnuncios
+    </div>
+}
+
+@if (!Model.Any())
+{
+    <div class="alert alert-info mb-0" role="alert">
+        No hay anuncios activos por el momento.
+    </div>
+}
+else
+{
+    <div class="row g-4">
+        @foreach (var anuncio in Model)
+        {
+            <div class="col-12 col-lg-6">
+                <div class="card h-100 shadow-sm border-0">
+                    <img src="@anuncio.ImagenUrl" class="card-img-top" alt="@anuncio.Titulo" style="height: 220px; object-fit: cover;" />
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-secondary">@anuncio.Categoria</span>
+                            <small class="text-muted">Publicado: @anuncio.FechaPublicacion.ToString("dd/MM/yyyy")</small>
+                        </div>
+
+                        <h5 class="card-title">@anuncio.Titulo</h5>
+                        <p class="card-text flex-grow-1">@anuncio.Contenido</p>
+
+                        <small class="text-muted">Válido hasta: @anuncio.FechaExpiracion.ToString("dd/MM/yyyy")</small>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+}
